@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: warp-windows-latest-x64-4x
     steps:
 
     - name: Checkout Repository
