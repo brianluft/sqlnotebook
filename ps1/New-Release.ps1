@@ -21,11 +21,7 @@ $windowsSdkVersion = `
     Sort-Object Name -Descending | 
     Select-Object -First 1 -ExpandProperty Name
 Write-Output "Windows SDK version: $windowsSdkVersion"
-$windowsSdkPlatform = $Platform
-if ($Platform -eq 'arm64') {
-    $windowsSdkPlatform = 'arm'
-}
-$windowsSdkDir = Join-Path -Path $windowsSdkBaseDir -ChildPath "$windowsSdkVersion\ucrt\DLLs\$windowsSdkPlatform"
+$windowsSdkDir = Join-Path -Path $windowsSdkBaseDir -ChildPath "$windowsSdkVersion\ucrt\DLLs\$Platform"
 if (-not (Test-Path $windowsSdkDir)) {
     throw "Windows 10 SDK $windowsSdkVersion not found!"
 }
