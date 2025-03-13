@@ -5,6 +5,9 @@ on: push
 jobs:
   build:
     runs-on: warp-windows-latest-x64-4x
+    strategy:
+      matrix:
+        platform: [x64, x86, arm64]
     steps:
 
     - name: Checkout Repository
@@ -17,56 +20,20 @@ jobs:
         $msbuildPath = & vswhere.exe -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
         Write-Output "Found msbuild at: $msbuildPath"
 
-        Write-Output "Building x64."
+        Write-Output "Building ${{ matrix.platform }}."
         ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform x64
-        Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-64bit.msi
-        Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-64bit.zip
+        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
+        Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-${{ matrix.platform }}.msi
+        Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-${{ matrix.platform }}.zip
 
-        Write-Output "Building x86."
-        ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform x86
-        Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-32bit.msi
-        Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-32bit.zip
-
-        Write-Output "Building arm64."
-        ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform arm64
-        Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-arm64.msi
-        Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-arm64.zip
-
-    - name: Upload x64 MSI
+    - name: Upload MSI
       uses: actions/upload-artifact@v4
       with:
-        name: SqlNotebook-64bit.msi
-        path: SqlNotebook-64bit.msi
+        name: SqlNotebook-${{ matrix.platform }}.msi
+        path: SqlNotebook-${{ matrix.platform }}.msi
 
-    - name: Upload x64 ZIP
+    - name: Upload ZIP
       uses: actions/upload-artifact@v4
       with:
-        name: SqlNotebook-64bit.zip
-        path: SqlNotebook-64bit.zip
-
-    - name: Upload x86 MSI
-      uses: actions/upload-artifact@v4
-      with:
-        name: SqlNotebook-32bit.msi
-        path: SqlNotebook-32bit.msi
-
-    - name: Upload x86 ZIP
-      uses: actions/upload-artifact@v4
-      with:
-        name: SqlNotebook-32bit.zip
-        path: SqlNotebook-32bit.zip
-
-    - name: Upload arm64 MSI
-      uses: actions/upload-artifact@v4
-      with:
-        name: SqlNotebook-arm64.msi
-        path: SqlNotebook-arm64.msi
-
-    - name: Upload arm64 ZIP
-      uses: actions/upload-artifact@v4
-      with:
-        name: SqlNotebook-arm64.zip
-        path: SqlNotebook-arm64.zip
+        name: SqlNotebook-${{ matrix.platform }}.zip
+        path: SqlNotebook-${{ matrix.platform }}.zip
