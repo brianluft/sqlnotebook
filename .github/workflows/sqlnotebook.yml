@@ -13,31 +13,25 @@ jobs:
     - name: Build
       shell: pwsh
       run: |
-        Write-Output "Decoding code signing certificate."
-        Set-Content -Path certificate.txt -Value '${{ secrets.CODE_SIGNING_CERTIFICATE }}'
-        certutil -decode certificate.txt certificate.pfx
-        $certificatePath = (Resolve-Path "certificate.pfx").Path
-        $certificatePassword = "${{ secrets.CODE_SIGNING_CERTIFICATE_PASSWORD }}"
-
         Write-Output "Finding msbuild."
         $msbuildPath = & vswhere.exe -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
         Write-Output "Found msbuild at: $msbuildPath"
 
         Write-Output "Building x64."
         ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -CertificatePath $certificatePath -CertificatePassword $certificatePassword -Platform x64
+        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform x64
         Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-64bit.msi
         Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-64bit.zip
 
         Write-Output "Building x86."
         ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -CertificatePath $certificatePath -CertificatePassword $certificatePassword -Platform x86
+        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform x86
         Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-32bit.msi
         Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-32bit.zip
 
         Write-Output "Building arm64."
         ps1\Clear-TempFiles.ps1
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -CertificatePath $certificatePath -CertificatePassword $certificatePassword -Platform arm64
+        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform arm64
         Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-arm64.msi
         Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-arm64.zip
 

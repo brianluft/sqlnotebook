@@ -1,7 +1,5 @@
 param (
     [string]$MsbuildPath,
-    [string]$CertificatePath,
-    [string]$CertificatePassword,
     [string]$Platform
 )
 
@@ -143,31 +141,6 @@ rm $zipFilePath -ErrorAction SilentlyContinue
 rm "$relDir\SqlNotebook.wixobj" -ErrorAction SilentlyContinue
 rm "$relDir\SqlNotebook.wxs" -ErrorAction SilentlyContinue
 
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 "$relDir\sqlite3.dll" | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign sqlite3.dll."
-}
-
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 "$relDir\crypto.dll" | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign crypto.dll."
-}
-
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 "$relDir\fuzzy.dll" | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign fuzzy.dll."
-}
-
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 "$relDir\stats.dll" | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign stats.dll."
-}
-
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 "$relDir\SqlNotebook.exe" | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign SqlNotebook.exe."
-}
-
 Copy-Item -Force "$srcdir\SqlNotebook\SqlNotebookIcon.ico" "$relDir\SqlNotebookIcon.ico"
 
 #
@@ -235,10 +208,5 @@ if (-not (Test-Path "$relDir\SqlNotebook.msi")) {
 }
 
 Move-Item -Force "$relDir\SqlNotebook.msi" $msiFilePath
-
-& $signtool sign /f "$CertificatePath" /p "$CertificatePassword" /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /d $msiFilename $msiFilePath | Write-Output
-if ($LastExitCode -ne 0) {
-    throw "Failed to sign $msiFilename."
-}
 
 Pop-Location
