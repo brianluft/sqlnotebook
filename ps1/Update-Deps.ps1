@@ -57,7 +57,7 @@ function Update-WindowsApiCodePack {
     foreach ($csproj in $csprojs) {
         $txt = [System.IO.File]::ReadAllText($csproj)
         $txt = $txt.Replace("net452;net462;net472;net48;netcoreapp3.1;", "")
-        $txt = $txt.Replace("net5.0-windows", "net6.0-windows")
+        $txt = $txt.Replace("net5.0-windows", "net7.0-windows")
         [System.IO.File]::WriteAllText($csproj, $txt)
     }
 
