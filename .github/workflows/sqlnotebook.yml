@@ -22,10 +22,10 @@ jobs:
 
         Write-Output "Building ${{ matrix.platform }}."
         ps1\Clear-TempFiles.ps1
-        ps1\Start-Tests.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
         ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
         Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-${{ matrix.platform }}.msi
         Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-${{ matrix.platform }}.zip
+        ps1\Start-Tests.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
 
     - name: Upload MSI
       uses: actions/upload-artifact@v4
