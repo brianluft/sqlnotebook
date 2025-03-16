@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlNotebookScript;
 using SqlNotebookScript.Core;
 

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlNotebook;
 using SqlNotebookScript.Core;
 using SqlNotebookScript.Utils;

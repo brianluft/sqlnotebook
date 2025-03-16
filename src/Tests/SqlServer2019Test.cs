@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Common;
+using Microsoft.Data;
 using Microsoft.Data.SqlClient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlNotebook;
 using SqlNotebookScript.Core;
 using SqlNotebookScript.Utils;
@@ -53,9 +53,18 @@ public sealed class SqlServer2019Test
         return @$"Data Source=localhost\SQLEXPRESS;Initial Catalog=sqlnotebook_test_{collateCase};Integrated Security=True;Encrypt=False";
     }
 
-    [DataRow(true)]
-    [DataRow(false)]
-    [DataTestMethod]
+    [TestMethod]
+    public void ImportDatabase_SqlServer2019_CaseSensitive()
+    {
+        ImportDatabase_SqlServer2019(true);
+    }
+
+    [TestMethod]
+    public void ImportDatabase_SqlServer2019_CaseInsensitive()
+    {
+        ImportDatabase_SqlServer2019(false);
+    }
+
     public void ImportDatabase_SqlServer2019(bool caseSensitive)
     {
         var connectionString = SetupSqlServer2019(caseSensitive);

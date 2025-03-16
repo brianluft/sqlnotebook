@@ -1,3 +1,8 @@
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$MsbuildPath
+)
+
 # Set platform to x64 or ARM64 based on the actual build system platform
 $Platform = $env:PROCESSOR_ARCHITECTURE
 
@@ -26,4 +31,4 @@ if ($LastExitCode -ne 0) {
 }
 
 Write-Output "Running tests."
-dotnet test src/Tests/ /p:Configuration=Debug /p:Platform=$Platform
+dotnet run --project src/Tests/Tests.csproj /p:Configuration=Debug /p:Platform=$Platform

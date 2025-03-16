@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql;
 using SqlNotebook;
 using SqlNotebookScript.Core;

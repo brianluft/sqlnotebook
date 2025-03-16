@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
 using SqlNotebook;
 using SqlNotebookScript.Core;

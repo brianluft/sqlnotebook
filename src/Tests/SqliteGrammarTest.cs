@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlNotebookScript.Core;
 using SqlNotebookScript.Interpreter;
 using SqlNotebookScript.Utils;
