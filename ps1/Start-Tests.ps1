@@ -31,4 +31,6 @@ if ($LastExitCode -ne 0) {
 }
 
 Write-Output "Running tests."
-dotnet run --project src/Tests/Tests.csproj /p:Configuration=Debug /p:Platform=$Platform
+dotnet clean src/Tests/Tests.csproj
+dotnet build src/Tests/Tests.csproj /p:Configuration=Debug /p:Platform=$Platform
+dotnet run --project src/Tests/Tests.csproj --no-build /p:Configuration=Debug /p:Platform=$Platform
