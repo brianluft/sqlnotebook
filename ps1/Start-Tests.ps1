@@ -1,10 +1,10 @@
 param (
     [Parameter(Mandatory=$true)]
-    [string]$MsbuildPath
-)
+    [string]$MsbuildPath,
 
-# Set platform to x64 or ARM64 based on the actual build system platform
-$Platform = $env:PROCESSOR_ARCHITECTURE
+    [Parameter(Mandatory=$true)]
+    [string]$Platform
+)
 
 Write-Output "Building sqlite3."
 & "$MsbuildPath" /verbosity:quiet /t:build /p:Configuration=Debug /p:Platform=$Platform src\SqlNotebookDb\SqlNotebookDb.vcxproj
@@ -32,5 +32,16 @@ if ($LastExitCode -ne 0) {
 
 Write-Output "Running tests."
 dotnet clean src/Tests/Tests.csproj
+if ($LastExitCode -ne 0) {
+    throw "Failed to clean tests."
+}
+
 dotnet build src/Tests/Tests.csproj /p:Configuration=Debug /p:Platform=$Platform
+if ($LastExitCode -ne 0) {
+    throw "Failed to build tests."
+}
+
 dotnet run --project src/Tests/Tests.csproj --no-build /p:Configuration=Debug /p:Platform=$Platform
+if ($LastExitCode -ne 0) {
+    throw "Failed to run tests."
+}
