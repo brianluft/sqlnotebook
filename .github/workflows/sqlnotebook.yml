@@ -9,7 +9,6 @@ jobs:
       matrix:
         platform: [x64, x86, arm64]
     steps:
-
     - name: Checkout Repository
       uses: actions/checkout@v4
 
@@ -26,11 +25,9 @@ jobs:
         Write-Output "Found msbuild at: $msbuildPath"
 
         Write-Output "Building ${{ matrix.platform }}."
-        ps1\Clear-TempFiles.ps1
         ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
         Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-${{ matrix.platform }}.msi
         Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-${{ matrix.platform }}.zip
-        ps1\Start-Tests.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
 
     - name: Upload MSI
       uses: actions/upload-artifact@v4
@@ -43,3 +40,23 @@ jobs:
       with:
         name: SqlNotebook-${{ matrix.platform }}.zip
         path: SqlNotebook-${{ matrix.platform }}.zip
+
+  test:
+    runs-on: warp-windows-latest-x64-4x
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Build
+      shell: pwsh
+      run: |
+        Write-Output "Finding msbuild."
+        $msbuildPath = & vswhere.exe -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
+        Write-Output "Found msbuild at: $msbuildPath"
+        ps1\Update-Deps.ps1
+        ps1\Start-Tests.ps1 -MsbuildPath $msbuildPath -Platform "x64"
