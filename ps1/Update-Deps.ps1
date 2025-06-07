@@ -141,6 +141,7 @@ function Update-Sqlite {
     Expand-Archive -LiteralPath $sqliteSrcFilePath -DestinationPath $sqliteDir
     Remove-Item -Force -Recurse "$sqliteDir\sqlite-src" -ErrorAction SilentlyContinue
     Rename-Item -LiteralPath "$sqliteDir\$sqliteSrcDirName" "sqlite-src"
+    Remove-Item -Force -Recurse "$sqliteDir\sqlite-src\vsixtest\" -ErrorAction SilentlyContinue
 
     # update enum TokenType.cs
     $notebookCsFilePath = "$rootDir\src\SqlNotebookScript\TokenType.cs"
