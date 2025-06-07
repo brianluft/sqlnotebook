@@ -516,7 +516,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private int SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages message, int wparam, long lparam)
         {
             // Be sure to at least assert here - messages to invalid handles often just disappear silently
-            Debug.Assert(hWndDialog != null, "HWND for dialog is null during SendMessage");
+            Debug.Assert(hWndDialog != IntPtr.Zero, "HWND for dialog is null during SendMessage");
 
             return (int)CoreNativeMethods.SendMessage(
                 hWndDialog,

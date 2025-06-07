@@ -510,7 +510,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     // Only set the peek bitmap if it's not null. 
                     // If it's null (either we didn't get the bitmap or size was 0),
                     // let DWM handle it
-                    if (hBitmap != null)
+                    if (hBitmap != IntPtr.Zero)
                     {
                         TabbedThumbnailNativeMethods.SetPeekBitmap(taskbarWindow.WindowToTellTaskbarAbout, hBitmap, taskbarWindow.TabbedThumbnail.DisplayFrameAroundBitmap);
                     }
