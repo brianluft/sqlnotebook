@@ -10,6 +10,7 @@ This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
 - When asked to add a new SQL function/statement/macro/grammatical construct, read `.cursor/rules/new-language-feature.mdc` for precise instructions.
 - Document newly added features in a new .md file in `context/`.
 - SQL tests can be written by adding a .sql file to `src/Tests/scripts/`. Put the SQL commands first, then `--output--` on a line by itself, then the expected output after. Use PRINT for scalars; it will be a single line with the unadorned value. Use SELECT for tables; it will be CSV format, with header row, terminated by `-` on a line by itself. See `src/Tests/scripts/LIST_FILES.sql` for an example.
+- Run individual tests with `./build.sh <keyword>` (either full or partial test name)
 
 # Suggestions
 - Use `sed -n '8,8p' filename` to find the code at or around a particular line number

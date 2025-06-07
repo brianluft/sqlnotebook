@@ -18,11 +18,17 @@ public class TestContext
 
 public static class Assert
 {
+    public static bool Debug { get; set; } = false;
+
     public static void AreEqual<T>(T expected, T actual, string message = null)
     {
         if (!Equals(expected, actual))
         {
             Fail($"Expected: {expected}\nActual: {actual}\n{message}");
+        }
+        else if (Debug)
+        {
+            Console.WriteLine($"✓ AreEqual passed: {actual}");
         }
     }
 
@@ -34,6 +40,10 @@ public static class Assert
                 $"Object of type {value?.GetType()?.Name ?? "null"} is not assignable to {expectedType.Name}\n{message}"
             );
         }
+        else if (Debug)
+        {
+            Console.WriteLine($"✓ IsInstanceOfType passed: {value} is of type {expectedType.Name}");
+        }
     }
 
     public static void IsTrue(bool condition, string message = null)
@@ -41,6 +51,10 @@ public static class Assert
         if (!condition)
         {
             Fail($"Expected true but got false\n{message}");
+        }
+        else if (Debug)
+        {
+            Console.WriteLine($"✓ IsTrue passed: {condition}");
         }
     }
 
@@ -52,7 +66,7 @@ public static class Assert
 
 public static class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
         var assembly = typeof(Program).Assembly;
         var testClasses = assembly.GetTypes().Where(t => t.GetCustomAttribute<TestClassAttribute>() != null);
@@ -60,6 +74,16 @@ public static class Program
         var totalTests = 0;
         var passedTests = 0;
         var failedTests = new List<string>();
+
+        // Check if we have search terms from command line arguments
+        var hasSearchTerms = args != null && args.Length > 0;
+        var searchTerms = hasSearchTerms ? args.Select(arg => arg.ToLowerInvariant()).ToArray() : null;
+
+        // Enable debug mode when filtering tests
+        if (hasSearchTerms)
+        {
+            Assert.Debug = true;
+        }
 
         foreach (var testClass in testClasses)
         {
@@ -88,6 +112,18 @@ public static class Program
 
             foreach (var testMethod in testMethods)
             {
+                // If we have search terms, filter tests based on TestClassName.TestMethodName
+                if (hasSearchTerms)
+                {
+                    var testFullName = $"{testClass.Name}.{testMethod.Name}".ToLowerInvariant();
+                    var shouldRunTest = searchTerms.Any(searchTerm => testFullName.Contains(searchTerm));
+                    
+                    if (!shouldRunTest)
+                    {
+                        continue; // Skip this test
+                    }
+                }
+
                 totalTests++;
                 try
                 {
