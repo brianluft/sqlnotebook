@@ -1,14 +1,12 @@
-- [x] Add language statement for deleting scripts and pages.
-    - [x] Syntax: 'DROP' 'SCRIPT' <name>
-    - [x] Syntax: 'DROP' 'PAGE' <name>
-    - [x] <name> is IdentifierOrExpr.
-    - [x] Consider: `DROP` is already a SQL command. We have to peek the token afterwards to see if it's SCRIPT or PAGE, otherwise fall back to parsing it (starting at `DROP` token) as an `SqlStmt`. See how we did `BEGIN TRY` as an example.
-    - [x] If the user has the script or page open in the UI, and the script deletes it, then the editor must close. We already do this when the user deletes a script or page in the "Table of Contents" pane in the UI. However, this is trickier when _inside_ a script execution. Ensure you address reentrancy and layering issues.
-    - [x] If the script or page doesn't exist, an exception is thrown.
-    - [x] Write your tests as regular C#, again our .sql harness isn't sophisticated enough. Test that the script or page actually gets deleted.
-- [x] Add language statement for adding scripts.
-    - [x] Syntax: 'CREATE' 'SCRIPT' <name> 'AS' <sql commands>
-    - [x] <name> and <sql commands> are IdentifierOrExpr.
-    - [x] Consider: 'CREATE' is already a SQL command. See `BEGIN TRY` as an example of what to do.
-    - [x] If the name already exists (case insensitive) then an exception is thrown.
-    - [x] Our .sql harness should do it, you should be able to `CREATE SCRIPT` and then `EXECUTE`.
+- [ ] Add DuckDB import support.
+    - [ ] Add `<PackageReference Include="DuckDB.NET.Data" Version="1.3.0" />`
+    - [ ] Language update
+        - [ ] We have an `IMPORT DATABASE` command already. Read and update `doc/import-database-stmt.html`. Add `duckdb` as a new "vendor" where the connection string is the path to the file.
+        - [ ] The implementation is in `src\SqlNotebookScript\Interpreter\ImportDatabaseStmtRunner.cs`.
+    - [ ] UI updates
+        - [ ] "Import" menu > "From file...": Update open file dialog filter to include *.duckdb.
+        - [ ] When .duckdb file is selected, transition to `DatabaseImportTablesForm`. This is what MySQL/PostgreSQL/SQL Server import uses, but they start off in `DatabaseConnectionForm` whereas for DuckDB we start in the open file dialog. DuckDB connects like CSV but it imports like SQL Server.
+        - [ ] Currently when the user drag-and-drops a .csv file to our window, we open the Import CSV form with that file. Make the same happen here when dragging in a .duckdb file.
+    - [ ] Tests
+        - [ ] A test file is available in `src/Tests/files/example.duckdb`. You may create more test files with `duckdb` CLI if you need.
+        - [ ] Exercise `IMPORT DATABASE` for DuckDB using real files in `src/Tests/files`. See `src\Tests\scripts\IMPORT TEXT.sql` for an example.

@@ -1,0 +1,6 @@
+- [x] Add language statement for adding scripts.
+    - [x] Syntax: 'CREATE' 'SCRIPT' <name> 'AS' <sql commands>
+    - [x] <name> and <sql commands> are IdentifierOrExpr.
+    - [x] Consider: 'CREATE' is already a SQL command. See `BEGIN TRY` as an example of what to do.
+    - [x] If the name already exists (case insensitive) then an exception is thrown.
+    - [x] Our .sql harness should do it, you should be able to `CREATE SCRIPT` and then `EXECUTE`.

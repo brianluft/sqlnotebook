@@ -1,0 +1,8 @@
+- [x] Add language statement for deleting scripts and pages.
+    - [x] Syntax: 'DROP' 'SCRIPT' <name>
+    - [x] Syntax: 'DROP' 'PAGE' <name>
+    - [x] <name> is IdentifierOrExpr.
+    - [x] Consider: `DROP` is already a SQL command. We have to peek the token afterwards to see if it's SCRIPT or PAGE, otherwise fall back to parsing it (starting at `DROP` token) as an `SqlStmt`. See how we did `BEGIN TRY` as an example.
+    - [x] If the user has the script or page open in the UI, and the script deletes it, then the editor must close. We already do this when the user deletes a script or page in the "Table of Contents" pane in the UI. However, this is trickier when _inside_ a script execution. Ensure you address reentrancy and layering issues.
+    - [x] If the script or page doesn't exist, an exception is thrown.
+    - [x] Write your tests as regular C#, again our .sql harness isn't sophisticated enough. Test that the script or page actually gets deleted.

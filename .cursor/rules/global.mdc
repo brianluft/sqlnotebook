@@ -15,6 +15,7 @@ This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
 # Suggestions
 - Use `sed -n '8,8p' filename` to find the code at or around a particular line number
 - SQL Notebook files (`.sqlnb`) are simply SQLite databases. You may use `sqlite3 -readonly "filename.sqlnb" "SELECT * FROM foo"` to run ad-hoc queries against a notebook file. Be careful not to open `sqlite3` in interactive mode, because you are unable to use it that way.
+- For DuckDB import/export testing, you may use `duckdb "filename.duckdb" "SELECT * FROM foo"` to run ad-hoc queries.
 
 # Components
 - Project: src/SqlNotebook (C#)
