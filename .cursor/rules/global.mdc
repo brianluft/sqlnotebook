@@ -3,12 +3,83 @@ description:
 globs: 
 alwaysApply: true
 ---
-# SQL Notebook
-C#, .NET 7.0, Windows Forms
-"Open source app for casual data exploration in SQL. Import your data from CSV, Excel, Microsoft SQL Server, PostgreSQL, and MySQL. Then use a Jupyter-style notebook interface for exploratory queries, and write stored procedures for reusable logic. SQL Notebook is powered by an extended SQLite engine, supporting both standard SQL queries and SQL Notebook-specific commands and functions."
+This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
 
 # Rules
 - ALWAYS build after making code changes, using `scripts/build.sh`
 
 # Suggestions
 - Use `sed -n '8,8p' filename` to find the code at or around a particular line number
+
+# Components
+- Project: src/SqlNotebook (C#)
+    - GUI
+- Project: src/SqlNotebookDb (C)
+    - Custom build of SQLite
+- Project: src/SqlNotebookScript (C#)
+    - SQL language interpreter; handles imperative programming constructs and passes queries to SQLite.
+    - We have reimplemented many parts of T-SQL like DECLARE, WHILE, IF,
+
+<readme>
+Open source app for casual data exploration in SQL. Import your data from CSV, Excel, Microsoft SQL Server, PostgreSQL, and MySQL. Then use a Jupyter-style notebook interface for exploratory queries, and write stored procedures for reusable logic. SQL Notebook is powered by an extended SQLite engine, supporting both standard SQL queries and SQL Notebook-specific commands and functions.
+
+## Easily import and export data
+CSV and Excel files can be imported into the notebook as local tables. A graphical import wizard and IMPORT script commands are both available.
+
+Microsoft SQL Server, PostgreSQL, and MySQL tables can be linked into the notebook and queried interchangeably with local tables. Create a live, real-time link to the server for access to up-to-date data, or copy a snapshot of the data into your notebook for faster queries.
+
+Tables and scripts can be exported in CSV format.
+
+## Run quick queries or write sophisticated scripts
+SQL Notebook offers three user interfaces for running SQL queries: pages, scripts, and the console.
+
+Pages offer a simple notebook interface, combining documentation and executable code in the same document. Each page contains a series of query and text blocks. Use query blocks to run exploratory SQL queries, embedding the results on the page. Use text blocks to document your findings. When your data changes, re-execute all query blocks at the push of a button.
+
+Scripts are akin to stored procedures in other SQL databases. Write a series of SQL queries to be executed in order, with support for local variables, parameters, throwing and catching errors, and imperative control flow. Execute your script standalone by pressing F5, or call it from another page or script using EXECUTE.
+
+The console is available for quick throwaway queries at any time by pressing Ctrl+` (that's the backtick or tilde key). It collapses to a tab at the bottom of the window. Console results are not saved.
+
+## Use familiar programming constructs
+Users with prior SQL or other programming language experience will feel right at home in SQL Notebook. The integrated SQLite engine provides support for standard SQL queries like SELECT and INSERT. SQL Notebook adds additional procedural programming elements similar to those found in T-SQL and PL/pgSQL, such as DECLARE and EXECUTE.
+
+```
+SELECT
+  CASE
+    WHEN value % 3 = 0 AND value % 5 = 0
+      THEN 'FizzBuzz'
+    WHEN value % 3 = 0
+      THEN 'Fizz'
+    WHEN value % 5 = 0
+      THEN 'Buzz'
+    ELSE value
+  END
+FROM GENERATE_SERIES(1, 100);
+```
+
+Variables: DECLARE • SET
+Control flow: IF • FOR • WHILE
+Error handling: THROW • TRY
+Stored procedures: EXECUTE
+
+## Access a rich library of built-in functionality
+SQL Notebook is a "batteries included" solution to everyday data analysis needs. A wide variety of functionality is immediately available out of the box. SQL Notebook provides additional commands and functions for data exploration beyond those provided by SQLite.
+
+```
+-- Parse CSV and other types of files on-the-fly
+SELECT * FROM READ_CSV('C:\MyData.csv');
+
+-- Import data files into new or existing tables
+IMPORT XLS 'C:\Workbook.xls' WORKSHEET 'Sheet2' INTO my_table;
+
+-- Manipulate dates and times with familiar built-in functions
+SELECT *, DATEADD('day', -1, date_col) AS previous_day FROM my_table;
+
+-- Access the filesystem
+SELECT filename FROM LIST_FILES('C:\') WHERE extension IN ('.csv', '.xls');
+```
+
+Full-featured import and export statements: IMPORT CSV • IMPORT XLS • IMPORT DATABASE • EXPORT CSV • EXPORT TXT
+Quick functions for reading files: LIST_FILES • READ_CSV • READ_FILE • DOWNLOAD
+Date and time handling: DATEPART • DATEADD • DATEDIFF • GETDATE
+Array values: ARRAY • ARRAY_COUNT • ARRAY_GET • ARRAY_SET
+</readme>
