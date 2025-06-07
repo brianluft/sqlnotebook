@@ -33,7 +33,7 @@
     <ProjectGuid>{34743FAD-099D-4DB8-B8A6-C863FEC91C77}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>sqlite3</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.20348.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>SqlNotebookDb</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

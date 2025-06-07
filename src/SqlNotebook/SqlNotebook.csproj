@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
-    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <NoWarn>$(NoWarn);CA1416;NETSDK1138</NoWarn>
     <Platforms>x64;x86;ARM64</Platforms>
     <LangVersion>latest</LangVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>

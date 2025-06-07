@@ -11,6 +11,7 @@
 *.sdf
 *.user
 bin/
+build.log
 Debug/
 Desktop.ini
 ext/downloads/
