@@ -7,7 +7,7 @@ This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
 
 # Rules
 - ALWAYS build after making code changes, using `scripts/build.sh`
-- When asked to add a new SQL function/statement/macro/grammatical construct, read `.cursor/rules/new-language-feature.mdc` for precise instructions.
+- When asked to add a new SQL function/statement/macro/grammatical construct, CAREFULLY follow <new-language-feature>...</new-language-feature> step-by-step below.
 - SQL tests can be written by adding a .sql file to `src/Tests/scripts/`. Put the SQL commands first, then `--output--` on a line by itself, then the expected output after. Use PRINT for scalars; it will be a single line with the unadorned value. Use SELECT for tables; it will be CSV format, with header row, terminated by `-` on a line by itself. See `src/Tests/scripts/LIST_FILES.sql` for an example.
 - Run individual tests with `./build.sh <keyword>` (either full or partial test name)
 - Write user documentation in .html format in `doc/`. Update `doc/books.txt` to assign your page to a book, it's a regular expression on the title per book. Make it include your new page.
@@ -24,6 +24,40 @@ This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
     - SQL language interpreter; handles imperative programming constructs and passes queries to SQLite.
     - We have reimplemented many parts of T-SQL like DECLARE, WHILE, IF,
 
+# New Language Feature Instructions
+<new-language-feature>
+To add a new feature to our extended SQL language, first decide what _kind_ of language component to add. The four types below are in order of increasing difficulty. Choose the first one that suits your feature.
+
+When writing documentation, you can write Pikchr diagrams, but I must convert the .pikchr to .svg for you. Always ask me to do this for you after creating a .pikchr file in `doc/art/`. I will also show you what the diagram looks like so you can make iterative improvements.
+
+- Scalar-valued function
+    This is an SQLite custom function.
+    1. Implement subclass of `SqlNotebookScript/CustomScalarFunction.cs` and put your new file in `SqlNotebookScript/ScalarFunctions/`. Read `SqlNotebookScript/ScalarFunctions/SystemFunctions.cs` for examples.
+    2. Write one or more test .sql files in `src/Tests/scripts/`. Read `src/Tests/scripts/UUID.sql` for an example. Run `scripts/build.sh` to make sure your test passes.
+    3. Write documentation .html in `doc/`. Read `doc/array-concat-func.html` for an example. Copy that exact structure.
+
+- Table-valued function
+    This is an SQLite virtual module. It requires the function to always return the same table schema known ahead of time; it can't be dynamic based on the arguments.
+    1. Implement subclass of `SqlNotebookScript/CustomTableFunction.cs` and put your new file in `SqlNotebookScript/TableFunctions/`. Read `SqlNotebookScript/TableFunctions/ListFilesFunction.cs` for examples.
+    2. Write one or more test .sql files in `src/Tests/scripts/`. Read `src/Tests/scripts/LIST_FILES.sql` for an example. Run `scripts/build.sh` to make sure your test passes.
+    3. Write documentation .html in `doc/`. Read `doc/list-files-func.html` for an example. Copy that exact structure.
+
+- Macro
+    This is a function that transforms a statement's AST before execution. The macro function is called for _every_ statement, whether it's applicable or not. The function must search the AST to see if relevant nodes are present, then mutate it. Every `SqlStmt` AST node has a `RunBefore` and `RunAfter` statement list to which you can append statements per the macro's needs. A common approach is to detect a particular function call, insert a `RunBefore` statement that performs the real action and writes to a temporary variable, and mutate the function call into a symbol reference to the temporary variable. Unlike real table-valued functions, this approach allows the simulation of table-valued functions with dynamic table schemas.
+    1. Implement subclass of `SqlNotebookScript/CustomMacro.cs` and put your new file in `SqlNotebookScript/Macros/`. Read `SqlNotebookScript/Macros/ReadCsvMacro.cs` for examples.
+    2. Write one or more test .sql files in `src/Tests/scripts/`. Read `src/Tests/scripts/LIST_FILES.sql` for an example. Run `scripts/build.sh` to make sure your test passes.
+    3. Write documentation .html in `doc/`. Read `doc/list-files-func.html` for an example. Copy that exact structure.
+
+- Grammar production
+    We have a recursive-descent parser, AST, and interpreter. We call down into SQLite to evaluate expressions and execute SQL statements. Everything is in `src/SqlNotebookScript/Interpreter/`. This is how WHILE, IF, DECLARE, etc. are implemented.
+    1. Create an AST node class in `src/SqlNotebookScript/Interpreter/Ast/`. Read other files in that directory for examples.
+    2. Update `src/SqlNotebookScript/Interpreter/ScriptParser.cs` to parse your new language construct into your AST node.
+    3. Update `src/SqlNotebookScript/Interpreter/ScriptRunner.cs` to execute your AST node.
+    4. Write one or more test .sql files in `src/Tests/scripts/`. Read `src/Tests/scripts/THROW.sql` for an example. Run `scripts/build.sh` to make sure your test passes.
+    5. Write documentation .html in `doc/`. Read `doc/throw-stmt.html` for an example. Copy that exact structure.
+</new-language-feature>
+
+# Readme
 <readme>
 Open source app for casual data exploration in SQL. Import your data from CSV, Excel, Microsoft SQL Server, PostgreSQL, and MySQL. Then use a Jupyter-style notebook interface for exploratory queries, and write stored procedures for reusable logic. SQL Notebook is powered by an extended SQLite engine, supporting both standard SQL queries and SQL Notebook-specific commands and functions.
 
@@ -46,20 +80,6 @@ The console is available for quick throwaway queries at any time by pressing Ctr
 ## Use familiar programming constructs
 Users with prior SQL or other programming language experience will feel right at home in SQL Notebook. The integrated SQLite engine provides support for standard SQL queries like SELECT and INSERT. SQL Notebook adds additional procedural programming elements similar to those found in T-SQL and PL/pgSQL, such as DECLARE and EXECUTE.
 
-```
-SELECT
-  CASE
-    WHEN value % 3 = 0 AND value % 5 = 0
-      THEN 'FizzBuzz'
-    WHEN value % 3 = 0
-      THEN 'Fizz'
-    WHEN value % 5 = 0
-      THEN 'Buzz'
-    ELSE value
-  END
-FROM GENERATE_SERIES(1, 100);
-```
-
 Variables: DECLARE • SET
 Control flow: IF • FOR • WHILE
 Error handling: THROW • TRY
@@ -67,20 +87,6 @@ Stored procedures: EXECUTE
 
 ## Access a rich library of built-in functionality
 SQL Notebook is a "batteries included" solution to everyday data analysis needs. A wide variety of functionality is immediately available out of the box. SQL Notebook provides additional commands and functions for data exploration beyond those provided by SQLite.
-
-```
--- Parse CSV and other types of files on-the-fly
-SELECT * FROM READ_CSV('C:\MyData.csv');
-
--- Import data files into new or existing tables
-IMPORT XLS 'C:\Workbook.xls' WORKSHEET 'Sheet2' INTO my_table;
-
--- Manipulate dates and times with familiar built-in functions
-SELECT *, DATEADD('day', -1, date_col) AS previous_day FROM my_table;
-
--- Access the filesystem
-SELECT filename FROM LIST_FILES('C:\') WHERE extension IN ('.csv', '.xls');
-```
 
 Full-featured import and export statements: IMPORT CSV • IMPORT XLS • IMPORT DATABASE • EXPORT CSV • EXPORT TXT
 Quick functions for reading files: LIST_FILES • READ_CSV • READ_FILE • DOWNLOAD
