@@ -23,7 +23,7 @@ public static class Assert
     public static void AreEqual<T>(T expected, T actual, string message = null)
     {
         bool areEqual;
-        
+
         // Special handling for string comparisons
         if (expected is string expectedStr && actual is string actualStr)
         {
@@ -36,7 +36,7 @@ public static class Assert
         {
             areEqual = Equals(expected, actual);
         }
-        
+
         if (!areEqual)
         {
             Fail($"Expected: {expected}\nActual: {actual}\n{message}");
@@ -46,11 +46,12 @@ public static class Assert
             Console.WriteLine($"✓ AreEqual passed: {actual}");
         }
     }
-    
+
     private static string NormalizeString(string input)
     {
-        if (input == null) return null;
-        
+        if (input == null)
+            return null;
+
         // Trim whitespace and normalize line endings to LF
         return input.Trim().Replace("\r\n", "\n").Replace("\r", "\n");
     }
@@ -140,7 +141,7 @@ public static class Program
                 {
                     var testFullName = $"{testClass.Name}.{testMethod.Name}".ToLowerInvariant();
                     var shouldRunTest = searchTerms.Any(searchTerm => testFullName.Contains(searchTerm));
-                    
+
                     if (!shouldRunTest)
                     {
                         continue; // Skip this test

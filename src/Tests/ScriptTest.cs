@@ -41,7 +41,7 @@ public sealed partial class ScriptTest
             var scriptFileText = File.ReadAllText(scriptFilePath)
                 .Replace("<TEMP>", tempDir)
                 .Replace("<FILES>", filesDir)
-                .Replace("\r\n", "\n")  // Normalize to LF first
+                .Replace("\r\n", "\n") // Normalize to LF first
                 .Replace("\n", "\r\n"); // Convert all to CRLF
             const string OUTPUT_SEPARATOR = "\r\n--output--\r\n";
             if (scriptFileText.Contains(OUTPUT_SEPARATOR))

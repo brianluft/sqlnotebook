@@ -24,6 +24,7 @@ public sealed class ScriptRunner
             [typeof(Ast.IfStmt)] = (s, e) => ExecuteIfStmt((Ast.IfStmt)s, e),
             [typeof(Ast.WhileStmt)] = (s, e) => ExecuteWhileStmt((Ast.WhileStmt)s, e),
             [typeof(Ast.ForStmt)] = (s, e) => ExecuteForStmt((Ast.ForStmt)s, e),
+            [typeof(Ast.ForeachStmt)] = (s, e) => ExecuteForeachStmt((Ast.ForeachStmt)s, e),
             [typeof(Ast.BlockStmt)] = (s, e) => ExecuteBlockStmt((Ast.BlockStmt)s, e),
             [typeof(Ast.BreakStmt)] = (s, e) => ExecuteBreakStmt((Ast.BreakStmt)s, e),
             [typeof(Ast.ContinueStmt)] = (s, e) => ExecuteContinueStmt((Ast.ContinueStmt)s, e),
@@ -306,6 +307,57 @@ public sealed class ScriptRunner
             }
 
             counter += step;
+        }
+    }
+
+    private void ExecuteForeachStmt(Ast.ForeachStmt stmt, ScriptEnv env)
+    {
+        // Evaluate the table expression to get table name
+        var tableName = EvaluateIdentifierOrExpr(stmt.TableExpr, env);
+
+        // Query the table to get all rows and column names
+        var query = $"SELECT * FROM {tableName.DoubleQuote()}";
+        using var dt = _notebook.Query(query, env.Vars);
+
+        var columnCount = dt.Columns.Count;
+        var variableCount = stmt.VariableNames.Count;
+
+        // For each row in the table
+        foreach (var row in dt.Rows)
+        {
+            // Set each variable to the corresponding column value
+            for (int i = 0; i < variableCount; i++)
+            {
+                var variableName = stmt.VariableNames[i].ToLower();
+                if (i < columnCount)
+                {
+                    // Set to the column value
+                    env.Vars[variableName] = row[i];
+                }
+                else
+                {
+                    // More variables than columns, set extra variables to NULL
+                    env.Vars[variableName] = DBNull.Value;
+                }
+            }
+
+            // Execute the block
+            ExecuteBlock(stmt.Block, env);
+
+            // Handle control flow like other loops
+            if (env.DidReturn)
+            {
+                return;
+            }
+            else if (env.DidBreak)
+            {
+                env.DidBreak = false;
+                break;
+            }
+            else if (env.DidContinue)
+            {
+                env.DidContinue = false;
+            }
         }
     }
 

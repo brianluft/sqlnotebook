@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SqlNotebookScript.Core;
 
 namespace SqlNotebookScript.Interpreter;
@@ -71,6 +72,8 @@ public sealed class ScriptParser
                 return ParseExportStmt(q);
             case "for":
                 return ParseForStmt(q);
+            case "foreach":
+                return ParseForeachStmt(q);
             default:
                 return ParseSqlStmt(q);
         }
@@ -131,6 +134,27 @@ public sealed class ScriptParser
         {
             stmt.StepExpr = ParseExpr(q);
         }
+        stmt.Block = ParseBlock(q);
+        ConsumeSemicolon(q);
+        return stmt;
+    }
+
+    private Ast.Stmt ParseForeachStmt(TokenQueue q)
+    {
+        var stmt = new Ast.ForeachStmt { SourceToken = q.SourceToken };
+        q.Take("foreach");
+        q.Take("(");
+
+        // Parse comma-separated list of variable names
+        stmt.VariableNames = new List<string>();
+        do
+        {
+            stmt.VariableNames.Add(ParseVariableName(q));
+        } while (q.TakeMaybe(","));
+
+        q.Take(")");
+        q.Take("in");
+        stmt.TableExpr = ParseIdentifierOrExpr(q);
         stmt.Block = ParseBlock(q);
         ConsumeSemicolon(q);
         return stmt;

@@ -11,6 +11,7 @@ public sealed partial class ScriptTest {
     [TestMethod] public void Test_CREATE_TABLE_duplicate_options_sql() => TestScript(@"CREATE TABLE duplicate options.sql");
     [TestMethod] public void Test_CREATE_TABLE_STRICT_sql() => TestScript(@"CREATE TABLE STRICT.sql");
     [TestMethod] public void Test_CREATE_TABLE_WITHOUT_ROWID_sql() => TestScript(@"CREATE TABLE WITHOUT ROWID.sql");
+    [TestMethod] public void Test_DECLARE_test_sql() => TestScript(@"DECLARE_test.sql");
     [TestMethod] public void Test_DELETE_RETURNING_sql() => TestScript(@"DELETE RETURNING.sql");
     [TestMethod] public void Test_EXECUTE_implicitly_using_default_value_sql() => TestScript(@"EXECUTE implicitly using default value.sql");
     [TestMethod] public void Test_EXECUTE_one_explicit__one_default_argument_sql() => TestScript(@"EXECUTE one explicit, one default argument.sql");
@@ -35,6 +36,14 @@ public sealed partial class ScriptTest {
     [TestMethod] public void Test_EXPORT_TXT_Shift_JIS_sql() => TestScript(@"EXPORT TXT Shift-JIS.sql");
     [TestMethod] public void Test_EXPORT_TXT_truncate_sql() => TestScript(@"EXPORT TXT truncate.sql");
     [TestMethod] public void Test_EXPORT_TXT_sql() => TestScript(@"EXPORT TXT.sql");
+    [TestMethod] public void Test_FOREACH_basic_sql() => TestScript(@"FOREACH_basic.sql");
+    [TestMethod] public void Test_FOREACH_break_continue_sql() => TestScript(@"FOREACH_break_continue.sql");
+    [TestMethod] public void Test_FOREACH_debug_sql() => TestScript(@"FOREACH_debug.sql");
+    [TestMethod] public void Test_FOREACH_empty_table_sql() => TestScript(@"FOREACH_empty_table.sql");
+    [TestMethod] public void Test_FOREACH_minimal_sql() => TestScript(@"FOREACH_minimal.sql");
+    [TestMethod] public void Test_FOREACH_nested_sql() => TestScript(@"FOREACH_nested.sql");
+    [TestMethod] public void Test_FOREACH_single_column_sql() => TestScript(@"FOREACH_single_column.sql");
+    [TestMethod] public void Test_FOREACH_two_vars_sql() => TestScript(@"FOREACH_two_vars.sql");
     [TestMethod] public void Test_FULL_OUTER_JOIN_sql() => TestScript(@"FULL OUTER JOIN.sql");
     [TestMethod] public void Test_GETDATE_sql() => TestScript(@"GETDATE.sql");
     [TestMethod] public void Test_GETUTCDATE_sql() => TestScript(@"GETUTCDATE.sql");
