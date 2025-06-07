@@ -4,6 +4,8 @@
     - [x] Any other exception thrown in the process of saving is rethrown with "SAVE: " prepended to the error message.
     - [x] Update the doc for SqlNotebookCmd to mention that the user can use `SAVE` to save their changes, since the CLI does not save by default.
     - [x] Write your tests as regular C# rather than as a .sql script because our .sql test harness isn't sophisticated enough to test this. You need to verify that the save actually works by re-opening the notebook and seeing if the changes are there.
+    - Bugs
+        - [ ] Add a documentation caveat. `SAVE` only works _outside_ of a transaction. If the user has a transaction active, `SAVE` will fail (it already does). Because the UI defaults script execution to "Implicit BEGIN ... COMMIT", this means `SAVE` will simply produce an error when the user first attempts to try it. Explain that "None (auto-commit)" transaction mode must be used when running the `SAVE` command in the UI. This is not an issue with the CLI tool `SqlNotebookCmd` because it doesn't use an implicit BEGIN ... COMMIT.
 - [ ] Add language statement for deleting scripts and pages.
     - [ ] Syntax: 'DROP' 'SCRIPT' <name>
     - [ ] Syntax: 'DROP' 'PAGE' <name>
