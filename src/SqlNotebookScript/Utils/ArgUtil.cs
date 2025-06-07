@@ -14,7 +14,7 @@ public enum DatePart
     Hour,
     Minute,
     Second,
-    Millisecond
+    Millisecond,
 }
 
 public static class ArgUtil

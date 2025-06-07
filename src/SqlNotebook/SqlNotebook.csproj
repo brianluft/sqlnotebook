@@ -3231,7 +3231,7 @@
     <None Update="doc\sqlite\syntax\with-clause.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-<!--doc end-->
+    <!--doc end-->
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\Settings.settings">
@@ -3362,7 +3362,7 @@
     </Compile>
     <Compile Update="ViewFullTextForm.cs">
       <SubType>Form</SubType>
-    </Compile>    
+    </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y $(ProjectDir)..\SqlNotebookDb\bin\$(Platform)\$(Configuration)\sqlite3.dll $(TargetDir)sqlite3.dll" />

@@ -61,12 +61,11 @@ public abstract class AdoModuleProvider : IDisposable
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void FreeDelegate(IntPtr p);
 
-    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc =
-        new(() =>
-        {
-            FreeDelegate @delegate = Marshal.FreeHGlobal;
-            return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
-        });
+    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc = new(() =>
+    {
+        FreeDelegate @delegate = Marshal.FreeHGlobal;
+        return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
+    });
 
     protected static int _nextMetadataKey = 1;
 
@@ -88,15 +87,14 @@ public abstract class AdoModuleProvider : IDisposable
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void RemoveCreateInfoDelegate(IntPtr p);
 
-    private static readonly Lazy<(IntPtr Ptr, RemoveCreateInfoDelegate Delegate)> _removeCreateInfoFunc =
-        new(() =>
+    private static readonly Lazy<(IntPtr Ptr, RemoveCreateInfoDelegate Delegate)> _removeCreateInfoFunc = new(() =>
+    {
+        RemoveCreateInfoDelegate @delegate = p =>
         {
-            RemoveCreateInfoDelegate @delegate = p =>
-            {
-                _adoCreateInfos.Remove((int)p);
-            };
-            return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
-        });
+            _adoCreateInfos.Remove((int)p);
+        };
+        return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
+    });
 
     /// <summary>
     /// These are delegates for which we've called <see cref="Marshal.GetFunctionPointerForDelegate{TDelegate}(TDelegate)"/>.
@@ -542,7 +540,7 @@ public abstract class AdoModuleProvider : IDisposable
                 }
 
                 // set info.aConstraintUsage[i]
-                Sqlite3IndexConstraintUsage constraintUsage = new() { argvIndex = argvIndex, omit = 1, };
+                Sqlite3IndexConstraintUsage constraintUsage = new() { argvIndex = argvIndex, omit = 1 };
                 var constraintUsagePtr = info.aConstraintUsage + i * Marshal.SizeOf<Sqlite3IndexConstraintUsage>();
                 Marshal.StructureToPtr(constraintUsage, constraintUsagePtr, false);
 

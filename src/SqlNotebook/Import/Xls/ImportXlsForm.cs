@@ -18,21 +18,21 @@ public partial class ImportXlsForm : ZForm
     {
         Tuple.Create(ImportTableExistsOption.AppendNewRows, "Append new rows"),
         Tuple.Create(ImportTableExistsOption.DeleteExistingRows, "Delete existing rows"),
-        Tuple.Create(ImportTableExistsOption.DropTable, "Drop table and re-create")
+        Tuple.Create(ImportTableExistsOption.DropTable, "Drop table and re-create"),
     };
 
     private readonly Tuple<ImportConversionFailOption, string>[] _conversionFailOptions = new[]
     {
         Tuple.Create(ImportConversionFailOption.ImportAsText, "Import the value as text"),
         Tuple.Create(ImportConversionFailOption.SkipRow, "Skip the row"),
-        Tuple.Create(ImportConversionFailOption.Abort, "Stop import with error")
+        Tuple.Create(ImportConversionFailOption.Abort, "Stop import with error"),
     };
 
     private readonly Tuple<BlankValuesOption, string>[] _blankValuesOptions = new[]
     {
         Tuple.Create(BlankValuesOption.EmptyString, "Blank text"),
         Tuple.Create(BlankValuesOption.Null, "NULL"),
-        Tuple.Create(BlankValuesOption.EmptyStringOrNull, "NULL for non-TEXT columns only")
+        Tuple.Create(BlankValuesOption.EmptyStringOrNull, "NULL for non-TEXT columns only"),
     };
 
     private readonly List<Tuple<int, string>> _sheets = new();
@@ -248,16 +248,15 @@ public partial class ImportXlsForm : ZForm
         var dataTable = sheetInfo.DataTable;
         foreach (DataColumn column in dataTable.Columns)
         {
-            DataGridViewTextBoxColumn gridColumn =
-                new()
-                {
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
-                    Width = _columnWidth,
-                    HeaderText = column.ColumnName,
-                    SortMode = DataGridViewColumnSortMode.NotSortable,
-                    DataPropertyName = column.ColumnName,
-                    Resizable = DataGridViewTriState.True,
-                };
+            DataGridViewTextBoxColumn gridColumn = new()
+            {
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = _columnWidth,
+                HeaderText = column.ColumnName,
+                SortMode = DataGridViewColumnSortMode.NotSortable,
+                DataPropertyName = column.ColumnName,
+                Resizable = DataGridViewTriState.True,
+            };
             _grid.Columns.Add(gridColumn);
         }
         _grid.DataSource = dataTable;

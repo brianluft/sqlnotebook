@@ -1578,7 +1578,7 @@ public static class SqliteGrammar
         {
             Name = name,
             NumReq = numReq,
-            Terms = terms
+            Terms = terms,
         };
     }
 
@@ -1606,7 +1606,7 @@ public static class SqliteGrammar
     {
         return new OptionalTerm
         {
-            Prod = new SpecProd { NumReq = numReq, Terms = terms }
+            Prod = new SpecProd { NumReq = numReq, Terms = terms },
         };
     }
 
@@ -1614,7 +1614,7 @@ public static class SqliteGrammar
     {
         return new OptionalTerm
         {
-            Prod = new SpecProd { NumReq = terms.Length, Terms = terms }
+            Prod = new SpecProd { NumReq = terms.Length, Terms = terms },
         };
     }
 
@@ -1644,7 +1644,7 @@ public static class SqliteGrammar
         {
             SeparatorProd = separator.HasValue ? Prod(".list-separator", 1, Tok(separator.Value)) : null,
             Min = min,
-            ItemProd = Prod(subProdName, terms.Length, terms)
+            ItemProd = Prod(subProdName, terms.Length, terms),
         };
     }
 
@@ -1654,7 +1654,7 @@ public static class SqliteGrammar
         {
             SeparatorProd = separatorProd,
             Min = min,
-            ItemProd = Prod(subProdName, terms.Length, terms)
+            ItemProd = Prod(subProdName, terms.Length, terms),
         };
     }
 
@@ -1664,7 +1664,7 @@ public static class SqliteGrammar
         {
             SeparatorProd = Prod(".list-separator", 1, separatorTerm),
             Min = min,
-            ItemProd = Prod(subProdName, terms.Length, terms)
+            ItemProd = Prod(subProdName, terms.Length, terms),
         };
     }
 

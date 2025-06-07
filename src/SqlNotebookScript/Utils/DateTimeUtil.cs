@@ -12,13 +12,10 @@ public static class DateTimeUtil
     public static int GetQuarter(DateTime dt) => GetQuarter(dt.Month);
 
     public static int GetQuarter(int month) =>
-        month <= 3
-            ? 1
-            : month <= 6
-                ? 2
-                : month <= 9
-                    ? 3
-                    : 4;
+        month <= 3 ? 1
+        : month <= 6 ? 2
+        : month <= 9 ? 3
+        : 4;
 
     public static int GetDatePart(DateTime date, DatePart datePart)
     {

@@ -29,20 +29,20 @@ public struct MatchResult
 public enum OptionalTermState
 {
     Start,
-    Match
+    Match,
 }
 
 public enum OrTermState
 {
     Start,
-    Match
+    Match,
 }
 
 public enum ListTermState
 {
     Start,
     MatchSeparator,
-    MatchItem
+    MatchItem,
 }
 
 public sealed class MatchFrame

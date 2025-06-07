@@ -247,7 +247,7 @@ public sealed class ImportDatabaseStmtRunner
                 "mssql" => new SqlConnection(_connectionString),
                 "pgsql" => new NpgsqlConnection(_connectionString),
                 "mysql" => new MySqlConnection(_connectionString),
-                _ => throw new Exception("IMPORT DATABASE: Internal error. Invalid vendor.")
+                _ => throw new Exception("IMPORT DATABASE: Internal error. Invalid vendor."),
             };
             srcConnection.Open();
 
@@ -465,25 +465,17 @@ ORDER BY k.ORDINAL_POSITION;";
                     thisBuffer[i] = thisBuffer[i] switch
                     {
                         null or DBNull => null,
-                        short
-                        or ushort
-                        or int
-                        or uint
-                        or long
-                        or ulong
-                        or byte
-                        or sbyte
-                        or bool
-                            => Convert.ToInt64(thisBuffer[i]),
+                        short or ushort or int or uint or long or ulong or byte or sbyte or bool => Convert.ToInt64(
+                            thisBuffer[i]
+                        ),
                         float or double or decimal => Convert.ToDouble(thisBuffer[i]),
                         DateTime a => $"{a:yyyy-MM-dd HH:mm:ss.fff}",
                         DateTimeOffset a => $"{a.UtcDateTime:yyyy-MM-dd HH:mm:ss.fff}",
-                        TimeSpan a
-                            => (a < TimeSpan.Zero ? "-" : "")
-                                + a.ToString(a < TimeSpan.FromDays(1) ? @"hh\:mm\:ss\.fff" : @"d\.hh\:mm\:ss\.fff"),
+                        TimeSpan a => (a < TimeSpan.Zero ? "-" : "")
+                            + a.ToString(a < TimeSpan.FromDays(1) ? @"hh\:mm\:ss\.fff" : @"d\.hh\:mm\:ss\.fff"),
                         byte[] a => a,
                         BitArray a => BitArrayToSqlArray(a),
-                        _ => Convert.ToString(thisBuffer[i])
+                        _ => Convert.ToString(thisBuffer[i]),
                     };
                 }
                 batchCount++;

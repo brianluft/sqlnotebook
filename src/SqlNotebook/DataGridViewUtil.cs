@@ -18,29 +18,28 @@ public static class DataGridViewUtil
         bool contextMenu = false
     )
     {
-        DoubleBufferedDataGridView grid =
-            new()
-            {
-                AutoSize = true,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None,
-                AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
-                AutoGenerateColumns = autoGenerateColumns,
-                AllowUserToAddRows = false,
-                AllowUserToDeleteRows = false,
-                AllowUserToOrderColumns = false,
-                AllowUserToResizeColumns = allowColumnResize,
-                AllowUserToResizeRows = false,
-                ReadOnly = true,
-                BorderStyle = BorderStyle.None,
-                BackgroundColor = Color.White,
-                RowHeadersVisible = rowHeadersVisible,
-                ColumnHeadersVisible = columnHeadersVisible,
-                ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
-                SelectionMode = DataGridViewSelectionMode.CellSelect,
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
-                RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
-                ShowCellToolTips = false,
-            };
+        DoubleBufferedDataGridView grid = new()
+        {
+            AutoSize = true,
+            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None,
+            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
+            AutoGenerateColumns = autoGenerateColumns,
+            AllowUserToAddRows = false,
+            AllowUserToDeleteRows = false,
+            AllowUserToOrderColumns = false,
+            AllowUserToResizeColumns = allowColumnResize,
+            AllowUserToResizeRows = false,
+            ReadOnly = true,
+            BorderStyle = BorderStyle.None,
+            BackgroundColor = Color.White,
+            RowHeadersVisible = rowHeadersVisible,
+            ColumnHeadersVisible = columnHeadersVisible,
+            ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
+            SelectionMode = DataGridViewSelectionMode.CellSelect,
+            ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+            ShowCellToolTips = false,
+        };
 
         if (userColors)
         {

@@ -18,7 +18,7 @@ public enum NotebookItemType
     Script,
     Table,
     View,
-    Page
+    Page,
 }
 
 public struct NotebookItem
@@ -185,7 +185,7 @@ public sealed class NotebookManager
             {
                 PageNotebookItemRecord => NotebookItemType.Page,
                 ScriptNotebookItemRecord => NotebookItemType.Script,
-                _ => throw new NotImplementedException()
+                _ => throw new NotImplementedException(),
             }
             select new NotebookItem(type, x.Name)
         );
@@ -213,7 +213,7 @@ public sealed class NotebookManager
         switch (type)
         {
             case NotebookItemType.Page:
-                Notebook.UserData.Items.Add(new PageNotebookItemRecord { Name = name, Blocks = new(), });
+                Notebook.UserData.Items.Add(new PageNotebookItemRecord { Name = name, Blocks = new() });
                 break;
 
             case NotebookItemType.Script:
@@ -307,7 +307,7 @@ public sealed class NotebookManager
     {
         Transaction,
         RollbackTransaction,
-        NoTransaction
+        NoTransaction,
     }
 
     private ScriptOutput ExecuteScriptEx(
@@ -318,7 +318,7 @@ public sealed class NotebookManager
         Action onRow
     )
     {
-        var env = new ScriptEnv { OnRow = onRow, };
+        var env = new ScriptEnv { OnRow = onRow };
         ScriptOutput output;
         var parser = new ScriptParser(Notebook);
         var script = parser.Parse(code);

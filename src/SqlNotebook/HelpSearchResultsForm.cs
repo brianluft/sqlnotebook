@@ -40,25 +40,23 @@ public partial class HelpSearchResultsForm : ZForm
         foreach (var result in results.Take(25))
         {
             var resultFilePath = result.Path;
-            LinkLabel titleLabel =
-                new()
-                {
-                    AutoSize = true,
-                    Text = result.Title,
-                    Font = titleFont,
-                    Margin = new(ui.XWidth(1), ui.XHeight(0.75), ui.XWidth(1), ui.XHeight(0.2)),
-                    Cursor = Cursors.Hand,
-                };
+            LinkLabel titleLabel = new()
+            {
+                AutoSize = true,
+                Text = result.Title,
+                Font = titleFont,
+                Margin = new(ui.XWidth(1), ui.XHeight(0.75), ui.XWidth(1), ui.XHeight(0.2)),
+                Cursor = Cursors.Hand,
+            };
             titleLabel.Click += OnResultClick;
-            Label snippetLabel =
-                new()
-                {
-                    AutoSize = true,
-                    Text = result.Snippet,
-                    Font = snippetFont,
-                    Margin = new(ui.XWidth(1), 0, ui.XWidth(1), ui.XHeight(1)),
-                    Cursor = Cursors.Hand,
-                };
+            Label snippetLabel = new()
+            {
+                AutoSize = true,
+                Text = result.Snippet,
+                Font = snippetFont,
+                Margin = new(ui.XWidth(1), 0, ui.XWidth(1), ui.XHeight(1)),
+                Cursor = Cursors.Hand,
+            };
             snippetLabel.Click += OnResultClick;
             _resultsFlow.Controls.Add(titleLabel);
             _resultsFlow.Controls.Add(snippetLabel);

@@ -90,7 +90,7 @@ public partial class DatabaseConnectionForm : ZForm
             Database = _databaseTxt.Text,
             Username = _usernameTxt.Text,
             Password = _passwordTxt.Text,
-            UseWindowsAuth = _windowsAuthChk.Checked
+            UseWindowsAuth = _windowsAuthChk.Checked,
         };
     }
 

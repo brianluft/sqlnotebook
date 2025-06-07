@@ -1,8 +1,4 @@
-﻿using SqlNotebookScript;
-using SqlNotebookScript.DataTables;
-using SqlNotebookScript.Interpreter;
-using SqlNotebookScript.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -10,6 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SqlNotebookScript;
+using SqlNotebookScript.DataTables;
+using SqlNotebookScript.Interpreter;
+using SqlNotebookScript.Utils;
 
 namespace SqlNotebook.Import.Csv;
 
@@ -42,7 +42,7 @@ public partial class ImportCsvForm : ZForm
         _optionsControl = new ImportCsvOptionsControl(schema)
         {
             AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
         };
         _optionsPanel.Controls.Add(_optionsControl);
 
@@ -54,7 +54,7 @@ public partial class ImportCsvForm : ZForm
         _inputPreviewLoadControl = new LoadingContainerControl
         {
             ContainedControl = _inputPreviewControl,
-            Dock = DockStyle.Fill
+            Dock = DockStyle.Fill,
         };
         _originalFilePanel.Controls.Add(_inputPreviewLoadControl);
 
@@ -151,7 +151,7 @@ public partial class ImportCsvForm : ZForm
                         {
                             ["@filePath"] = _filePath,
                             ["@tableName"] = tempTableName,
-                            ["@encoding"] = fileEncoding
+                            ["@encoding"] = fileEncoding,
                         }
                     );
 
@@ -251,7 +251,7 @@ public partial class ImportCsvForm : ZForm
                         ["@sep"] = separator,
                         ["@headerRow"] = headerRow ? 1 : 0,
                         ["@encoding"] = fileEncoding,
-                        ["@skipLines"] = skipLines
+                        ["@skipLines"] = skipLines,
                     }
                 );
 

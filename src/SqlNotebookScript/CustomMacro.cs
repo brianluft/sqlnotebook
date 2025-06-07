@@ -34,7 +34,7 @@ public abstract class CustomMacro
         {
             Sql = text,
             SqliteSyntax = ast,
-            FirstTokenIndex = -1
+            FirstTokenIndex = -1,
         };
     }
 

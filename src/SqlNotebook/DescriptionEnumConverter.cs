@@ -9,7 +9,8 @@ public sealed class DescriptionEnumConverter : EnumConverter
 {
     private Type _enumType;
 
-    public DescriptionEnumConverter(Type type) : base(type)
+    public DescriptionEnumConverter(Type type)
+        : base(type)
     {
         _enumType = type;
     }

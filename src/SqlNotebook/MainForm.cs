@@ -56,7 +56,7 @@ public partial class MainForm : ZForm
                 CueText = "Search Help (Ctrl+H)",
                 ToolTipText = "Search the built-in documentation",
                 AutoSize = false,
-                Margin = new Padding(0, 0, 5, 0)
+                Margin = new Padding(0, 0, 5, 0),
             }
         );
         _searchTxt.InnerTextBox.KeyDown += (sender, e) =>
@@ -423,17 +423,16 @@ public partial class MainForm : ZForm
 
     private void ImportFileMnu_Click(object sender, EventArgs e)
     {
-        using OpenFileDialog openFrm =
-            new()
-            {
-                AutoUpgradeEnabled = true,
-                CheckFileExists = true,
-                CheckPathExists = true,
-                DereferenceLinks = true,
-                Filter = FileImporter.Filter,
-                SupportMultiDottedExtensions = true,
-                Title = "Import from File"
-            };
+        using OpenFileDialog openFrm = new()
+        {
+            AutoUpgradeEnabled = true,
+            CheckFileExists = true,
+            CheckPathExists = true,
+            DereferenceLinks = true,
+            Filter = FileImporter.Filter,
+            SupportMultiDottedExtensions = true,
+            Title = "Import from File",
+        };
         if (openFrm.ShowDialog(this) != DialogResult.OK)
         {
             return;
@@ -547,20 +546,19 @@ public partial class MainForm : ZForm
 
     private void OpenMnu_Click(object sender, EventArgs e)
     {
-        using OpenFileDialog f =
-            new()
-            {
-                AutoUpgradeEnabled = true,
-                CheckFileExists = true,
-                CheckPathExists = true,
-                DefaultExt = ".sqlnb",
-                DereferenceLinks = true,
-                Filter = "SQL Notebook files|*.sqlnb;*.sqlite3",
-                Multiselect = false,
-                SupportMultiDottedExtensions = true,
-                Title = "Open Notebook",
-                ValidateNames = true
-            };
+        using OpenFileDialog f = new()
+        {
+            AutoUpgradeEnabled = true,
+            CheckFileExists = true,
+            CheckPathExists = true,
+            DefaultExt = ".sqlnb",
+            DereferenceLinks = true,
+            Filter = "SQL Notebook files|*.sqlnb;*.sqlite3",
+            Multiselect = false,
+            SupportMultiDottedExtensions = true,
+            Title = "Open Notebook",
+            ValidateNames = true,
+        };
         if (f.ShowDialog(this) == DialogResult.OK)
         {
             SaveUserLayout(offset: true);
@@ -579,19 +577,18 @@ public partial class MainForm : ZForm
 
         if (_isNew || saveAs)
         {
-            using SaveFileDialog f =
-                new()
-                {
-                    AddExtension = true,
-                    AutoUpgradeEnabled = true,
-                    CheckPathExists = true,
-                    DefaultExt = ".sqlnb",
-                    Filter = "SQL Notebook files|*.sqlnb",
-                    OverwritePrompt = true,
-                    SupportMultiDottedExtensions = true,
-                    Title = "Save Notebook As",
-                    ValidateNames = true
-                };
+            using SaveFileDialog f = new()
+            {
+                AddExtension = true,
+                AutoUpgradeEnabled = true,
+                CheckPathExists = true,
+                DefaultExt = ".sqlnb",
+                Filter = "SQL Notebook files|*.sqlnb",
+                OverwritePrompt = true,
+                SupportMultiDottedExtensions = true,
+                Title = "Save Notebook As",
+                ValidateNames = true,
+            };
             if (f.ShowDialog(this) != DialogResult.OK)
             {
                 Focus();
@@ -864,8 +861,8 @@ public partial class MainForm : ZForm
             out var success,
             () =>
             {
-                var appversion = Program.HttpClient
-                    .GetStringAsync("https://sqlnotebook.com/appversion.txt")
+                var appversion = Program
+                    .HttpClient.GetStringAsync("https://sqlnotebook.com/appversion.txt")
                     .GetAwaiter()
                     .GetResult();
                 var data = appversion.Split('\n').Select(x => x.Trim()).ToList();
@@ -919,7 +916,7 @@ public partial class MainForm : ZForm
             return;
         }
 
-        Process.Start(new ProcessStartInfo { FileName = msiFilePath, UseShellExecute = true, });
+        Process.Start(new ProcessStartInfo { FileName = msiFilePath, UseShellExecute = true });
         Close();
     }
 
@@ -961,7 +958,7 @@ public partial class MainForm : ZForm
             new ProcessStartInfo
             {
                 FileName = "https://github.com/electroly/sqlnotebook/releases",
-                UseShellExecute = true
+                UseShellExecute = true,
             }
         );
 
@@ -983,8 +980,7 @@ public partial class MainForm : ZForm
                 DockState.DockLeft
                 or DockState.DockLeftAutoHide
                 or DockState.DockRight
-                or DockState.DockRightAutoHide
-                    => (DockState)TableOfContentsDockState,
+                or DockState.DockRightAutoHide => (DockState)TableOfContentsDockState,
                 _ => null,
             };
         }
@@ -1033,24 +1029,23 @@ public partial class MainForm : ZForm
             var offsetAmount = (int)(32 * (double)DeviceDpi / 96);
             var bounds = WindowState != FormWindowState.Normal ? RestoreBounds : Bounds;
 
-            UserLayout layout =
-                new()
-                {
-                    Left = bounds.Left + (offset ? offsetAmount : 0),
-                    Top = bounds.Top + (offset ? offsetAmount : 0),
-                    Width = bounds.Width,
-                    Height = bounds.Height,
-                    Dpi = DeviceDpi,
-                    WindowState = (int)WindowState,
-                    TableOfContentsDockState = (int)_contentsDockContent.DockState,
-                    TableOfContentsAutoHidePortion = _contentsDockContent.AutoHidePortion,
-                    ConsoleDockState = (int)_consoleDockContent.DockState,
-                    ConsoleAutoHidePortion = _consoleDockContent.AutoHidePortion,
-                    DockLeftPortion = _dockPanel.DockLeftPortion,
-                    DockRightPortion = _dockPanel.DockRightPortion,
-                    DockTopPortion = _dockPanel.DockTopPortion,
-                    DockBottomPortion = _dockPanel.DockBottomPortion,
-                };
+            UserLayout layout = new()
+            {
+                Left = bounds.Left + (offset ? offsetAmount : 0),
+                Top = bounds.Top + (offset ? offsetAmount : 0),
+                Width = bounds.Width,
+                Height = bounds.Height,
+                Dpi = DeviceDpi,
+                WindowState = (int)WindowState,
+                TableOfContentsDockState = (int)_contentsDockContent.DockState,
+                TableOfContentsAutoHidePortion = _contentsDockContent.AutoHidePortion,
+                ConsoleDockState = (int)_consoleDockContent.DockState,
+                ConsoleAutoHidePortion = _consoleDockContent.AutoHidePortion,
+                DockLeftPortion = _dockPanel.DockLeftPortion,
+                DockRightPortion = _dockPanel.DockRightPortion,
+                DockTopPortion = _dockPanel.DockTopPortion,
+                DockBottomPortion = _dockPanel.DockBottomPortion,
+            };
 
             Settings.Default.MainFormLayout = JsonSerializer.Serialize(layout);
             Settings.Default.Save();

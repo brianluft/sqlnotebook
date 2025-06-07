@@ -58,9 +58,9 @@ public sealed class ReadCsvMacro : CustomMacro
                         ["temporary_table"] = NewExpr("1"),
                         ["skip_lines"] = NewExpr(skipRowsExpr?.Text ?? "0"),
                         ["header_row"] = NewExpr(hasHeaderRowExpr?.Text ?? "1"),
-                        ["file_encoding"] = NewExpr(fileEncodingExpr?.Text ?? "0")
-                    }
-                }
+                        ["file_encoding"] = NewExpr(fileEncodingExpr?.Text ?? "0"),
+                    },
+                },
             };
             foreach (var n in importStmt.Traverse())
             {

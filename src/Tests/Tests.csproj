@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
@@ -10,12 +9,10 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\SqlNotebookScript\SqlNotebookScript.csproj" />
     <ProjectReference Include="..\SqlNotebook\SqlNotebook.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -23,19 +20,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y $(ProjectDir)..\SqlNotebookDb\bin\$(Platform)\$(Configuration)\sqlite3.dll $(TargetDir)sqlite3.dll" />
     <Exec Command="copy /Y $(ProjectDir)..\crypto\bin\$(Platform)\$(Configuration)\crypto.dll $(TargetDir)crypto.dll" />
     <Exec Command="copy /Y $(ProjectDir)..\fuzzy\bin\$(Platform)\$(Configuration)\fuzzy.dll $(TargetDir)fuzzy.dll" />
     <Exec Command="copy /Y $(ProjectDir)..\stats\bin\$(Platform)\$(Configuration)\stats.dll $(TargetDir)stats.dll" />
   </Target>
-
 </Project>

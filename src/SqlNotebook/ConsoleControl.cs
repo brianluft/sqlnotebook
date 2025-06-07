@@ -38,7 +38,7 @@ public partial class ConsoleControl : UserControl
         {
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            FlowDirection = FlowDirection.TopDown
+            FlowDirection = FlowDirection.TopDown,
         };
         _outputPanel.Controls.Add(_outputFlow);
 
@@ -80,14 +80,13 @@ public partial class ConsoleControl : UserControl
 
         if (!string.IsNullOrWhiteSpace(sql))
         {
-            Label label =
-                new()
-                {
-                    AutoSize = true,
-                    Text = sql,
-                    Margin = _outputSqlMargin,
-                    Cursor = Cursors.Hand,
-                };
+            Label label = new()
+            {
+                AutoSize = true,
+                Text = sql,
+                Margin = _outputSqlMargin,
+                Cursor = Cursors.Hand,
+            };
 
             void OptionsUpdated()
             {
@@ -114,14 +113,13 @@ public partial class ConsoleControl : UserControl
         if ((output.TextOutput?.Count ?? 0) > 0)
         {
             var text = string.Join(Environment.NewLine, output.TextOutput);
-            Label label =
-                new()
-                {
-                    AutoSize = true,
-                    Text = text,
-                    Margin = _outputTableMargin,
-                    ContextMenuStrip = _contextMenuStrip
-                };
+            Label label = new()
+            {
+                AutoSize = true,
+                Text = text,
+                Margin = _outputTableMargin,
+                ContextMenuStrip = _contextMenuStrip,
+            };
 
             void OptionsUpdated()
             {
@@ -139,13 +137,12 @@ public partial class ConsoleControl : UserControl
 
         if (output.ScalarResult != null)
         {
-            Label label =
-                new()
-                {
-                    AutoSize = true,
-                    Text = output.ScalarResult.ToString(),
-                    Margin = _outputTableMargin,
-                };
+            Label label = new()
+            {
+                AutoSize = true,
+                Text = output.ScalarResult.ToString(),
+                Margin = _outputTableMargin,
+            };
 
             void OptionsUpdated()
             {
@@ -164,16 +161,15 @@ public partial class ConsoleControl : UserControl
 
         foreach (var simpleDataTable in output.DataTables)
         {
-            Label label =
-                new()
-                {
-                    AutoSize = true,
-                    Text =
-                        simpleDataTable.FullCount > MAX_GRID_ROWS
-                            ? $"{simpleDataTable.FullCount:#,##0} row{(simpleDataTable.FullCount == 1 ? "" : "s")} ({MAX_GRID_ROWS:#,##0} shown)"
-                            : $"{simpleDataTable.FullCount:#,##0} row{(simpleDataTable.FullCount == 1 ? "" : "s")}",
-                    Margin = _outputCountMargin,
-                };
+            Label label = new()
+            {
+                AutoSize = true,
+                Text =
+                    simpleDataTable.FullCount > MAX_GRID_ROWS
+                        ? $"{simpleDataTable.FullCount:#,##0} row{(simpleDataTable.FullCount == 1 ? "" : "s")} ({MAX_GRID_ROWS:#,##0} shown)"
+                        : $"{simpleDataTable.FullCount:#,##0} row{(simpleDataTable.FullCount == 1 ? "" : "s")}",
+                Margin = _outputCountMargin,
+            };
 
             void OptionsUpdated()
             {

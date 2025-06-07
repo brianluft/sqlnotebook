@@ -225,11 +225,10 @@ public sealed class ImportCsvStmtRunner
             _ => false,
         };
 
-        TextFieldParser textFieldParser = isUtf8
-            ? new(stream, Encoding.UTF8, true)
-            : _fileEncoding != null
-                ? new(stream, _fileEncoding, false)
-                : new(stream);
+        TextFieldParser textFieldParser =
+            isUtf8 ? new(stream, Encoding.UTF8, true)
+            : _fileEncoding != null ? new(stream, _fileEncoding, false)
+            : new(stream);
         textFieldParser.HasFieldsEnclosedInQuotes = true;
         if (separator == "")
         {

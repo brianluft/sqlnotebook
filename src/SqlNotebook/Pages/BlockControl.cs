@@ -88,7 +88,7 @@ public abstract class BlockControl : UserControl
         {
             MouseHoverState.Down => gridLineColor30,
             MouseHoverState.Hover => gridLineColor5,
-            _ => colors[UserOptionsColor.GRID_BACKGROUND]
+            _ => colors[UserOptionsColor.GRID_BACKGROUND],
         };
         using SolidBrush backgroundBrush = new(backgroundColor);
         e.Graphics.FillRectangle(backgroundBrush, e.ClipRectangle);
@@ -100,62 +100,58 @@ public abstract class BlockControl : UserControl
 
     protected (Button Accept, TableLayoutPanel table, Panel panel) CreateStandardEditModeLayout()
     {
-        Button upButton =
-            new()
-            {
-                Dock = DockStyle.Fill,
-                FlatStyle = FlatStyle.Flat,
-                Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
-                Text = "▲",
-                Padding = Padding.Empty,
-                BackColor = Color.WhiteSmoke,
-                Cursor = Cursors.Hand,
-            };
+        Button upButton = new()
+        {
+            Dock = DockStyle.Fill,
+            FlatStyle = FlatStyle.Flat,
+            Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
+            Text = "▲",
+            Padding = Padding.Empty,
+            BackColor = Color.WhiteSmoke,
+            Cursor = Cursors.Hand,
+        };
         upButton.FlatAppearance.BorderSize = 0;
         upButton.Click += delegate
         {
             RaiseBlockMoved(true);
         };
 
-        Button downButton =
-            new()
-            {
-                Dock = DockStyle.Fill,
-                FlatStyle = FlatStyle.Flat,
-                Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
-                Text = "▼",
-                Padding = Padding.Empty,
-                BackColor = Color.WhiteSmoke,
-                Cursor = Cursors.Hand,
-            };
+        Button downButton = new()
+        {
+            Dock = DockStyle.Fill,
+            FlatStyle = FlatStyle.Flat,
+            Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
+            Text = "▼",
+            Padding = Padding.Empty,
+            BackColor = Color.WhiteSmoke,
+            Cursor = Cursors.Hand,
+        };
         downButton.FlatAppearance.BorderSize = 0;
         downButton.Click += delegate
         {
             RaiseBlockMoved(false);
         };
 
-        Button acceptButton =
-            new()
-            {
-                Dock = DockStyle.Fill,
-                FlatStyle = FlatStyle.Flat,
-                Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
-                Text = "✔️",
-                BackColor = Color.AliceBlue,
-                Cursor = Cursors.Hand,
-            };
+        Button acceptButton = new()
+        {
+            Dock = DockStyle.Fill,
+            FlatStyle = FlatStyle.Flat,
+            Margin = new(this.Scaled(2), 0, 0, this.Scaled(2)),
+            Text = "✔️",
+            BackColor = Color.AliceBlue,
+            Cursor = Cursors.Hand,
+        };
         acceptButton.FlatAppearance.BorderSize = 0;
 
-        Button deleteButton =
-            new()
-            {
-                Dock = DockStyle.Fill,
-                FlatStyle = FlatStyle.Flat,
-                Margin = new(this.Scaled(2), 0, 0, 0),
-                Text = "❌",
-                BackColor = Color.WhiteSmoke,
-                Cursor = Cursors.Hand,
-            };
+        Button deleteButton = new()
+        {
+            Dock = DockStyle.Fill,
+            FlatStyle = FlatStyle.Flat,
+            Margin = new(this.Scaled(2), 0, 0, 0),
+            Text = "❌",
+            BackColor = Color.WhiteSmoke,
+            Cursor = Cursors.Hand,
+        };
         deleteButton.FlatAppearance.BorderSize = 0;
         deleteButton.Click += delegate
         {
@@ -198,13 +194,12 @@ public abstract class BlockControl : UserControl
         table.SetRow(deleteButton, 3);
         table.SetColumn(deleteButton, 0);
 
-        Panel panel =
-            new()
-            {
-                Dock = DockStyle.Fill,
-                Margin = new(this.Scaled(2), 0, this.Scaled(5), 0),
-                Padding = Padding.Empty,
-            };
+        Panel panel = new()
+        {
+            Dock = DockStyle.Fill,
+            Margin = new(this.Scaled(2), 0, this.Scaled(5), 0),
+            Padding = Padding.Empty,
+        };
         table.Controls.Add(panel);
         table.SetRow(panel, 0);
         table.SetColumn(panel, 1);

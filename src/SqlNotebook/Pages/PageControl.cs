@@ -26,7 +26,7 @@ public sealed class PageControl : UserControl, IDocumentControl
         _manager = manager;
         _mainForm = mainForm;
 
-        Controls.Add(_scrollPanel = new() { Dock = DockStyle.Fill, AutoScroll = true, });
+        Controls.Add(_scrollPanel = new() { Dock = DockStyle.Fill, AutoScroll = true });
         _scrollPanel.Controls.Add(
             _flow = new()
             {
@@ -38,7 +38,7 @@ public sealed class PageControl : UserControl, IDocumentControl
             }
         );
 
-        Controls.Add(_toolStrip = new() { Dock = DockStyle.Top, });
+        Controls.Add(_toolStrip = new() { Dock = DockStyle.Top });
         _toolStrip.Items.Add(_executeAllButton = new ToolStripButton { Text = "Execute all" });
         _executeAllButton.Click += ExecuteAllButton_Click;
         _toolStrip.Items.Add(_acceptAllButton = new ToolStripButton { Text = "Accept all", Enabled = false });
@@ -203,8 +203,8 @@ public sealed class PageControl : UserControl, IDocumentControl
 
     public void Save()
     {
-        var blockControls = _flow.Controls
-            .Cast<BlockControl>()
+        var blockControls = _flow
+            .Controls.Cast<BlockControl>()
             .Where(x => x is TextBlockControl || x is QueryBlockControl)
             .ToList();
 
@@ -215,7 +215,7 @@ public sealed class PageControl : UserControl, IDocumentControl
             {
                 TextBlockControl textBlock => textBlock.SaveToRecord(),
                 QueryBlockControl queryBlock => queryBlock.SaveToRecord(),
-                _ => throw new NotImplementedException()
+                _ => throw new NotImplementedException(),
             };
             pageRecord.Blocks.Add(blockRecord);
         }

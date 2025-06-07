@@ -106,20 +106,19 @@ public sealed class UserOptions
         OnUpdate(owner, action);
     }
 
-    public static readonly Lazy<UserOptions> _instance =
-        new(() =>
+    public static readonly Lazy<UserOptions> _instance = new(() =>
+    {
+        try
         {
-            try
+            var json = Settings.Default.UserOptions;
+            if (!string.IsNullOrWhiteSpace(json))
             {
-                var json = Settings.Default.UserOptions;
-                if (!string.IsNullOrWhiteSpace(json))
-                {
-                    return JsonSerializer.Deserialize<UserOptions>(json);
-                }
+                return JsonSerializer.Deserialize<UserOptions>(json);
             }
-            catch { }
-            return new();
-        });
+        }
+        catch { }
+        return new();
+    });
     public static UserOptions Instance => _instance.Value;
 
     public void Save()
@@ -220,7 +219,7 @@ public sealed class UserOptions
                 Family = defaultFont.FontFamily.Name,
                 Size = defaultFont.Size,
                 Style = (int)defaultFont.Style,
-                Font = defaultFont
+                Font = defaultFont,
             };
         }
 
@@ -276,15 +275,12 @@ public sealed class UserOptions
     public void SetColors(Color[] colors)
     {
         Colors = colors
-            .Select(
-                x =>
-                    new UserOptionsColor
-                    {
-                        R = x.R,
-                        G = x.G,
-                        B = x.B
-                    }
-            )
+            .Select(x => new UserOptionsColor
+            {
+                R = x.R,
+                G = x.G,
+                B = x.B,
+            })
             .ToList();
     }
 

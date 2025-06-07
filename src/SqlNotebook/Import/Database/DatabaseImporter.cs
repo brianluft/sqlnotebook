@@ -13,7 +13,8 @@ public sealed class DatabaseImporter
         _owner = owner;
     }
 
-    public void DoDatabaseImport<T>() where T : IImportSession, new()
+    public void DoDatabaseImport<T>()
+        where T : IImportSession, new()
     {
         T session = new();
         if (!session.FromConnectForm(_owner))

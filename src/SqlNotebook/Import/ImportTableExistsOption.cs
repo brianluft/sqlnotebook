@@ -11,5 +11,5 @@ public enum ImportTableExistsOption
     DeleteExistingRows,
 
     [Description("Drop table and re-create")]
-    DropTable
+    DropTable,
 }

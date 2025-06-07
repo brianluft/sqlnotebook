@@ -33,8 +33,11 @@ public partial class ExportForm : ZForm
         ui.Init(_exportButton);
         ui.Init(_cancelButton);
 
-        ImageList imageList =
-            new() { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new(this.Scaled(16), this.Scaled(16)), };
+        ImageList imageList = new()
+        {
+            ColorDepth = ColorDepth.Depth32Bit,
+            ImageSize = new(this.Scaled(16), this.Scaled(16)),
+        };
         imageList.Images.Add(
             Ui.GetScaledIcon(this, Resources.script, Ui.ShiftImage(Resources.script32, 0, 1), dispose: false)
         );
@@ -73,19 +76,18 @@ public partial class ExportForm : ZForm
         var type = (NotebookItemType)Enum.Parse(typeof(NotebookItemType), lvi.Group.Name);
         NotebookItem item = new(type, lvi.Text);
 
-        using SaveFileDialog saveFileDialog =
-            new()
-            {
-                AddExtension = true,
-                AutoUpgradeEnabled = true,
-                CheckPathExists = true,
-                DefaultExt = ".csv",
-                Filter = "CSV files|*.csv",
-                OverwritePrompt = true,
-                SupportMultiDottedExtensions = true,
-                Title = "Save CSV As",
-                ValidateNames = true
-            };
+        using SaveFileDialog saveFileDialog = new()
+        {
+            AddExtension = true,
+            AutoUpgradeEnabled = true,
+            CheckPathExists = true,
+            DefaultExt = ".csv",
+            Filter = "CSV files|*.csv",
+            OverwritePrompt = true,
+            SupportMultiDottedExtensions = true,
+            Title = "Save CSV As",
+            ValidateNames = true,
+        };
         if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
         {
             return;
@@ -97,7 +99,7 @@ public partial class ExportForm : ZForm
             NotebookItemType.Script => "SCRIPT",
             NotebookItemType.Table => "TABLE",
             NotebookItemType.View => "TABLE",
-            _ => throw new InvalidOperationException("Unrecognzied notebook item type.")
+            _ => throw new InvalidOperationException("Unrecognzied notebook item type."),
         };
         var sql =
             $"EXPORT CSV {filePath.SingleQuote()} "

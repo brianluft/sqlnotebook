@@ -103,6 +103,6 @@ public sealed partial class ScriptTest
             DBNull => "null",
             double x => $"{x:0.####}",
             byte[] x => BlobUtil.ToString(x),
-            _ => $"{obj}"
+            _ => $"{obj}",
         };
 }

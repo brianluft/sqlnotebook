@@ -93,7 +93,7 @@ public sealed class NotebookUserData : IDisposable
                     {
                         Sql = Convert.ToString(queryBlockRow[2]),
                         Output = output,
-                        Options = JsonSerializer.Deserialize<QueryPageBlockOptions>(Convert.ToString(queryBlockRow[4]))
+                        Options = JsonSerializer.Deserialize<QueryPageBlockOptions>(Convert.ToString(queryBlockRow[4])),
                     }
                 );
             }
@@ -107,13 +107,12 @@ public sealed class NotebookUserData : IDisposable
         IEnumerable<object[]> scriptParameterRows
     )
     {
-        ScriptNotebookItemRecord script =
-            new()
-            {
-                Name = itemName,
-                Sql = Convert.ToString(scriptRow[1]),
-                Parameters = new()
-            };
+        ScriptNotebookItemRecord script = new()
+        {
+            Name = itemName,
+            Sql = Convert.ToString(scriptRow[1]),
+            Parameters = new(),
+        };
         var scriptParameterRowsByIndex = scriptParameterRows.ToDictionary(x => Convert.ToInt32(x[1]));
         var sortedIndices = scriptParameterRowsByIndex.Keys.OrderBy(x => x);
         foreach (var index in sortedIndices)

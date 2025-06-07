@@ -11,5 +11,5 @@ public enum ImportConversionFailOption
     SkipRow = 2,
 
     [Description("Stop import with error")]
-    Abort = 3
+    Abort = 3,
 }

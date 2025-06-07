@@ -65,8 +65,10 @@ public sealed class DividerBlockControl : BlockControl
         var size = ClientSize;
         var y = size.Height / 2;
         var padding = (int)(5 * (double)DeviceDpi / 96);
-        using Pen pen =
-            new(_hover.HoverOrDown ? gridLineColor100 : gridLineColor30, this.ScaledF(1)) { DashStyle = DashStyle.Dot };
+        using Pen pen = new(_hover.HoverOrDown ? gridLineColor100 : gridLineColor30, this.ScaledF(1))
+        {
+            DashStyle = DashStyle.Dot,
+        };
         if (_hover.HoverOrDown)
         {
             g.DrawLine(pen, 0, y, size.Width / 2 - addTextSize.Width / 2 - padding, y);
@@ -80,8 +82,12 @@ public sealed class DividerBlockControl : BlockControl
         // Draw the "+ Add" button when hovering
         if (_hover.HoverOrDown)
         {
-            Rectangle boxRect =
-                new(size.Width / 2 - addTextSize.Width / 2 - padding, 0, addTextSize.Width + padding * 2, size.Height);
+            Rectangle boxRect = new(
+                size.Width / 2 - addTextSize.Width / 2 - padding,
+                0,
+                addTextSize.Width + padding * 2,
+                size.Height
+            );
             var verticalOffset = (size.Height - addTextSize.Height) / 2;
 
             using SolidBrush brush = new(colors[UserOptionsColor.GRID_PLAIN]);

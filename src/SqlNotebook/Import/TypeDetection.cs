@@ -14,7 +14,7 @@ public static class TypeDetection
         Integer = 2,
         Real = 4,
         Date = 8,
-        DateTime = 16
+        DateTime = 16,
     }
 
     public static IReadOnlyList<string> DetectTypes(SimpleDataTable table)

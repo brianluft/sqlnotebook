@@ -49,7 +49,7 @@ public sealed class MySqlImportSession : ImportSessionBase<MySqlConnectionString
             Server = builder.Server,
             Database = builder.Database,
             Username = builder.UserID,
-            Password = builder.Password
+            Password = builder.Password,
         };
     }
 

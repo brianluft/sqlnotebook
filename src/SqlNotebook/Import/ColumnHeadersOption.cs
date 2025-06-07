@@ -8,5 +8,5 @@ public enum ColumnHeadersOption
     Present,
 
     [Description("No column headers")]
-    NotPresent
+    NotPresent,
 }

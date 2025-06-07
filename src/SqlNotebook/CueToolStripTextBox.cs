@@ -9,7 +9,8 @@ namespace SqlNotebook;
 [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip)]
 public sealed class CueToolStripTextBox : ToolStripControlHost
 {
-    public CueToolStripTextBox() : base(new StyledTextBox())
+    public CueToolStripTextBox()
+        : base(new StyledTextBox())
     {
         InnerTextBox.Width = 150;
         Font = new Font("Segoe UI", 9);

@@ -6,7 +6,8 @@ namespace SqlNotebookScript.Interpreter;
 
 public sealed class MacroProcessorException : Exception
 {
-    public MacroProcessorException(string message) : base(message) { }
+    public MacroProcessorException(string message)
+        : base(message) { }
 }
 
 public sealed class MacroProcessor

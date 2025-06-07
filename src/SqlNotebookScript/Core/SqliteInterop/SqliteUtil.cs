@@ -9,12 +9,11 @@ public static class SqliteUtil
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void FreeDelegate(IntPtr p);
 
-    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc =
-        new(() =>
-        {
-            FreeDelegate @delegate = Marshal.FreeHGlobal;
-            return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
-        });
+    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc = new(() =>
+    {
+        FreeDelegate @delegate = Marshal.FreeHGlobal;
+        return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
+    });
 
     public static void ThrowIfError(IntPtr sqlite, int result, string sql = null)
     {

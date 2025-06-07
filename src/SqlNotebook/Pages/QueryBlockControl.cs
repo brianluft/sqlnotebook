@@ -52,8 +52,10 @@ public sealed class QueryBlockControl : BlockControl
 
     private readonly StringFormat _sqlStringFormat = new(StringFormatFlags.FitBlackBox);
     private readonly StringFormat _scalarResultStringFormat = new(StringFormatFlags.FitBlackBox);
-    private readonly StringFormat _gridStringFormat =
-        new(StringFormatFlags.FitBlackBox | StringFormatFlags.NoWrap) { Trimming = StringTrimming.None };
+    private readonly StringFormat _gridStringFormat = new(StringFormatFlags.FitBlackBox | StringFormatFlags.NoWrap)
+    {
+        Trimming = StringTrimming.None,
+    };
 
     private MeasuredLayout Measure(Graphics g)
     {
@@ -121,10 +123,18 @@ public sealed class QueryBlockControl : BlockControl
                 foreach (var table in Output.DataTables)
                 {
                     var numRows = Math.Min(MaxDisplayRows, table.Rows.Count);
-                    Rectangle countRect =
-                        new(HorizontalMargin, lastBounds.Bottom + spacingBetweenBlocks, maxContentWidth, textHeight);
-                    Rectangle gridRect =
-                        new(HorizontalMargin, countRect.Bottom, maxContentWidth, layout.GridRowHeight * (numRows + 1));
+                    Rectangle countRect = new(
+                        HorizontalMargin,
+                        lastBounds.Bottom + spacingBetweenBlocks,
+                        maxContentWidth,
+                        textHeight
+                    );
+                    Rectangle gridRect = new(
+                        HorizontalMargin,
+                        countRect.Bottom,
+                        maxContentWidth,
+                        layout.GridRowHeight * (numRows + 1)
+                    );
                     layout.Grids.Add((numRows, gridRect, countRect));
                     lastBounds = gridRect;
                 }
@@ -355,7 +365,7 @@ public sealed class QueryBlockControl : BlockControl
         {
             double x => $"{x:0.####}",
             byte[] x => BlobUtil.ToString(x),
-            _ => obj.ToString()
+            _ => obj.ToString(),
         };
 
     private void Hover_Click(object sender, EventArgs e)

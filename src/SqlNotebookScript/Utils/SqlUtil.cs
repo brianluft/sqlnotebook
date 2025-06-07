@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using SqlNotebookScript.Core;
 using SqlNotebookScript.Interpreter;
-using Ast = SqlNotebookScript.Interpreter.Ast;
 using static SqlNotebookScript.Core.SqliteInterop.NativeMethods;
-using System.Runtime.InteropServices;
+using Ast = SqlNotebookScript.Interpreter.Ast;
 
 namespace SqlNotebookScript.Utils;
 
@@ -208,14 +208,11 @@ public static class SqlUtil
         if (!importColumns.Any())
         {
             importColumns = srcColNames
-                .Select(
-                    x =>
-                        new Ast.ImportColumn
-                        {
-                            ColumnName = new Ast.IdentifierOrExpr { Identifier = x },
-                            TypeConversion = Ast.TypeConversion.Text
-                        }
-                )
+                .Select(x => new Ast.ImportColumn
+                {
+                    ColumnName = new Ast.IdentifierOrExpr { Identifier = x },
+                    TypeConversion = Ast.TypeConversion.Text,
+                })
                 .ToList();
         }
 
@@ -239,7 +236,7 @@ public static class SqlUtil
             {
                 SrcColumnName = srcColName,
                 DstColumnName = dstColName,
-                ImportColumn = c
+                ImportColumn = c,
             }
         ).ToList();
 
@@ -342,7 +339,9 @@ public static class SqlUtil
                 {
                     var value = row[j];
                     if (
-                        value != null && value is not DBNull && (value is not string s || !string.IsNullOrWhiteSpace(s))
+                        value != null
+                        && value is not DBNull
+                        && (value is not string s || !string.IsNullOrWhiteSpace(s))
                     )
                     {
                         isBlank = false;

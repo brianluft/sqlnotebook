@@ -6,24 +6,23 @@ namespace SqlNotebookScript.Utils;
 
 public static class NotebookTempFiles
 {
-    private static readonly Lazy<string> _dir =
-        new(() =>
+    private static readonly Lazy<string> _dir = new(() =>
+    {
+        using var p = Process.GetCurrentProcess();
+        var parent = Path.Combine(Path.GetTempPath(), "SqlNotebookTemp");
+        DeleteFilesFromPreviousSessions(parent);
+        var path = Path.Combine(parent, $"{p.Id}");
+        if (Directory.Exists(path))
         {
-            using var p = Process.GetCurrentProcess();
-            var parent = Path.Combine(Path.GetTempPath(), "SqlNotebookTemp");
-            DeleteFilesFromPreviousSessions(parent);
-            var path = Path.Combine(parent, $"{p.Id}");
-            if (Directory.Exists(path))
+            try
             {
-                try
-                {
-                    Directory.Delete(path, true);
-                }
-                catch { }
+                Directory.Delete(path, true);
             }
-            Directory.CreateDirectory(path);
-            return path;
-        });
+            catch { }
+        }
+        Directory.CreateDirectory(path);
+        return path;
+    });
 
     public static string GetTempDir() => _dir.Value;
 

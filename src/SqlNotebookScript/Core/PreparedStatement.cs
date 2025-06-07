@@ -16,12 +16,11 @@ public sealed class PreparedStatement : IDisposable
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void FreeDelegate(IntPtr p);
 
-    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc =
-        new(() =>
-        {
-            FreeDelegate @delegate = Marshal.FreeHGlobal;
-            return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
-        });
+    private static readonly Lazy<(IntPtr Ptr, FreeDelegate Delegate)> _freeFunc = new(() =>
+    {
+        FreeDelegate @delegate = Marshal.FreeHGlobal;
+        return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
+    });
 
     private readonly IntPtr _sqlite; // sqlite3* - do not dispose
     private readonly string _sql;

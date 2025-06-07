@@ -134,6 +134,6 @@ public sealed class TextBlockControl : BlockControl
         {
             UpdatePropertiesFromEditMode();
         }
-        return new() { Content = BlockText, };
+        return new() { Content = BlockText };
     }
 }

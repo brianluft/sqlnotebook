@@ -39,7 +39,7 @@ public partial class SqlTextControl : UserControl
             TokenType.Semi,
             TokenType.Star,
             TokenType.Uminus,
-            TokenType.Uplus
+            TokenType.Uplus,
         }
     );
 
@@ -67,7 +67,7 @@ public partial class SqlTextControl : UserControl
             "date",
             "datetime",
             "table",
-            "txt"
+            "txt",
         }
     );
 
@@ -147,8 +147,8 @@ public partial class SqlTextControl : UserControl
             HScrollBar = true,
         };
         var lineNumberMarginWidth = 50;
-        _lineNumberMargin = new Margin(_scintilla, 0) { Type = MarginType.Number, Width = lineNumberMarginWidth, };
-        _ = new Margin(_scintilla, 1) { Type = MarginType.BackColor, Width = this.Scaled(12), };
+        _lineNumberMargin = new Margin(_scintilla, 0) { Type = MarginType.Number, Width = lineNumberMarginWidth };
+        _ = new Margin(_scintilla, 1) { Type = MarginType.BackColor, Width = this.Scaled(12) };
         void SetLineNumberMarginWidth()
         {
             var numDigits = (int)Math.Log10(_scintilla.Lines.Count) + 1;

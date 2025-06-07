@@ -135,7 +135,7 @@ public partial class ImportColumnsControl : UserControl
                 Import = x.Field<bool>(GridColumn.Import),
                 SourceName = x.Field<string>(GridColumn.SourceName),
                 TargetName = TargetNameOrNull(x.Field<string>(GridColumn.TargetName)),
-                Conversion = x.Field<string>(GridColumn.Conversion)
+                Conversion = x.Field<string>(GridColumn.Conversion),
             }
             where c.Import
             select c
@@ -251,8 +251,8 @@ public partial class ImportColumnsControl : UserControl
         }
 
         foreach (
-            var dataRow in _grid.SelectedCells
-                .Cast<DataGridViewCell>()
+            var dataRow in _grid
+                .SelectedCells.Cast<DataGridViewCell>()
                 .Select(x => ((DataRowView)x.OwningRow.DataBoundItem).Row)
                 .Distinct()
         )

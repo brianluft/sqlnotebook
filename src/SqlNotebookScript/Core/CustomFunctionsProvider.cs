@@ -1,7 +1,7 @@
-﻿using SqlNotebookScript.Core.SqliteInterop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using SqlNotebookScript.Core.SqliteInterop;
 
 namespace SqlNotebookScript.Core;
 

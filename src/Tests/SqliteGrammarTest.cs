@@ -52,7 +52,7 @@ public sealed class SqliteGrammarTest
                         {
                             ["@other2_path"] = other2FilePath,
                             ["@int"] = 1,
-                            ["@str"] = "hello"
+                            ["@str"] = "hello",
                         }
                     );
                     if (stmt.ShouldFail)

@@ -119,18 +119,17 @@ public partial class WaitForm : ZForm
         else
         {
             using CancellationTokenSource cts = new();
-            using WaitForm f =
-                new(
-                    title,
-                    text,
-                    () =>
-                    {
-                        task.Wait(cts.Token);
-                        cts.Token.ThrowIfCancellationRequested();
-                        task.GetAwaiter().GetResult();
-                    },
-                    allowCancel: true
-                );
+            using WaitForm f = new(
+                title,
+                text,
+                () =>
+                {
+                    task.Wait(cts.Token);
+                    cts.Token.ThrowIfCancellationRequested();
+                    task.GetAwaiter().GetResult();
+                },
+                allowCancel: true
+            );
             f.CancelRequested += delegate
             {
                 cts.Cancel();
@@ -382,13 +381,12 @@ public partial class WaitForm : ZForm
         {
             var headDegrees = tailDegrees - 70;
 
-            RectangleF rect =
-                new(
-                    (float)(1.5 * _spinnerPenWidth),
-                    (float)(1.5 * _spinnerPenWidth),
-                    size.Width - 3 * _spinnerPenWidth,
-                    size.Height - 3 * _spinnerPenWidth
-                );
+            RectangleF rect = new(
+                (float)(1.5 * _spinnerPenWidth),
+                (float)(1.5 * _spinnerPenWidth),
+                size.Width - 3 * _spinnerPenWidth,
+                size.Height - 3 * _spinnerPenWidth
+            );
             e.Graphics.DrawArc(_spinnerPen, rect, (float)tailDegrees, 100);
 
             var x = radius * Math.Cos(Math.PI * headDegrees / 180) + (double)_spinner.ClientSize.Width / 2;

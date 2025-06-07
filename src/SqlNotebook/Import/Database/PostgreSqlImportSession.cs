@@ -54,7 +54,7 @@ public sealed class PostgreSqlImportSession : ImportSessionBase<NpgsqlConnection
             Server = builder.Host,
             Database = builder.Database,
             Username = builder.Username,
-            Password = builder.Password
+            Password = builder.Password,
         };
     }
 

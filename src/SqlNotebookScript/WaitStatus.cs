@@ -123,7 +123,8 @@ public static class WaitStatus
 
     public sealed class InFlightCustom : InFlight
     {
-        public InFlightCustom(string target) : base(target) { }
+        public InFlightCustom(string target)
+            : base(target) { }
     }
 
     public class InFlightRows : InFlight
@@ -132,7 +133,8 @@ public static class WaitStatus
         private readonly Thread _thread;
         private long _count; // interlocked
 
-        public InFlightRows(string target) : base(target)
+        public InFlightRows(string target)
+            : base(target)
         {
             _thread = new(
                 new ThreadStart(() =>

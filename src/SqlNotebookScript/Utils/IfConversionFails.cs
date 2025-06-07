@@ -4,5 +4,5 @@ public enum IfConversionFails
 {
     ImportAsText = 1,
     SkipRow = 2,
-    Abort = 3
+    Abort = 3,
 }

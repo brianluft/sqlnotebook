@@ -25,7 +25,7 @@ public partial class ImportCsvPreviewControl : UserControl
     {
         InitializeComponent();
 
-        _text = new(true, false, false) { Dock = DockStyle.Fill, BorderStyle = BorderStyle.None, };
+        _text = new(true, false, false) { Dock = DockStyle.Fill, BorderStyle = BorderStyle.None };
         Controls.Add(_text);
     }
 }

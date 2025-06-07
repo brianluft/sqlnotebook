@@ -42,7 +42,7 @@ public sealed class TokenQueue
                     Text = "",
                     Type = TokenType.Space,
                     Utf8Start = (ulong)_eofLocation,
-                    Utf8Length = 0
+                    Utf8Length = 0,
                 };
             }
         }

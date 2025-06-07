@@ -475,11 +475,9 @@ public sealed class Notebook : IDisposable
         {
             using PreparedStatement statement = new(db, sql);
             var argArray =
-                namedArgs != null
-                    ? statement.GetArgs(namedArgs)
-                    : orderedArgs is object[] a
-                        ? a
-                        : orderedArgs.ToArray();
+                namedArgs != null ? statement.GetArgs(namedArgs)
+                : orderedArgs is object[] a ? a
+                : orderedArgs.ToArray();
             return statement.Execute(argArray, returnResult, onRow, CancellationToken.None);
         }
     }
@@ -514,7 +512,7 @@ public sealed class Notebook : IDisposable
                         Type = (TokenType)tokenType,
                         Text = tokenText,
                         Utf8Start = (ulong)oldPos,
-                        Utf8Length = (ulong)(pos - oldPos)
+                        Utf8Length = (ulong)(pos - oldPos),
                     }
                 );
 
@@ -573,21 +571,20 @@ public sealed class Notebook : IDisposable
     public static void WithCancellationToken(Action<CancellationToken> action)
     {
         using CancellationTokenSource cts = new();
-        Thread monitorThread =
-            new(
-                new ThreadStart(() =>
+        Thread monitorThread = new(
+            new ThreadStart(() =>
+            {
+                while (!cts.IsCancellationRequested)
                 {
-                    while (!cts.IsCancellationRequested)
+                    if (CancelInProgress)
                     {
-                        if (CancelInProgress)
-                        {
-                            cts.Cancel();
-                            break;
-                        }
-                        cts.Token.WaitHandle.WaitOne(16);
+                        cts.Cancel();
+                        break;
                     }
-                })
-            );
+                    cts.Token.WaitHandle.WaitOne(16);
+                }
+            })
+        );
         monitorThread.Start();
 
         try

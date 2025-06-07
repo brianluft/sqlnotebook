@@ -1,9 +1,9 @@
-﻿using SqlNotebookScript.Core.ModuleDelegates;
-using SqlNotebookScript.Core.SqliteInterop;
-using SqlNotebookScript.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using SqlNotebookScript.Core.ModuleDelegates;
+using SqlNotebookScript.Core.SqliteInterop;
+using SqlNotebookScript.Utils;
 using static SqlNotebookScript.Core.SqliteInterop.NativeMethods;
 
 namespace SqlNotebookScript.Core.GenericModules;
@@ -23,15 +23,14 @@ public sealed class GenericModuleProvider : IDisposable
     private static readonly Lazy<(
         IntPtr Ptr,
         RemoveCustomTableFunctionDelegate Delegate
-    )> _removeCustomTableFunctionFunc =
-        new(() =>
+    )> _removeCustomTableFunctionFunc = new(() =>
+    {
+        RemoveCustomTableFunctionDelegate @delegate = p =>
         {
-            RemoveCustomTableFunctionDelegate @delegate = p =>
-            {
-                _customTableFunctions.Remove((int)p);
-            };
-            return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
-        });
+            _customTableFunctions.Remove((int)p);
+        };
+        return (Marshal.GetFunctionPointerForDelegate(@delegate), @delegate);
+    });
 
     /// <summary>
     /// This matches the MetadataKey in <see cref="Sqlite3Vtab"/>.
@@ -207,8 +206,8 @@ public sealed class GenericModuleProvider : IDisposable
         {
             var customTableFunction = _customTableFunctions[(int)pAux];
             var metadataKey = _nextMetadataKey++;
-            _tableMetadatas.Add(metadataKey, new() { CustomTableFunction = customTableFunction, });
-            Sqlite3Vtab vtab = new() { MetadataKey = metadataKey, };
+            _tableMetadatas.Add(metadataKey, new() { CustomTableFunction = customTableFunction });
+            Sqlite3Vtab vtab = new() { MetadataKey = metadataKey };
             var vtabSize = Marshal.SizeOf<Sqlite3Vtab>();
             var vtabNative = Marshal.AllocHGlobal(vtabSize);
             ZeroMemory(vtabNative, (IntPtr)vtabSize);
@@ -275,7 +274,7 @@ public sealed class GenericModuleProvider : IDisposable
             }
 
             // set info.aConstraintUsage[i]
-            Sqlite3IndexConstraintUsage constraintUsage = new() { argvIndex = argvIndex, omit = 0, };
+            Sqlite3IndexConstraintUsage constraintUsage = new() { argvIndex = argvIndex, omit = 0 };
             var constraintUsagePtr = info.aConstraintUsage + i * Marshal.SizeOf<Sqlite3IndexConstraintUsage>();
             Marshal.StructureToPtr(constraintUsage, constraintUsagePtr, false);
 
@@ -316,7 +315,7 @@ public sealed class GenericModuleProvider : IDisposable
         {
             var vtab = Marshal.PtrToStructure<Sqlite3Vtab>(pVTab);
             var vtabMetadata = _tableMetadatas[vtab.MetadataKey];
-            _cursorMetadatas.Add(metadataKey, new() { TableMetadata = vtabMetadata, });
+            _cursorMetadatas.Add(metadataKey, new() { TableMetadata = vtabMetadata });
         }
 
         // Write the pointer to the Sqlite3VtabCursor to *ppCursor.

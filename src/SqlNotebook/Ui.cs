@@ -51,9 +51,11 @@ public sealed class Ui
         }
     }
 
-    public Ui(Control control, bool padded = true) : this(control, padded, true) { }
+    public Ui(Control control, bool padded = true)
+        : this(control, padded, true) { }
 
-    public Ui(Form form, double xWidth, double xHeight, bool padded = true) : this(form, padded, false)
+    public Ui(Form form, double xWidth, double xHeight, bool padded = true)
+        : this(form, padded, false)
     {
         Size size = new(XWidth(xWidth), XHeight(xHeight));
         Size maxSize = new(size.Width * 10, size.Height * 10);
@@ -432,13 +434,12 @@ public sealed class Ui
         string details = null
     )
     {
-        TaskDialogPage taskDialogPage =
-            new()
-            {
-                Heading = heading,
-                Caption = caption,
-                Icon = icon,
-            };
+        TaskDialogPage taskDialogPage = new()
+        {
+            Heading = heading,
+            Caption = caption,
+            Icon = icon,
+        };
         if (details != null)
         {
             taskDialogPage.Text = details;
@@ -462,13 +463,12 @@ public sealed class Ui
 
     public static void ShowError(IWin32Window owner, string title, string message, string details = null)
     {
-        TaskDialogPage taskDialogPage =
-            new()
-            {
-                Heading = message,
-                Caption = title,
-                Icon = TaskDialogIcon.Error,
-            };
+        TaskDialogPage taskDialogPage = new()
+        {
+            Heading = message,
+            Caption = title,
+            Icon = TaskDialogIcon.Error,
+        };
         if (details != null)
         {
             taskDialogPage.Text = details;
@@ -501,13 +501,12 @@ public sealed class Ui
             details = extended.Details;
         }
 
-        TaskDialogPage taskDialogPage =
-            new()
-            {
-                Heading = extended?.Heading ?? message,
-                Caption = title,
-                Icon = TaskDialogIcon.Error,
-            };
+        TaskDialogPage taskDialogPage = new()
+        {
+            Heading = extended?.Heading ?? message,
+            Caption = title,
+            Icon = TaskDialogIcon.Error,
+        };
         if (details != null)
         {
             taskDialogPage.Text = details;
@@ -551,21 +550,19 @@ public sealed class Ui
         var padding = thickness / 2;
         var diagonalAlignmentOffset = 0;
 
-        Rectangle verticalRect =
-            new(
-                x: diagonalAlignmentOffset + centeringOffset,
-                y: diagonalAlignmentOffset + offset,
-                width: thickness,
-                height: barLength
-            );
+        Rectangle verticalRect = new(
+            x: diagonalAlignmentOffset + centeringOffset,
+            y: diagonalAlignmentOffset + offset,
+            width: thickness,
+            height: barLength
+        );
 
-        Rectangle horizontalRect =
-            new(
-                x: diagonalAlignmentOffset + offset,
-                y: diagonalAlignmentOffset + centeringOffset,
-                width: barLength,
-                height: thickness
-            );
+        Rectangle horizontalRect = new(
+            x: diagonalAlignmentOffset + offset,
+            y: diagonalAlignmentOffset + centeringOffset,
+            width: barLength,
+            height: thickness
+        );
 
         var verticalRectExpanded = verticalRect;
         var horizontalRectExpanded = horizontalRect;

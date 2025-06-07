@@ -51,7 +51,7 @@ public sealed class SqlServerImportSession : ImportSessionBase<SqlConnectionStri
             Database = builder.InitialCatalog,
             Username = builder.UserID,
             Password = builder.Password,
-            UseWindowsAuth = builder.IntegratedSecurity
+            UseWindowsAuth = builder.IntegratedSecurity,
         };
     }
 

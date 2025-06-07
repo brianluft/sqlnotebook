@@ -121,7 +121,7 @@ public static class HelpSearcher
                     ["@path"] = filePath,
                     ["@book"] = "SQLite Documentation",
                     ["@title"] = title,
-                    ["@html"] = content
+                    ["@html"] = content,
                 }
             );
             notebook.Execute(
@@ -130,7 +130,7 @@ public static class HelpSearcher
                 {
                     ["@id"] = i,
                     ["@title"] = title,
-                    ["@text"] = text
+                    ["@text"] = text,
                 }
             );
         }
@@ -166,8 +166,8 @@ public static class HelpSearcher
             }
         }
         var text = WebUtility.HtmlDecode(
-            htmlDoc.DocumentNode.InnerText
-                .Replace("\r", " ")
+            htmlDoc
+                .DocumentNode.InnerText.Replace("\r", " ")
                 .Replace("\n", " ")
                 .Replace("\t", " ")
                 .Replace("&nbsp;", " ")
@@ -195,7 +195,7 @@ public static class HelpSearcher
                 ["@keyword"] = string.Join(
                     " ",
                     keyword.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.DoubleQuote())
-                )
+                ),
             }
         );
         return (
@@ -207,7 +207,7 @@ public static class HelpSearcher
             {
                 Path = path,
                 Title = title,
-                Snippet = snippet
+                Snippet = snippet,
             }
         ).ToList();
     }

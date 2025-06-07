@@ -175,12 +175,11 @@ public partial class QueryEmbeddedControl : UserControl
         {
             var (dt, sdt) = dataTables[i];
             _dataTables.Add(dataTables[i]);
-            TabPage page =
-                new(
-                    dt.Rows.Count == sdt.FullCount
-                        ? $"Result ({sdt.FullCount:#,##0} row{(sdt.FullCount == 1 ? "" : "s")})"
-                        : $"Result ({sdt.FullCount:#,##0} row{(sdt.FullCount == 1 ? "" : "s")}; {dt.Rows.Count:#,##0} shown)"
-                );
+            TabPage page = new(
+                dt.Rows.Count == sdt.FullCount
+                    ? $"Result ({sdt.FullCount:#,##0} row{(sdt.FullCount == 1 ? "" : "s")})"
+                    : $"Result ({sdt.FullCount:#,##0} row{(sdt.FullCount == 1 ? "" : "s")}; {dt.Rows.Count:#,##0} shown)"
+            );
             _tabs.TabPages.Add(page);
             _ui.Init(page);
             page.Controls.Add(grids[i]);
@@ -288,19 +287,21 @@ public partial class QueryEmbeddedControl : UserControl
         List<(DataTable DataTable, SimpleDataTable Sdt)> resultSets = new();
         if (Output.ScalarResult != null)
         {
-            MemorySimpleDataTable sdt =
-                new(new[] { "value" }, new object[][] { new object[] { Output.ScalarResult } }, 1);
+            MemorySimpleDataTable sdt = new(
+                new[] { "value" },
+                new object[][] { new object[] { Output.ScalarResult } },
+                1
+            );
             var dt = sdt.ToDataTable();
             resultSets.Add((dt, sdt));
         }
         if (Output.TextOutput.Any())
         {
-            MemorySimpleDataTable sdt =
-                new(
-                    new[] { "message" },
-                    Output.TextOutput.Select(x => new object[] { x }).ToList(),
-                    Output.TextOutput.Count
-                );
+            MemorySimpleDataTable sdt = new(
+                new[] { "message" },
+                Output.TextOutput.Select(x => new object[] { x }).ToList(),
+                Output.TextOutput.Count
+            );
             var dt = sdt.ToDataTable();
             resultSets.Add((dt, sdt));
         }
@@ -326,14 +327,13 @@ public partial class QueryEmbeddedControl : UserControl
 
         var (dt, sdt) = _dataTables[_tabs.SelectedIndex];
 
-        using SendToTableForm f =
-            new(
-                "results",
-                _manager.Items
-                    .Where(x => x.Type == NotebookItemType.Table || x.Type == NotebookItemType.View)
-                    .Select(x => x.Name)
-                    .ToList()
-            );
+        using SendToTableForm f = new(
+            "results",
+            _manager
+                .Items.Where(x => x.Type == NotebookItemType.Table || x.Type == NotebookItemType.View)
+                .Select(x => x.Name)
+                .ToList()
+        );
         if (f.ShowDialog(this) != DialogResult.OK)
         {
             return;
@@ -355,8 +355,8 @@ public partial class QueryEmbeddedControl : UserControl
             }
         }
 
-        var columnDefs = dt.Columns
-            .Cast<DataColumn>()
+        var columnDefs = dt
+            .Columns.Cast<DataColumn>()
             .Select(x => $"{x.ColumnName.DoubleQuote()} {GetSqlNameForDbType(x.DataType)}");
         var createSql = $"CREATE TABLE {name.DoubleQuote()} ({string.Join(", ", columnDefs)})";
 
@@ -399,11 +399,9 @@ public partial class QueryEmbeddedControl : UserControl
                         {
                             var scalarResultTabIndex = output.ScalarResult != null ? 0 : -1;
                             var textTabIndex =
-                                output.ScalarResult == null && output.TextOutput.Any()
-                                    ? 0
-                                    : output.ScalarResult != null && output.TextOutput.Any()
-                                        ? 1
-                                        : -1;
+                                output.ScalarResult == null && output.TextOutput.Any() ? 0
+                                : output.ScalarResult != null && output.TextOutput.Any() ? 1
+                                : -1;
                             var tablesTabOffset =
                                 (output.ScalarResult != null ? 1 : 0) + (output.TextOutput.Any() ? 1 : 0);
 

@@ -100,8 +100,11 @@ public static class Extensions
     public static ImageList PadListViewIcons(this ImageList imageList, Graphics graphics)
     {
         var scale = graphics.DpiX / 96;
-        ImageList paddedImageList =
-            new() { ImageSize = new Size((int)(18 * scale), (int)(17 * scale)), ColorDepth = ColorDepth.Depth32Bit };
+        ImageList paddedImageList = new()
+        {
+            ImageSize = new Size((int)(18 * scale), (int)(17 * scale)),
+            ColorDepth = ColorDepth.Depth32Bit,
+        };
         foreach (Image image in imageList.Images)
         {
             Bitmap newImage = new((int)(18 * scale), (int)(16 * scale), image.PixelFormat);
@@ -136,7 +139,7 @@ public static class Extensions
             Width = self.Left - 2 - (leftMargin),
             Height = 1,
             BackColor = SystemColors.ControlDark,
-            Anchor = AnchorStyles.Left | AnchorStyles.Top
+            Anchor = AnchorStyles.Left | AnchorStyles.Top,
         };
         var rightLine = new Panel
         {
@@ -145,7 +148,7 @@ public static class Extensions
             Width = self.Parent.Width - rightMargin - (self.Right + 2),
             Height = 1,
             BackColor = SystemColors.ControlDark,
-            Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
+            Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right,
         };
         self.Parent.Controls.Add(leftLine);
         self.Parent.Controls.Add(rightLine);
@@ -235,7 +238,7 @@ public static class Extensions
                 {
                     double n => $"{n:0.####}",
                     byte[] bytes => BlobUtil.ToString(bytes),
-                    _ => row[i]
+                    _ => row[i],
                 };
             }
             dt.LoadDataRow(objs, true);
@@ -352,7 +355,8 @@ public static class Extensions
 
     #region Enum Descriptions
     // https://www.codementor.io/cerkit/giving-an-enum-a-string-value-using-the-description-attribute-6b4fwdle0
-    public static string GetDescription<T>(this T e) where T : IConvertible
+    public static string GetDescription<T>(this T e)
+        where T : IConvertible
     {
         string description = null;
 
@@ -382,7 +386,8 @@ public static class Extensions
         return description;
     }
 
-    public static T GetValueFromDescription<T>(this T e, string description) where T : IConvertible
+    public static T GetValueFromDescription<T>(this T e, string description)
+        where T : IConvertible
     {
         if (e is Enum)
         {
@@ -408,7 +413,8 @@ public static class Extensions
         return default(T);
     }
 
-    public static IEnumerable<string> GetDescriptions<T>(this T e) where T : IConvertible
+    public static IEnumerable<string> GetDescriptions<T>(this T e)
+        where T : IConvertible
     {
         if (e is Enum)
         {
@@ -463,7 +469,8 @@ public static class Extensions
                 Bottom = bottom;
             }
 
-            public RECT(Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom) { }
+            public RECT(Rectangle r)
+                : this(r.Left, r.Top, r.Right, r.Bottom) { }
         }
 
         public const int EM_GETRECT = 0xB2;

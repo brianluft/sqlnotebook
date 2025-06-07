@@ -54,8 +54,11 @@ public partial class DatabaseImportTablesForm : ZForm
         _srcGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
         _srcGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         _srcPanel.Controls.Add(_srcGrid);
-        DataGridViewTextBoxColumn srcNameColumn =
-            new() { AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, DataPropertyName = "display_name" };
+        DataGridViewTextBoxColumn srcNameColumn = new()
+        {
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            DataPropertyName = "display_name",
+        };
         _srcGrid.Columns.Add(srcNameColumn);
         _srcView = _dataTable.AsDataView();
         _srcView.RowFilter = "to_be_imported = 0";
@@ -74,8 +77,11 @@ public partial class DatabaseImportTablesForm : ZForm
         _dstGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
         _dstGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         _dstPanel.Controls.Add(_dstGrid);
-        DataGridViewTextBoxColumn dstColumn =
-            new() { AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, DataPropertyName = "display_name" };
+        DataGridViewTextBoxColumn dstColumn = new()
+        {
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            DataPropertyName = "display_name",
+        };
         _dstGrid.Columns.Add(dstColumn);
         var dstView = _dataTable.AsDataView();
         dstView.RowFilter = "to_be_imported = 1";

@@ -685,7 +685,7 @@ public sealed class ScriptParser
             {
                 Sql = q.Substring(start, result.NumValidTokens),
                 SourceToken = tok,
-                SqliteSyntax = syntaxNode
+                SqliteSyntax = syntaxNode,
             };
         }
         else if (result.InvalidMessage != null)

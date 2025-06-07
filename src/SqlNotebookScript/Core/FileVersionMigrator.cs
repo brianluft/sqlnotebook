@@ -1,7 +1,4 @@
-﻿using HtmlAgilityPack;
-using SqlNotebookScript.Core.SqliteInterop;
-using SqlNotebookScript.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -11,6 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using SqlNotebookScript.Core.SqliteInterop;
+using SqlNotebookScript.Utils;
 
 namespace SqlNotebookScript.Core;
 
@@ -161,7 +161,7 @@ public static class FileVersionMigrator
                         {
                             Name = item.Name,
                             Sql = item.Data,
-                            Parameters = scriptParameters.TryGetValue(item.Name, out var p) ? p : new()
+                            Parameters = scriptParameters.TryGetValue(item.Name, out var p) ? p : new(),
                         }
                     );
                 }
@@ -176,7 +176,7 @@ public static class FileVersionMigrator
                         new PageNotebookItemRecord
                         {
                             Name = item.Name,
-                            Blocks = new() { new TextPageBlockRecord { Content = str, } }
+                            Blocks = new() { new TextPageBlockRecord { Content = str } },
                         }
                     );
                 }

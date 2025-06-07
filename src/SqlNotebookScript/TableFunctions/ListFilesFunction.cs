@@ -88,7 +88,7 @@ public sealed class ListFilesFunction : CustomTableFunction
             Path.GetDirectoryName(filePath),
             Path.GetFileName(filePath),
             Path.GetExtension(filePath),
-            File.GetLastWriteTime(filePath)
+            File.GetLastWriteTime(filePath),
         };
     }
 }

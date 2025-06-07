@@ -15,7 +15,7 @@ public static class BinaryReaderWriterExtensions
             3 => reader.ReadSingle(),
             4 => reader.ReadDouble(),
             5 => reader.ReadString(),
-            _ => throw new Exception("The file is corrupt.")
+            _ => throw new Exception("The file is corrupt."),
         };
     }
 

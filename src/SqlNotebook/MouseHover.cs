@@ -18,11 +18,9 @@ public sealed class MouseHover
     public bool MouseIsDown { get; private set; }
 
     public MouseHoverState State =>
-        MouseIsDown && MouseIsOver
-            ? MouseHoverState.Down
-            : MouseIsDown || MouseIsOver
-                ? MouseHoverState.Hover
-                : MouseHoverState.Normal;
+        MouseIsDown && MouseIsOver ? MouseHoverState.Down
+        : MouseIsDown || MouseIsOver ? MouseHoverState.Hover
+        : MouseHoverState.Normal;
 
     public bool HoverOrDown => MouseIsDown || MouseIsOver;
 

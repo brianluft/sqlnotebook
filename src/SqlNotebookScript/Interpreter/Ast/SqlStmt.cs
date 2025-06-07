@@ -14,5 +14,7 @@ public sealed class SqlStmt : Stmt
     public List<Stmt> RunAfter { get; set; } = new List<Stmt>();
 
     protected override IEnumerable<Node> GetChildren() =>
-        new Node[] { SqliteSyntax }.Concat(RunBefore).Concat(RunAfter);
+        new Node[] { SqliteSyntax }
+            .Concat(RunBefore)
+            .Concat(RunAfter);
 }

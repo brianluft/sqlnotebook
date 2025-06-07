@@ -71,7 +71,7 @@ public partial class TableDocumentControl : UserControl, IDocumentControl, IDocu
     private void ScriptBtn_Click(object sender, EventArgs e)
     {
         var name = _manager.NewScript();
-        _manager.SetItemData(name, new ScriptNotebookItemRecord { Name = name, Sql = _query, });
+        _manager.SetItemData(name, new ScriptNotebookItemRecord { Name = name, Sql = _query });
         _manager.OpenItem(new NotebookItem(NotebookItemType.Script, name));
     }
 }

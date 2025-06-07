@@ -21,6 +21,6 @@ public sealed class ImportDatabaseStmt : Stmt
             SrcTableNameExprOrNull,
             SqlExprOrNull,
             DstTableNameExprOrNull,
-            OptionsList
+            OptionsList,
         };
 }

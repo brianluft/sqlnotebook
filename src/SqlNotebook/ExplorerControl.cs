@@ -37,8 +37,11 @@ public partial class ExplorerControl : UserControl
         _toolStrip.Padding = new(this.Scaled(1), 0, 0, 0);
         _toolStrip.BackColor = SystemColors.Window;
 
-        ImageList imageList =
-            new() { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new(this.Scaled(16), this.Scaled(16)), };
+        ImageList imageList = new()
+        {
+            ColorDepth = ColorDepth.Depth32Bit,
+            ImageSize = new(this.Scaled(16), this.Scaled(16)),
+        };
 
         // Same order as the ICON_* constants.
         // ICON_PAGE
@@ -120,7 +123,7 @@ public partial class ExplorerControl : UserControl
                 NotebookItemType.Script => 1,
                 NotebookItemType.Table => 2,
                 NotebookItemType.View => 2,
-                _ => throw new NotImplementedException()
+                _ => throw new NotImplementedException(),
             };
     }
 
@@ -167,7 +170,7 @@ public partial class ExplorerControl : UserControl
                                     NotebookItemType.Script => ICON_SCRIPT,
                                     NotebookItemType.Table => ICON_TABLE,
                                     NotebookItemType.View => ICON_VIEW,
-                                    _ => throw new NotImplementedException()
+                                    _ => throw new NotImplementedException(),
                                 };
                             }
                             child.SelectedImageIndex = child.ImageIndex;
