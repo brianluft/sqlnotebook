@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# SQL Notebook
+C#, .NET 7.0, Windows Forms
+"Open source app for casual data exploration in SQL. Import your data from CSV, Excel, Microsoft SQL Server, PostgreSQL, and MySQL. Then use a Jupyter-style notebook interface for exploratory queries, and write stored procedures for reusable logic. SQL Notebook is powered by an extended SQLite engine, supporting both standard SQL queries and SQL Notebook-specific commands and functions."
+
+- ALWAYS build after making code changes, using `scripts/build.sh`
+
