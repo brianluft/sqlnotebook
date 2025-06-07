@@ -32,6 +32,7 @@ public sealed class ScriptRunner
             [typeof(Ast.ExecuteStmt)] = (s, e) => ExecuteExecuteStmt((Ast.ExecuteStmt)s, e),
             [typeof(Ast.ReturnStmt)] = (s, e) => ExecuteReturnStmt((Ast.ReturnStmt)s, e),
             [typeof(Ast.ThrowStmt)] = (s, e) => ExecuteThrowStmt((Ast.ThrowStmt)s, e),
+            [typeof(Ast.SaveStmt)] = (s, e) => ExecuteSaveStmt((Ast.SaveStmt)s, e),
             [typeof(Ast.RethrowStmt)] = (s, e) => ExecuteRethrowStmt((Ast.RethrowStmt)s, e),
             [typeof(Ast.TryCatchStmt)] = (s, e) => ExecuteTryCatchStmt((Ast.TryCatchStmt)s, e),
             [typeof(Ast.ImportCsvStmt)] = (s, e) => ExecuteImportCsvStmt((Ast.ImportCsvStmt)s, e),
@@ -437,6 +438,32 @@ public sealed class ScriptRunner
         else
         {
             Throw(Notebook.ErrorMessage);
+        }
+    }
+
+    private void ExecuteSaveStmt(Ast.SaveStmt stmt, ScriptEnv env)
+    {
+        try
+        {
+            if (stmt.FilenameExpr != null)
+            {
+                // Save with specified filename
+                var filename = EvaluateIdentifierOrExpr(stmt.FilenameExpr, env);
+                _notebook.SaveAs(filename);
+            }
+            else
+            {
+                // Save to existing filename
+                if (_notebook.OriginalFilePath == null)
+                {
+                    throw new Exception("No filename was specified and the notebook is untitled.");
+                }
+                _notebook.Save();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"SAVE: {ex.GetExceptionMessage()}", ex);
         }
     }
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <title>SAVE Statement</title>
+</head>
+<body>
+  <h1><code>SAVE</code> Statement</h1>Saves the notebook to disk.
+  <h2>Syntax</h2>
+  <p><tt>SAVE;</tt><tt><br></tt> <tt>SAVE <i>filename</i>;</tt><br></p>
+  <h2>Parameters</h2>
+  <ul class="args">
+    <li>
+      <i>filename</i>: text (optional)<br>
+      The path where the notebook should be saved. If not provided, the notebook is saved to its existing filename.
+      If the notebook is untitled and no filename is provided, an error is thrown.
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <ul class="examples">
+    <li><code>SAVE 'C:\Data\my-notebook.sqlnb';</code><br>
+    Saves the notebook to the specified path.</li>
+    <li><code>SAVE;</code><br>
+    Saves the notebook to its existing filename. If the notebook is untitled, this will throw an error.</li>
+  </ul>
+  <h2>Remarks</h2>
+  <p>The <code>SAVE</code> statement is particularly useful in scripts to ensure changes are persisted to disk.</p>
+</body>
+</html> 

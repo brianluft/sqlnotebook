@@ -47,7 +47,7 @@ SqlNotebookCmd --help
 SqlNotebookCmd "data.sqlnb" "ExportData" > output.csv</pre>
   <h2>Notes</h2>
   <ul>
-    <li>Any changes made by the script are discarded and not saved to the file.</li>
+    <li>By default, any changes made by the script are discarded and not saved to the file. To persist changes, use the <code>SAVE</code> statement within your script.</li>
     <li>The script must exist in the notebook's script collection. Page scripts are not accessible through this tool.</li>
     <li>Parameters and variables declared in the script work normally, but cannot be passed from the command line.</li>
     <li>All output is written to standard output, making it suitable for piping to other command-line tools.</li>

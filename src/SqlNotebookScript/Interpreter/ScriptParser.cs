@@ -60,6 +60,8 @@ public sealed class ScriptParser
                 return ParseReturnStmt(q);
             case "throw":
                 return ParseThrowStmt(q);
+            case "save":
+                return ParseSaveStmt(q);
             case "set":
                 return ParseSetStmt(q);
             case "if":
@@ -252,6 +254,18 @@ public sealed class ScriptParser
         {
             stmt.HasErrorValues = true;
             stmt.Message = ParseExpr(q);
+        }
+        ConsumeSemicolon(q);
+        return stmt;
+    }
+
+    private Ast.Stmt ParseSaveStmt(TokenQueue q)
+    {
+        var stmt = new Ast.SaveStmt { SourceToken = q.SourceToken };
+        q.Take("save");
+        if (PeekExpr(q))
+        {
+            stmt.FilenameExpr = ParseIdentifierOrExpr(q);
         }
         ConsumeSemicolon(q);
         return stmt;
