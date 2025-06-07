@@ -5,6 +5,8 @@ alwaysApply: false
 ---
 To add a new feature to our extended SQL language, first decide what _kind_ of language component to add. The four types below are in order of increasing difficulty. Choose the first one that suits your feature.
 
+When writing documentation, you can write Pikchr diagrams, but I must convert the .pikchr to .svg for you. Always ask me to do this for you after creating a .pikchr file in `doc/art/`. I will also show you what the diagram looks like so you can make iterative improvements.
+
 # Scalar-valued function
 This is an SQLite custom function.
 1. Implement subclass of `SqlNotebookScript/CustomScalarFunction.cs` and put your new file in `SqlNotebookScript/ScalarFunctions/`. Read `SqlNotebookScript/ScalarFunctions/SystemFunctions.cs` for examples.

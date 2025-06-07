@@ -1,0 +1,36 @@
+linerad = 10px
+linewid *= 0.5
+
+ENT: circle radius 10%
+arrow 2*arrowht
+FOR: oval "FOREACH" fit
+arrow 2*arrowht
+oval "(" fit
+arrow 2*arrowht
+VARLIST: box "variable-list" fit
+arrow 2*arrowht
+PAR: oval ")" fit
+arrow 2*arrowht
+oval "IN" fit
+arrow 2*arrowht
+TBL: box "table-name" fit
+
+STA: box "statement" fit with .w at 2.5*FOR.ht below FOR.w
+
+right
+BEG: oval "BEGIN" fit with .w at 1.25*FOR.ht below STA.w
+arrow 4*arrowht
+STB: box "statement" fit
+arrow 4*arrowht
+oval "END" fit
+arrow 2*arrowht
+arrow 25*arrowht
+EXIT: circle same
+
+A1: arrow from TBL.e right then down 1.25*FOR.ht then left even with .5<FOR.w,TBL.e>
+A2: arrow from A1.end left even with ENT.w then down even with STA.w then to STA.w
+arrow from A1.end left even with ENT.w then down even with BEG.w then to BEG.w
+A4: arrow from STB.e right arrowht*2 then down 1*FOR.ht then left even with .5<STB.w,STB.e>
+A5: arrow from A4.end left even with STB.w left 2*arrowht then up even with STB.w then to STB.w
+A6: arrow from STA.e right even with END.e right 2*arrowht
+arrow from A6.end right then down even with EXIT.w then to EXIT.w 

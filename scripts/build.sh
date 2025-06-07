@@ -74,6 +74,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo "--- Docs ---"
+(cd ../../ && powershell.exe -NoProfile "ps1/Update-Docs.ps1") 2>&1 >"$LOGFILE"
+if [ $? -ne 0 ]; then
+    cat "$LOGFILE"
+    rm "$LOGFILE"
+    echo "Update-Docs.ps1 failed."
+    exit 1
+fi
+
 rm "$LOGFILE"
 
 echo "--- SqlNotebook ---"

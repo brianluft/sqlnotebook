@@ -49,13 +49,13 @@
         - [x] Use `PRINT` for scalar values, `SELECT` for tables
 
     ### 5. Write Documentation  
-    - [ ] Create `doc/foreach-stmt.html`
-        - [ ] Follow the exact structure of `doc/while-stmt.html` and `doc/for-stmt.html`
-        - [ ] Include syntax diagram (can create using pikchr like other statements)
-        - [ ] Document parameters: variable-list, table-name, statement
-        - [ ] Include practical examples
-        - [ ] Mention BREAK/CONTINUE support
-        - [ ] Create `doc/art/foreach-stmt-syntax.pikchr` for the syntax diagram
+    - [x] Create `doc/foreach-stmt.html`
+        - [x] Follow the exact structure of `doc/while-stmt.html` and `doc/for-stmt.html`
+        - [x] Include syntax diagram (can create using pikchr like other statements)
+        - [x] Document parameters: variable-list, table-name, statement
+        - [x] Include practical examples
+        - [x] Mention BREAK/CONTINUE support
+        - [x] Create `doc/art/foreach-stmt-syntax.pikchr` for the syntax diagram
 
     ### 6. Build and Test
     - [x] Run `scripts/build.sh` to build after each major change
