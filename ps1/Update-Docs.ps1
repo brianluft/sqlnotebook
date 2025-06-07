@@ -243,7 +243,6 @@ function Update-DocWebsite {
     copy .\favicon.ico .\site\
     copy .\robots.txt .\site\
     copy .\sitemap.txt .\site\
-    copy .\github-btn.html .\site\
 
     copy -Force "$docDir\art\*.svg" .\site\art\
     foreach ($filePath in [System.IO.Directory]::GetFiles("$webDir\site\art", "*.svg")) {
