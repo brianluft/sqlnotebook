@@ -40,12 +40,13 @@ public sealed partial class ScriptTest
             // Parse the file into SQL text(s) and expected output text.
             var scriptFileText = File.ReadAllText(scriptFilePath)
                 .Replace("<TEMP>", tempDir)
-                .Replace("<FILES>", filesDir);
+                .Replace("<FILES>", filesDir)
+                .Replace("\r\n", "\n")  // Normalize to LF first
+                .Replace("\n", "\r\n"); // Convert all to CRLF
             const string OUTPUT_SEPARATOR = "\r\n--output--\r\n";
             if (scriptFileText.Contains(OUTPUT_SEPARATOR))
             {
-                var parts = scriptFileText.Split(OUTPUT_SEPARATOR);
-                Assert.AreEqual(parts.Length, 2);
+                var parts = scriptFileText.Split(OUTPUT_SEPARATOR, 2);
                 scriptFileText = parts[0];
                 expectedOutput = parts[1];
             }

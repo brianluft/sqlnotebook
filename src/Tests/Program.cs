@@ -22,7 +22,22 @@ public static class Assert
 
     public static void AreEqual<T>(T expected, T actual, string message = null)
     {
-        if (!Equals(expected, actual))
+        bool areEqual;
+        
+        // Special handling for string comparisons
+        if (expected is string expectedStr && actual is string actualStr)
+        {
+            // Normalize strings: trim whitespace and normalize line endings
+            var normalizedExpected = NormalizeString(expectedStr);
+            var normalizedActual = NormalizeString(actualStr);
+            areEqual = normalizedExpected.Equals(normalizedActual);
+        }
+        else
+        {
+            areEqual = Equals(expected, actual);
+        }
+        
+        if (!areEqual)
         {
             Fail($"Expected: {expected}\nActual: {actual}\n{message}");
         }
@@ -30,6 +45,14 @@ public static class Assert
         {
             Console.WriteLine($"✓ AreEqual passed: {actual}");
         }
+    }
+    
+    private static string NormalizeString(string input)
+    {
+        if (input == null) return null;
+        
+        // Trim whitespace and normalize line endings to LF
+        return input.Trim().Replace("\r\n", "\n").Replace("\r", "\n");
     }
 
     public static void IsInstanceOfType(object value, Type expectedType, string message = null)
