@@ -7,5 +7,8 @@ alwaysApply: true
 C#, .NET 7.0, Windows Forms
 "Open source app for casual data exploration in SQL. Import your data from CSV, Excel, Microsoft SQL Server, PostgreSQL, and MySQL. Then use a Jupyter-style notebook interface for exploratory queries, and write stored procedures for reusable logic. SQL Notebook is powered by an extended SQLite engine, supporting both standard SQL queries and SQL Notebook-specific commands and functions."
 
+# Rules
 - ALWAYS build after making code changes, using `scripts/build.sh`
 
+# Suggestions
+- Use `sed -n '8,8p' filename` to find the code at or around a particular line number

@@ -11,11 +11,10 @@ Carefully follow this process step by step.
     - If there are any errors or code coverage holes, then your assigned task is to fix that.
     - If the build succeeded, read the file [TASKS.md](mdc:project/TASKS.md). Your assignment is the next unchecked task. You may do multiple consecutive related tasks at once if it makes sense. Choose the tasks you intend to perform ahead of time and stick to those tasks ONLY.
 4. Perform the chosen tasks to completion.
-5. Run build.sh again. Line and branch coverage must reach 100%, NO exceptions. You're not done until it's 100%.
-6. If everything is good, format the code with `/workspaces/threadloaf/scripts/format.sh`.
+5. Run `scripts/build.sh` again to confirm.
+6. If everything is good, format the code with `scripts/format.sh`.
 7. Update TASKS.md to check off the tasks you completed.
 8. Commit to git with a short one-line commit message.
 10. STOP. You must give me an opportunity to review. Do not start more tasks.
 
 The tasks are expected to be doable. If you run into serious problems, STOP and ask for help.
-
