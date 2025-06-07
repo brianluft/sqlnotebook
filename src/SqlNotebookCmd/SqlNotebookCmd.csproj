@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
@@ -9,9 +8,7 @@
     <LangVersion>latest</LangVersion>
     <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\SqlNotebookScript\SqlNotebookScript.csproj" />
   </ItemGroup>
-
 </Project>

@@ -208,6 +208,9 @@
     <None Update="doc\split-func.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="doc\sqlnotebook-cmd.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="doc\sqlnotebook.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
