@@ -41,6 +41,8 @@ public sealed class ScriptRunner
             [typeof(Ast.ImportXlsStmt)] = (s, e) => ExecuteImportXlsStmt((Ast.ImportXlsStmt)s, e),
             [typeof(Ast.ImportDatabaseStmt)] = (s, e) => ExecuteImportDatabaseStmt((Ast.ImportDatabaseStmt)s, e),
             [typeof(Ast.ExportCsvStmt)] = (s, e) => ExecuteExportCsvStmt((Ast.ExportCsvStmt)s, e),
+            [typeof(Ast.DropScriptStmt)] = (s, e) => ExecuteDropScriptStmt((Ast.DropScriptStmt)s, e),
+            [typeof(Ast.DropPageStmt)] = (s, e) => ExecuteDropPageStmt((Ast.DropPageStmt)s, e),
         };
     }
 
@@ -518,6 +520,50 @@ public sealed class ScriptRunner
     private void ExecuteExportCsvStmt(Ast.ExportCsvStmt stmt, ScriptEnv env)
     {
         Notebook.WithCancellationToken(cancel => ExportCsvStmtRunner.Run(_notebook, env, this, stmt, cancel));
+    }
+
+    private void ExecuteDropScriptStmt(Ast.DropScriptStmt stmt, ScriptEnv env)
+    {
+        var scriptName = EvaluateIdentifierOrExpr(stmt.ScriptName, env);
+
+        // Find the script in the user data
+        var itemRecord = _notebook.UserData.Items.FirstOrDefault(x =>
+            x is ScriptNotebookItemRecord && string.Equals(x.Name, scriptName, StringComparison.OrdinalIgnoreCase)
+        );
+
+        if (itemRecord == null)
+        {
+            throw new ScriptException($"There is no script named \"{scriptName}\".");
+        }
+
+        // Remove from user data
+        _notebook.UserData.Items.Remove(itemRecord);
+        if (itemRecord is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+    }
+
+    private void ExecuteDropPageStmt(Ast.DropPageStmt stmt, ScriptEnv env)
+    {
+        var pageName = EvaluateIdentifierOrExpr(stmt.PageName, env);
+
+        // Find the page in the user data
+        var itemRecord = _notebook.UserData.Items.FirstOrDefault(x =>
+            x is PageNotebookItemRecord && string.Equals(x.Name, pageName, StringComparison.OrdinalIgnoreCase)
+        );
+
+        if (itemRecord == null)
+        {
+            throw new ScriptException($"There is no page named \"{pageName}\".");
+        }
+
+        // Remove from user data
+        _notebook.UserData.Items.Remove(itemRecord);
+        if (itemRecord is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 
     public T EvaluateExpr<T>(Ast.Expr expr, ScriptEnv env)

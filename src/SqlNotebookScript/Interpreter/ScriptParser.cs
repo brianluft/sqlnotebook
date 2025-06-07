@@ -76,6 +76,13 @@ public sealed class ScriptParser
                 return ParseForStmt(q);
             case "foreach":
                 return ParseForeachStmt(q);
+            case "drop":
+                return q.Peek(1) switch
+                {
+                    "script" => ParseDropScriptStmt(q),
+                    "page" => ParseDropPageStmt(q),
+                    _ => ParseSqlStmt(q),
+                };
             default:
                 return ParseSqlStmt(q);
         }
@@ -316,6 +323,26 @@ public sealed class ScriptParser
         }
         q.Take("end");
         q.Take("catch");
+        return stmt;
+    }
+
+    private Ast.Stmt ParseDropScriptStmt(TokenQueue q)
+    {
+        var stmt = new Ast.DropScriptStmt { SourceToken = q.SourceToken };
+        q.Take("drop");
+        q.Take("script");
+        stmt.ScriptName = ParseIdentifierOrExpr(q);
+        ConsumeSemicolon(q);
+        return stmt;
+    }
+
+    private Ast.Stmt ParseDropPageStmt(TokenQueue q)
+    {
+        var stmt = new Ast.DropPageStmt { SourceToken = q.SourceToken };
+        q.Take("drop");
+        q.Take("page");
+        stmt.PageName = ParseIdentifierOrExpr(q);
+        ConsumeSemicolon(q);
         return stmt;
     }
 

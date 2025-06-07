@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <title>DROP Statement</title>
+</head>
+<body>
+  <h1><code>DROP</code> Statement</h1>Deletes a script or page from the notebook.
+  <h2>Syntax</h2>
+  <p><tt>DROP SCRIPT <i>script-name</i>;</tt><br>
+  <tt>DROP PAGE <i>page-name</i>;</tt><br></p>
+  <h2>Parameters</h2>
+  <ul class="args">
+    <li>
+      <i>script-name</i>: text<br>
+      The name of the script to delete. This can be a string literal or an expression that evaluates to a string.
+    </li>
+    <li>
+      <i>page-name</i>: text<br>
+      The name of the page to delete. This can be a string literal or an expression that evaluates to a string.
+    </li>
+  </ul>
+  <h2>Remarks</h2>
+  <p>The DROP statement permanently removes scripts and pages from the notebook. Script and page names are case-insensitive.</p>
+  <p>If the specified script or page does not exist, an error is thrown.</p>
+  <p>If the user has the script or page open in the UI when it is deleted via a DROP statement, the editor will be closed automatically.</p>
+  <h2>Examples</h2>
+  <ul class="examples">
+    <li><code>DROP SCRIPT MyScript;</code><br>
+    Deletes the script named "MyScript".</li>
+    <li><code>DROP PAGE MyPage;</code><br>
+    Deletes the page named "MyPage".</li>
+    <li><code>DROP SCRIPT ('Report' || '2024');</code><br>
+    Deletes the script whose name is the result of concatenating "Report" and "2024", i.e., "Report2024".</li>
+  </ul>
+</body>
+</html> 
