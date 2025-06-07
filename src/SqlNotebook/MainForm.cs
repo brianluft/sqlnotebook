@@ -413,7 +413,7 @@ public partial class MainForm : ZForm
             new[] { siteButton, Ui.OK },
             TaskDialogIcon.Information,
             defaultIsFirst: false,
-            details: $"Version {Application.ProductVersion}\r\n© 2016-2024 Brian Luft"
+            details: $"Version {Application.ProductVersion}\r\n© 2016-2025 Brian Luft"
         );
         if (choice == siteButton)
         {

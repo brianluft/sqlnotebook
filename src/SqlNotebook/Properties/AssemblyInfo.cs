@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SQL Notebook")]
-[assembly: AssemblyCopyright("© 2016-2024 Brian Luft")]
+[assembly: AssemblyCopyright("© 2016-2025 Brian Luft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
