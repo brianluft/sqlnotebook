@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\ext\dockpanelsuite\WinFormsUI\WinFormsUI.csproj" />
     <ProjectReference Include="..\..\ext\Windows-API-Code-Pack\source\WindowsAPICodePack\Core\Core.csproj" />
     <ProjectReference Include="..\..\ext\Windows-API-Code-Pack\source\WindowsAPICodePack\Shell\Shell.csproj" />
+    <ProjectReference Include="..\SqlNotebookCmd\SqlNotebookCmd.csproj" />
     <ProjectReference Include="..\SqlNotebookScript\SqlNotebookScript.csproj" />
   </ItemGroup>
   <ItemGroup>

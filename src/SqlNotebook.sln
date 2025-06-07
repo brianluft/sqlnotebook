@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "..\ext\dockpa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeVS2012Light", "..\ext\dockpanelsuite\WinFormsUI\ThemeVS2012Light.csproj", "{7D3972E7-BE3B-3409-D802-4DD1D58548D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlNotebookCmd", "SqlNotebookCmd\SqlNotebookCmd.csproj", "{69D932AE-9C9C-9BD9-3576-90196907F39E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -218,6 +220,22 @@ Global
 		{7D3972E7-BE3B-3409-D802-4DD1D58548D1}.Release|x64.Build.0 = Release|Any CPU
 		{7D3972E7-BE3B-3409-D802-4DD1D58548D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{7D3972E7-BE3B-3409-D802-4DD1D58548D1}.Release|x86.Build.0 = Release|Any CPU
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|Any CPU.Build.0 = Debug|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|ARM64.Build.0 = Debug|ARM64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|x64.ActiveCfg = Debug|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|x64.Build.0 = Debug|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|x86.ActiveCfg = Debug|x86
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Debug|x86.Build.0 = Debug|x86
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|Any CPU.ActiveCfg = Release|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|Any CPU.Build.0 = Release|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|ARM64.ActiveCfg = Release|ARM64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|ARM64.Build.0 = Release|ARM64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|x64.ActiveCfg = Release|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|x64.Build.0 = Release|x64
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|x86.ActiveCfg = Release|x86
+		{69D932AE-9C9C-9BD9-3576-90196907F39E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
