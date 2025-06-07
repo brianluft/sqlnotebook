@@ -11,6 +11,7 @@ public sealed partial class ScriptTest {
     [TestMethod] public void Test_CREATE_TABLE_duplicate_options_sql() => TestScript(@"CREATE TABLE duplicate options.sql");
     [TestMethod] public void Test_CREATE_TABLE_STRICT_sql() => TestScript(@"CREATE TABLE STRICT.sql");
     [TestMethod] public void Test_CREATE_TABLE_WITHOUT_ROWID_sql() => TestScript(@"CREATE TABLE WITHOUT ROWID.sql");
+    [TestMethod] public void Test_CREATE_SCRIPT_sql() => TestScript(@"CREATE_SCRIPT.sql");
     [TestMethod] public void Test_DECLARE_test_sql() => TestScript(@"DECLARE_test.sql");
     [TestMethod] public void Test_DELETE_RETURNING_sql() => TestScript(@"DELETE RETURNING.sql");
     [TestMethod] public void Test_EXECUTE_implicitly_using_default_value_sql() => TestScript(@"EXECUTE implicitly using default value.sql");

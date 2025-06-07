@@ -83,6 +83,12 @@ public sealed class ScriptParser
                     "page" => ParseDropPageStmt(q),
                     _ => ParseSqlStmt(q),
                 };
+            case "create":
+                return q.Peek(1) switch
+                {
+                    "script" => ParseCreateScriptStmt(q),
+                    _ => ParseSqlStmt(q),
+                };
             default:
                 return ParseSqlStmt(q);
         }
@@ -342,6 +348,18 @@ public sealed class ScriptParser
         q.Take("drop");
         q.Take("page");
         stmt.PageName = ParseIdentifierOrExpr(q);
+        ConsumeSemicolon(q);
+        return stmt;
+    }
+
+    private Ast.Stmt ParseCreateScriptStmt(TokenQueue q)
+    {
+        var stmt = new Ast.CreateScriptStmt { SourceToken = q.SourceToken };
+        q.Take("create");
+        q.Take("script");
+        stmt.ScriptName = ParseIdentifierOrExpr(q);
+        q.Take("as");
+        stmt.SqlCommands = ParseIdentifierOrExpr(q);
         ConsumeSemicolon(q);
         return stmt;
     }

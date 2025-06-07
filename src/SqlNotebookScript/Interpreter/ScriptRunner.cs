@@ -43,6 +43,7 @@ public sealed class ScriptRunner
             [typeof(Ast.ExportCsvStmt)] = (s, e) => ExecuteExportCsvStmt((Ast.ExportCsvStmt)s, e),
             [typeof(Ast.DropScriptStmt)] = (s, e) => ExecuteDropScriptStmt((Ast.DropScriptStmt)s, e),
             [typeof(Ast.DropPageStmt)] = (s, e) => ExecuteDropPageStmt((Ast.DropPageStmt)s, e),
+            [typeof(Ast.CreateScriptStmt)] = (s, e) => ExecuteCreateScriptStmt((Ast.CreateScriptStmt)s, e),
         };
     }
 
@@ -55,7 +56,20 @@ public sealed class ScriptRunner
         }
         else
         {
-            throw new ScriptException($"There is no script named \"{name}\".");
+            // Check if the script was created during execution and is in UserData.Items
+            var scriptRecord =
+                _notebook.UserData.Items.FirstOrDefault(x =>
+                    x is ScriptNotebookItemRecord && string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)
+                ) as ScriptNotebookItemRecord;
+
+            if (scriptRecord != null)
+            {
+                return scriptRecord.Sql ?? "";
+            }
+            else
+            {
+                throw new ScriptException($"There is no script named \"{name}\".");
+            }
         }
     }
 
@@ -564,6 +578,33 @@ public sealed class ScriptRunner
         {
             disposable.Dispose();
         }
+    }
+
+    private void ExecuteCreateScriptStmt(Ast.CreateScriptStmt stmt, ScriptEnv env)
+    {
+        var scriptName = EvaluateIdentifierOrExpr(stmt.ScriptName, env);
+        var sqlCommands = EvaluateIdentifierOrExpr(stmt.SqlCommands, env);
+
+        // Check if script already exists (case insensitive)
+        var existingScript = _notebook.UserData.Items.FirstOrDefault(x =>
+            x is ScriptNotebookItemRecord && string.Equals(x.Name, scriptName, StringComparison.OrdinalIgnoreCase)
+        );
+
+        if (existingScript != null)
+        {
+            throw new ScriptException($"A script named \"{scriptName}\" already exists.");
+        }
+
+        // Create the new script
+        var newScript = new ScriptNotebookItemRecord
+        {
+            Name = scriptName,
+            Sql = sqlCommands,
+            Parameters = new(),
+        };
+
+        // Add to user data
+        _notebook.UserData.Items.Add(newScript);
     }
 
     public T EvaluateExpr<T>(Ast.Expr expr, ScriptEnv env)

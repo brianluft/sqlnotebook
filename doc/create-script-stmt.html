@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <title>CREATE SCRIPT Statement</title>
+</head>
+<body>
+  <h1><code>CREATE SCRIPT</code> Statement</h1>Creates a script in the notebook.
+  <h2>Syntax</h2>
+  <p><tt>CREATE SCRIPT <i>script-name</i> AS <i>sql-commands</i>;</tt><br></p>
+  <h2>Parameters</h2>
+  <ul class="args">
+    <li>
+      <i>script-name</i>: text<br>
+      The name of the script to create. This can be a string literal or an expression that evaluates to a string.
+    </li>
+    <li>
+      <i>sql-commands</i>: text<br>
+      The SQL commands that will comprise the script body. This can be a string literal or an expression that evaluates to a string.
+    </li>
+  </ul>
+  <h2>Remarks</h2>
+  <p>The CREATE SCRIPT statement creates a new script in the notebook with the specified name and content. Script names are case-insensitive.</p>
+  <p>If a script with the specified name already exists, an error is thrown.</p>
+  <p>Once created, the script can be executed using the EXECUTE statement.</p>
+  <h2>Examples</h2>
+  <ul class="examples">
+    <li><code>CREATE SCRIPT MyScript AS 'PRINT ''Hello World'';';</code><br>
+    Creates a script named "MyScript" that prints "Hello World".</li>
+    <li><code>CREATE SCRIPT ReportScript AS 'SELECT * FROM users WHERE active = 1;';</code><br>
+    Creates a script named "ReportScript" that queries active users.</li>
+    <li><code>CREATE SCRIPT ('Report' || '2024') AS 'PRINT ''Report for 2024'';';</code><br>
+    Creates a script whose name is the result of concatenating "Report" and "2024", i.e., "Report2024".</li>
+  </ul>
+</body>
+</html> 

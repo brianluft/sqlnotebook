@@ -6,5 +6,5 @@ Group#SQL Notebook Help#Math#^(Algebra|Crypto|Statistic).*$
 Group#SQL Notebook Help#Arrays#^ARRAY.*Function$
 Group#SQL Notebook Help#Dates and Times#^(DATE|DAY|EOMONTH|GETDATE|GETUTCDATE|ISDATE|MONTH|SWITCHOFFSET|YEAR|TO_DATE|NOW).*Function$
 Group#SQL Notebook Help#Command Line Tools#^SqlNotebookCmd.*$
-Group#SQL Notebook Help#Notebook Operations#^(DROP|SAVE).*Statement$
+Group#SQL Notebook Help#Notebook Operations#^(CREATE SCRIPT|DROP|SAVE).*Statement$
 Group#SQL Notebook Help#Other#.*

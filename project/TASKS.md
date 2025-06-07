@@ -6,9 +6,9 @@
     - [x] If the user has the script or page open in the UI, and the script deletes it, then the editor must close. We already do this when the user deletes a script or page in the "Table of Contents" pane in the UI. However, this is trickier when _inside_ a script execution. Ensure you address reentrancy and layering issues.
     - [x] If the script or page doesn't exist, an exception is thrown.
     - [x] Write your tests as regular C#, again our .sql harness isn't sophisticated enough. Test that the script or page actually gets deleted.
-- [ ] Add language statement for adding scripts.
-    - [ ] Syntax: 'CREATE' 'SCRIPT' <name> 'AS' <sql commands>
-    - [ ] <name> and <sql commands> are IdentifierOrExpr.
-    - [ ] Consider: 'CREATE' is already a SQL command. See `BEGIN TRY` as an example of what to do.
-    - [ ] If the name already exists (case insensitive) then an exception is thrown.
-    - [ ] Our .sql harness should do it, you should be able to `CREATE SCRIPT` and then `EXECUTE`.
+- [x] Add language statement for adding scripts.
+    - [x] Syntax: 'CREATE' 'SCRIPT' <name> 'AS' <sql commands>
+    - [x] <name> and <sql commands> are IdentifierOrExpr.
+    - [x] Consider: 'CREATE' is already a SQL command. See `BEGIN TRY` as an example of what to do.
+    - [x] If the name already exists (case insensitive) then an exception is thrown.
+    - [x] Our .sql harness should do it, you should be able to `CREATE SCRIPT` and then `EXECUTE`.
