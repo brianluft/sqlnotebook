@@ -7,9 +7,6 @@ $sqliteDocHash = '5EC9651BBFAB7D3BF0A295F4D9BE7D861E9968EA993438F05B579D8A75FE1E
 $sqliteSrcUrl = 'https://sqlite.org/2024/sqlite-src-3460000.zip'
 $sqliteSrcHash = '070362109BEB6899F65797571B98B8824C8F437F5B2926F88EE068D98EF368EC'
 
-$wapiUrl = 'https://github.com/contre/Windows-API-Code-Pack-1.1/archive/a8377ef8bb6fa95ff8800dd4c79089537087d539.zip'
-$wapiHash = '38E59E6AE3BF0FD0CCB05C026F7332D3B56AF81D8C69A62882D04CABAD5EF4AE'
-
 $sqleanVersion = '0.24.0'
 $sqleanZipUrl = "https://github.com/nalgeon/sqlean/archive/refs/tags/$sqleanVersion.zip"
 $sqleanZipHash = 'B5C349D83EAF7B3F6902678C1E701AE3FE0D639C18DEF2CC87C396EF9000BC14'
@@ -33,47 +30,6 @@ $extDir = Join-Path $rootDir "ext"
 $downloadsDir = Join-Path $extDir "downloads"
 if (-not (Test-Path $downloadsDir)) {
     mkdir $downloadsDir
-}
-
-function Update-WindowsApiCodePack {
-    $wapiDir = Join-Path $extDir "Windows-API-Code-Pack"
-    if (Test-Path $wapiDir) { Remove-Item -Force -Recurse $wapiDir }
-    mkdir $wapiDir
-
-    $wapiFilename = [System.IO.Path]::GetFileName($wapiUrl)
-    $wapiFilePath = Join-Path $downloadsDir $wapiFilename
-    if (-not (Test-Path $wapiFilePath)) {
-        Write-Host "Downloading: $wapiUrl"
-        Invoke-WebRequest -UseBasicParsing -Uri $wapiUrl -OutFile $wapiFilePath
-    }
-    VerifyHash $wapiFilePath $wapiHash
-    Write-Host "Expanding: $wapiFilePath"
-    Expand-Archive -LiteralPath $wapiFilePath -DestinationPath $wapiDir
-    Move-Item "$wapiDir\Windows-*\*" "$wapiDir\"
-    Remove-Item "$wapiDir\Windows-*"
-
-    # Modify the target frameworks to remove targets we don't want.
-    $csprojs = [System.IO.Directory]::GetFiles("$wapiDir", "*.csproj", [System.IO.SearchOption]::AllDirectories)
-    foreach ($csproj in $csprojs) {
-        $txt = [System.IO.File]::ReadAllText($csproj)
-        $txt = $txt.Replace("net452;net462;net472;net48;netcoreapp3.1;", "")
-        $txt = $txt.Replace("net5.0-windows", "net7.0-windows")
-        [System.IO.File]::WriteAllText($csproj, $txt)
-    }
-
-    # No idea why this patch is needed
-    $cs = [System.IO.File]::ReadAllText("$wapiDir\source\WindowsAPICodePack\Shell\Resources\LocalizedMessages.Designer.cs")
-    $cs = $cs.Replace("Microsoft.WindowsAPICodePack.Resources", "Microsoft.WindowsAPICodePack.Shell.Resources")
-    [System.IO.File]::WriteAllText("$wapiDir\source\WindowsAPICodePack\Shell\Resources\LocalizedMessages.Designer.cs", $cs)
-
-    # This patch ignores warnings that we don't intend to fix in the third party code.
-    $x = [System.IO.File]::ReadAllText("$wapiDir\source\WindowsAPICodePack\Core\Core.csproj")
-    $x = $x.Replace('<AssemblyName>', '<NoWarn>$(NoWarn);CS1591;CS1587;CS8073;SYSLIB0003</NoWarn><AssemblyName>')
-    [System.IO.File]::WriteAllText("$wapiDir\source\WindowsAPICodePack\Core\Core.csproj", $x)
-
-    $x = [System.IO.File]::ReadAllText("$wapiDir\source\WindowsAPICodePack\Shell\Shell.csproj")
-    $x = $x.Replace('<AssemblyName>', '<NoWarn>$(NoWarn);CS8073;CS1572;CS1591;CS0618;CS0108;CS7023;CS1587;SYSLIB00</NoWarn><AssemblyName>')
-    [System.IO.File]::WriteAllText("$wapiDir\source\WindowsAPICodePack\Shell\Shell.csproj", $x)
 }
 
 function Update-Sqlean {
@@ -272,6 +228,5 @@ function VerifyHash($filePath, $expectedHash) {
 }
 
 Update-Sqlite
-Update-WindowsApiCodePack
 Update-Sqlean
 & "$PSScriptRoot\Update-Docs.ps1"
