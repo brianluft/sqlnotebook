@@ -7,9 +7,9 @@ $sqliteDocHash = '5EC9651BBFAB7D3BF0A295F4D9BE7D861E9968EA993438F05B579D8A75FE1E
 $sqliteSrcUrl = 'https://sqlite.org/2024/sqlite-src-3460000.zip'
 $sqliteSrcHash = '070362109BEB6899F65797571B98B8824C8F437F5B2926F88EE068D98EF368EC'
 
-$sqleanVersion = '0.24.0'
+$sqleanVersion = '0.27.2'
 $sqleanZipUrl = "https://github.com/nalgeon/sqlean/archive/refs/tags/$sqleanVersion.zip"
-$sqleanZipHash = 'B5C349D83EAF7B3F6902678C1E701AE3FE0D639C18DEF2CC87C396EF9000BC14'
+$sqleanZipHash = '60DA5F399422D82B626EE767FF7FAE4F4430B5EE23A6E4FAAE496DF450F63A24'
 
 $global:ProgressPreference = "SilentlyContinue"
 $ErrorActionPreference = "Stop"
