@@ -1,30 +1,20 @@
-- [ ] Create a way to execute a script inside a notebook file from the command line, without opening the GUI.
-    - [X] Create a new project `SqlNotebookCmd` as a console application. Add to `src/SqlNotebook.sln`. Add references from `SqlNotebook` to `SqlNotebookCmd`, from `Tests` to `SqlNotebookCmd`, and from `SqlNotebookCmd` to `SqlNotebookScript`.
-    - [X] Read `src/Tests/Program.cs` and `src/Tests/ScriptTest.cs` for an example of how to use a notebook from a separate console project. `SqlNotebookCmd` will be similar, but user-facing.
-    - [X] Usage: `SqlNotebookCmd "C:\path\to\notebook.sqlnb" "MyScriptName"`
-    - [X] Provide usage output on `--help` or if the arguments aren't correct.
-    - [X] On success, the output is a series of tables. Write them each in to stdout in CSV format with a blank line between adjacent tables, no blank line at the very end of the output. Exit 0.
-    - [X] On failure, show the error in stderr and exit 1.
-    - [X] Notebook is not saved, any changes are discarded. We will tackle this problem later in way orthogonal to this feature.
-    - [X] We have a test notebook in `src/Tests/files/cli_test.sqlnb`.
-        - It contains a script `Script1` with the following queries:
-            ```
-            SELECT 1 AS id, 'Hello' AS name
-            UNION ALL
-            SELECT 2 AS id, 'World' AS name
-
-            SELECT 3 AS foo, 4 AS bar
-            ```
-        - Expected output from the CLI:
-            ```
-            id,name
-            1,Hello
-            2,World
-
-            foo,bar
-            3,4
-            ```
-    - [X] Add `src/Tests/SqlNotebookCmdTest.cs`. Locate the `SqlNotebookCmd.exe` in the same directory as `Tests.exe`, run it, collect the output, verify it.
-    - [X] Write a documentation page in `doc/`. Look at `doc/windows-7.html` for a formatting example.
-    - [X] Our documentation mentions that we open the notebook in read-only mode. Let's _not_ do that. We plan to offer a "SAVE" command in the future that will actually write to the file. Prepare for that by opening the notebook normally (not read only) and removing that mention from the documentation.
-    - [X] Update our main homepage's marketing copy in `web/index.html` with a brief mention of this feature.
+- [ ] Add language statement for saving the notebook.
+    - [ ] Syntax: 'SAVE' [<filename>]
+    - [ ] Filename is IdentifierOrExpr. If not provided, it saves to the existing filename. If the notebook is unsaved and no filename is provided, then an exception is thrown: "SAVE: No filename was specified and the notebook is untitled."
+    - [ ] Any other exception thrown in the process of saving is rethrown with "SAVE: " prepended to the error message.
+    - [ ] Update the doc for SqlNotebookCmd to mention that the user can use `SAVE` to save their changes, since the CLI does not save by default.
+    - [ ] Write your tests as regular C# rather than as a .sql script because our .sql test harness isn't sophisticated enough to test this. You need to verify that the save actually works by re-opening the notebook and seeing if the changes are there.
+- [ ] Add language statement for deleting scripts and pages.
+    - [ ] Syntax: 'DROP' 'SCRIPT' <name>
+    - [ ] Syntax: 'DROP' 'PAGE' <name>
+    - [ ] <name> is IdentifierOrExpr.
+    - [ ] Consider: `DROP` is already a SQL command. We have to peek the token afterwards to see if it's SCRIPT or PAGE, otherwise fall back to parsing it (starting at `DROP` token) as an `SqlStmt`. See how we did `BEGIN TRY` as an example.
+    - [ ] If the user has the script or page open in the UI, and the script deletes it, then the editor must close. We already do this when the user deletes a script or page in the "Table of Contents" pane in the UI. However, this is trickier when _inside_ a script execution. Ensure you address reentrancy and layering issues.
+    - [ ] If the script or page doesn't exist, an exception is thrown.
+    - [ ] Write your tests as regular C#, again our .sql harness isn't sophisticated enough. Test that the script or page actually gets deleted.
+- [ ] Add language statement for adding scripts.
+    - [ ] Syntax: 'CREATE' 'SCRIPT' <name> 'AS' <sql commands>
+    - [ ] <name> and <sql commands> are IdentifierOrExpr.
+    - [ ] Consider: 'CREATE' is already a SQL command. See `BEGIN TRY` as an example of what to do.
+    - [ ] If the name already exists (case insensitive) then an exception is thrown.
+    - [ ] Our .sql harness should do it, you should be able to `CREATE SCRIPT` and then `EXECUTE`.

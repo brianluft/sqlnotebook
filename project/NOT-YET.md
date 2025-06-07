@@ -1,3 +1,0 @@
-- [ ] Add language statement for saving the notebook.
-    - [ ] Syntax: 'SAVE' [<filename>]
-    - [ ] Filename is IdentifierOrExpr. If not provided, it saves to the existing filename. If the notebook is unsaved and no filename is provided, then an exception is thrown: "SAVE: No filename was specified and the notebook is untitled."
