@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-    runs-on: warp-windows-latest-x64-4x
+    runs-on: windows-latest
     strategy:
       matrix:
         platform: [x64, x86, arm64]
@@ -42,7 +42,7 @@ jobs:
         path: SqlNotebook-${{ matrix.platform }}.zip
 
   test:
-    runs-on: warp-windows-latest-x64-4x
+    runs-on: windows-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
