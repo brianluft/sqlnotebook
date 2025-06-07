@@ -128,9 +128,18 @@ public static class ArgUtil
     public static DateTime GetDateArg(object arg, string paramName, string functionName)
     {
         var text = GetStrArg(arg, paramName, functionName);
-        if (DateTime.TryParse(text, out var date))
+
+        // Bug fix:
+        // This previously used DateTime.TryParse().
+        //
+        // If we use DateTime.TryParse() and the text happens to have a DateTimeOffset-style UTC offset, then the date
+        // will actually get _converted_ to the computer's local time zone! Whoops! If we parse as a DateTimeOffset
+        // first and then use .DateTime, we'll effectively strip off the UTC offset without changing the date or
+        // time.
+
+        if (DateTimeOffset.TryParse(text, out var date))
         {
-            return date;
+            return date.DateTime;
         }
         else
         {
