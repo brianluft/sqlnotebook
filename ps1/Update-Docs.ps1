@@ -244,7 +244,6 @@ function Update-DocWebsite {
     copy .\robots.txt .\site\
     copy .\sitemap.txt .\site\
     copy .\github-btn.html .\site\
-    copy .\windows6.1-kb2533623-x64.msu .\site\
 
     copy -Force "$docDir\art\*.svg" .\site\art\
     foreach ($filePath in [System.IO.Directory]::GetFiles("$webDir\site\art", "*.svg")) {
@@ -284,7 +283,6 @@ function Update-DocWebsite {
     Remove-Item -Force "$rootDir\src\SqlNotebook\doc\art\*.txt"
     Remove-Item -Force "$rootDir\src\SqlNotebook\doc\favicon.ico"
     Remove-Item -Force "$rootDir\src\SqlNotebook\doc\CNAME"
-    Remove-Item -Force "$rootDir\src\SqlNotebook\doc\windows6.1-kb2533623-x64.msu"
 
     # Remove SQLite docs from the actual website and only include it with the app. This is a bit of a hack that should
     # have been planned better...
