@@ -5,7 +5,6 @@ $ErrorActionPreference = "Stop"
 
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\src\Tests\scripts")).Path
 $sqlFilePaths = [System.IO.Directory]::GetFiles($root, "*.sql", [System.IO.SearchOption]::AllDirectories)
-$cs += "using Microsoft.VisualStudio.TestTools.UnitTesting;`r`n`r`n"
 $cs += "namespace Tests;`r`n`r`n"
 $cs += "// Update this with ps1/Update-Tests.ps1. Do not edit manually.`r`n"
 $cs += "public sealed partial class ScriptTest {`r`n"

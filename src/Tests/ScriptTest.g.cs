@@ -1,4 +1,3 @@
-
 namespace Tests;
 
 // Update this with ps1/Update-Tests.ps1. Do not edit manually.

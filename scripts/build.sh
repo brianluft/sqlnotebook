@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 PLATFORM=$(./get-native-arch.sh)
-cd ../src/SqlNotebook
+cd ..
 
 # Convert "x64"/"ARM64" to "win-x64"/"win-arm64" (lowercase) in $RID
 RID="win-${PLATFORM,,}"
@@ -22,10 +22,17 @@ if [ ! -f "$MSBUILD" ]; then
 fi
 
 set +e
-
 LOGFILE="build.log"
 
-echo "--- Restore NuGet ---"
+powershell.exe -NoProfile "ps1/Update-Tests.ps1"
+if [ $? -ne 0 ]; then
+    echo "Update-Tests.ps1 failed."
+    exit 1
+fi
+
+cd src/SqlNotebook
+
+echo "--- Restore ---"
 "$MSBUILD" --nologo --verbosity:quiet --t:restore --p:Configuration=Debug --p:Platform=$PLATFORM --p:RuntimeIdentifier=$RID --p:PublishReadyToRun=true SqlNotebook.csproj 2>&1 >"$LOGFILE"
 if [ $? -ne 0 ]; then
     cat "$LOGFILE"
@@ -34,7 +41,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "--- Build Dependencies ---"
+echo "--- Dependencies ---"
 "$MSBUILD" --nologo --verbosity:quiet --t:build --p:Configuration=Debug --p:Platform=$PLATFORM ../SqlNotebookDb/SqlNotebookDb.vcxproj 2>&1 >"$LOGFILE"
 if [ $? -ne 0 ]; then
     cat "$LOGFILE"
@@ -69,11 +76,25 @@ fi
 
 rm "$LOGFILE"
 
-echo "--- Build SqlNotebook ---"
+echo "--- SqlNotebook ---"
 "$MSBUILD" --nologo --verbosity:quiet --t:build --p:Configuration=Debug --p:Platform=$PLATFORM --p:RuntimeIdentifier=$RID --p:SelfContained=true SqlNotebook.csproj
 if [ $? -ne 0 ]; then
     echo "Build failed!"
     exit 1
 fi
 
-echo "Build succeeded!"
+echo "--- Tests ---"
+cd ../Tests
+"$MSBUILD" --nologo --verbosity:quiet --t:build --p:Configuration=Debug --p:Platform=$PLATFORM Tests.csproj
+if [ $? -ne 0 ]; then
+    echo "Failed to build tests."
+    exit 1
+fi
+
+"bin/$PLATFORM/Debug/net7.0-windows/Tests.exe"
+if [ $? -ne 0 ]; then
+    echo "Failed to run tests."
+    exit 1
+fi
+
+echo "Build and tests succeeded."

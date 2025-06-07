@@ -63,8 +63,6 @@ public static class Program
 
         foreach (var testClass in testClasses)
         {
-            Console.WriteLine($"Running tests in {testClass.Name}");
-
             // Create instance of test class
             var instance = Activator.CreateInstance(testClass);
 
@@ -95,7 +93,6 @@ public static class Program
                 {
                     testMethod.Invoke(instance, null);
                     passedTests++;
-                    Console.WriteLine($"  ✓ {testMethod.Name}");
                 }
                 catch (Exception ex)
                 {
