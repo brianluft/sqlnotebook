@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DuckDB.NET.Data;
 using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using SqlNotebookScript.Core;
@@ -72,6 +73,7 @@ public sealed class ImportDatabaseStmtRunner
             case "pgsql":
             case "mysql":
             case "duckdb":
+            case "sqlite":
                 break;
             default:
                 throw new Exception($"IMPORT DATABASE: The vendor \"{_vendor}\" is not recognized.");
@@ -250,6 +252,7 @@ public sealed class ImportDatabaseStmtRunner
                 "pgsql" => new NpgsqlConnection(_connectionString),
                 "mysql" => new MySqlConnection(_connectionString),
                 "duckdb" => new DuckDBConnection(_connectionString),
+                "sqlite" => new SqliteConnection(_connectionString),
                 _ => throw new Exception("IMPORT DATABASE: Internal error. Invalid vendor."),
             };
             srcConnection.Open();
@@ -346,6 +349,14 @@ ORDER BY k.ORDINAL_POSITION;";
                 // DuckDB doesn't have the same information_schema structure
                 // Return empty list for now - primary key detection is not critical
                 return new();
+            }
+            else if (_vendor == "sqlite")
+            {
+                command.CommandText =
+                    @"SELECT p.name
+FROM pragma_table_info(@srcTableName) p
+WHERE p.pk > 0
+ORDER BY p.pk;";
             }
             else
             {

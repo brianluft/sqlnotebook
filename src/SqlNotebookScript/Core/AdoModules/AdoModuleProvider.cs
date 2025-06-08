@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DuckDB.NET.Data;
 using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using SqlNotebookScript.Core.ModuleDelegates;
@@ -57,6 +58,17 @@ public sealed class DuckDBAdoModuleProvider : AdoModuleProvider
     protected override string SelectRandomSampleSql => "SELECT * FROM {0} ORDER BY RANDOM() LIMIT 5000;";
     protected override string SelectRandomSampleSqlFallback => null;
     protected override string ModuleName => "duckdb";
+    protected override char EscapeChar => '"';
+}
+
+public sealed class SQLiteAdoModuleProvider : AdoModuleProvider
+{
+    protected override IDbConnection CreateConnection(string connectionString) =>
+        new SqliteConnection(connectionString);
+
+    protected override string SelectRandomSampleSql => "SELECT * FROM {0} ORDER BY RANDOM() LIMIT 5000;";
+    protected override string SelectRandomSampleSqlFallback => null;
+    protected override string ModuleName => "sqlite";
     protected override char EscapeChar => '"';
 }
 

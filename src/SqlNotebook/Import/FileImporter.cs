@@ -13,10 +13,11 @@ public static class FileImporter
     public static string Filter =>
         string.Join(
             "|",
-            "All data files|*.csv;*.txt;*.tsv;*.xls;*.xlsx;*.duckdb",
+            "All data files|*.csv;*.txt;*.tsv;*.xls;*.xlsx;*.duckdb;*.db;*.sqlite;*.sqlite3",
             "Comma-separated values|*.csv;*.tsv;*.txt",
             "Excel workbooks|*.xls;*.xlsx",
-            "DuckDB databases|*.duckdb"
+            "DuckDB databases|*.duckdb",
+            "SQLite databases|*.db;*.sqlite;*.sqlite3"
         );
 
     public static void Start(IWin32Window owner, string filePath, NotebookManager manager)
@@ -45,6 +46,12 @@ public static class FileImporter
                 ImportDuckDb(owner, filePath, manager);
                 break;
 
+            case ".db":
+            case ".sqlite":
+            case ".sqlite3":
+                ImportSQLite(owner, filePath, manager);
+                break;
+
             default:
                 throw new InvalidOperationException($"The file type \"{extension}\" is not supported.");
         }
@@ -71,6 +78,18 @@ public static class FileImporter
     private static void ImportDuckDb(IWin32Window owner, string filePath, NotebookManager manager)
     {
         var session = new DuckDBImportSession(filePath);
+        if (!session.FromConnectForm(owner))
+        {
+            return;
+        }
+
+        using DatabaseImportTablesForm f = new(manager, session);
+        f.ShowDialog(owner);
+    }
+
+    private static void ImportSQLite(IWin32Window owner, string filePath, NotebookManager manager)
+    {
+        var session = new SQLiteImportSession(filePath);
         if (!session.FromConnectForm(owner))
         {
             return;
