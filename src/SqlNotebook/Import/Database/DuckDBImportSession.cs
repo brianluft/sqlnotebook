@@ -88,7 +88,7 @@ public sealed class DuckDBImportSession : IImportSession
             if (table.SourceIsTable)
             {
                 var importSql =
-                    $"IMPORT DATABASE 'duckdb'\nCONNECTION '{_filePath.Replace("'", "''")}'\nTABLE {table.SourceTableName}";
+                    $"IMPORT DATABASE 'duckdb'\nCONNECTION 'Data Source={_filePath.Replace("'", "''")}'\nTABLE {table.SourceTableName}";
                 if (!string.Equals(table.SourceTableName, table.TargetTableName, StringComparison.OrdinalIgnoreCase))
                 {
                     importSql += $"\nINTO {table.TargetTableName}";
@@ -103,7 +103,7 @@ public sealed class DuckDBImportSession : IImportSession
             else if (table.SourceIsSql)
             {
                 var importSql =
-                    $"IMPORT DATABASE 'duckdb'\nCONNECTION '{_filePath.Replace("'", "''")}'\nSQL '{table.SourceSql.Replace("'", "''")}'";
+                    $"IMPORT DATABASE 'duckdb'\nCONNECTION 'Data Source={_filePath.Replace("'", "''")}'\nSQL '{table.SourceSql.Replace("'", "''")}'";
                 importSql += $"\nINTO {table.TargetTableName}";
                 if (link)
                 {

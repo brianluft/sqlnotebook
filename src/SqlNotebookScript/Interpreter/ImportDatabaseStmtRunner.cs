@@ -249,7 +249,7 @@ public sealed class ImportDatabaseStmtRunner
                 "mssql" => new SqlConnection(_connectionString),
                 "pgsql" => new NpgsqlConnection(_connectionString),
                 "mysql" => new MySqlConnection(_connectionString),
-                "duckdb" => new DuckDBConnection($"Data Source={_connectionString}"),
+                "duckdb" => new DuckDBConnection(_connectionString),
                 _ => throw new Exception("IMPORT DATABASE: Internal error. Invalid vendor."),
             };
             srcConnection.Open();

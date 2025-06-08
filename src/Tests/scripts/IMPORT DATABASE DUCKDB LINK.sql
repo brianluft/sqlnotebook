@@ -1,6 +1,7 @@
 IMPORT DATABASE 'duckdb'
 CONNECTION 'Data Source=<FILES>\example.duckdb'
-TABLE employees;
+TABLE employees
+OPTIONS (LINK: 1);
 
 SELECT * FROM employees ORDER BY id;
 
@@ -11,4 +12,4 @@ id,name,department,salary,hire_date
 3,Charlie,HR,60000,3/22/2020
 4,Diana,Engineering,98000,11/30/2017
 5,Evan,Marketing,72000,1/10/2021
-- 
+-

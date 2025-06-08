@@ -209,6 +209,7 @@ public sealed class Notebook : IDisposable
             _adoModuleProviders.Add(new MySqlAdoModuleProvider());
             _adoModuleProviders.Add(new PostgreSqlAdoModuleProvider());
             _adoModuleProviders.Add(new SqlServerAdoModuleProvider());
+            _adoModuleProviders.Add(new DuckDBAdoModuleProvider());
             foreach (var x in _adoModuleProviders)
             {
                 x.Install(_sqlite);

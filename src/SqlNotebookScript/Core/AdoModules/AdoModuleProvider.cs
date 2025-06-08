@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DuckDB.NET.Data;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Npgsql;
@@ -46,6 +47,17 @@ public sealed class MySqlAdoModuleProvider : AdoModuleProvider
     protected override string SelectRandomSampleSqlFallback => null;
     protected override string ModuleName => "mysql";
     protected override char EscapeChar => '`';
+}
+
+public sealed class DuckDBAdoModuleProvider : AdoModuleProvider
+{
+    protected override IDbConnection CreateConnection(string connectionString) =>
+        new DuckDBConnection(connectionString);
+
+    protected override string SelectRandomSampleSql => "SELECT * FROM {0} ORDER BY RANDOM() LIMIT 5000;";
+    protected override string SelectRandomSampleSqlFallback => null;
+    protected override string ModuleName => "duckdb";
+    protected override char EscapeChar => '"';
 }
 
 public abstract class AdoModuleProvider : IDisposable
