@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        platform: [x64, x86, arm64]
+        platform: [x64, arm64]
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4

@@ -8,9 +8,9 @@ Set-StrictMode -Version 3
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-# Verify that $Platform is either 'x86' or 'x64' or 'arm64'
-if ($Platform -ne 'x86' -and $Platform -ne 'x64' -and $Platform -ne 'arm64') {
-    throw "Platform must be either 'x86', 'x64', or 'arm64'."
+# Verify that $Platform is either 'x64' or 'arm64'
+if ($Platform -ne 'x64' -and $Platform -ne 'arm64') {
+    throw "Platform must be either 'x64' or 'arm64'."
 }
 
 # Windows SDK 10.0.*.*
@@ -175,10 +175,6 @@ for ($i = 5; $i -lt $heatLines.Length; $i++) {
 $filesXml = $filesXml.Substring(0, $filesXml.LastIndexOf('</Directory>')).Replace("<Component ", '<Component Win64="yes" ')
 
 $wxs = (Get-Content "$srcdir\SqlNotebook.wxs").Replace("<!--FILES-->", $filesXml).Replace("<!--REFS-->", $refsXml).Replace("<!--PLATFORM-->", $Platform)
-
-if ($Platform -eq 'x86') {
-    $wxs = $wxs.Replace('Win64="yes"', '').Replace('ProgramFiles64Folder', 'ProgramFilesFolder')
-}
 
 Set-Content "$relDir\SqlNotebook.wxs" $wxs
 

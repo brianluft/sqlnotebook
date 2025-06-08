@@ -877,8 +877,6 @@ public partial class MainForm : ZForm
         var arch = RuntimeInformation.ProcessArchitecture;
         if (arch == Architecture.Arm64)
             msiUrl = msiUrl.Replace("-64bit-", "-arm64-");
-        else if (arch == Architecture.X86)
-            msiUrl = msiUrl.Replace("-64bit-", "-32bit-");
 
         var confirmation = Ui.ShowTaskDialog(
             this,
