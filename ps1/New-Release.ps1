@@ -13,6 +13,11 @@ if ($Platform -ne 'x64' -and $Platform -ne 'arm64') {
     throw "Platform must be either 'x64' or 'arm64'."
 }
 
+# Verify MsbuildPath
+if (-not (Test-Path $MsbuildPath)) {
+    throw "MsbuildPath not found: $MsbuildPath"
+}
+
 # Windows SDK 10.0.*.*
 $windowsSdkBaseDir = "C:\Program Files (x86)\Windows Kits\10\Redist"
 $windowsSdkVersion = `
@@ -41,7 +46,7 @@ if (-not (Test-Path $vsRuntimeDir)) {
     throw "Visual C++ Redistributable $vsRuntimeVersion not found!"
 }
 
-$wixDir = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+$wixDir = "C:\Program Files\WiX Toolset v6.0\bin"
 if (-not (Test-Path $wixDir)) {
     throw "WiX not found!"
 }
