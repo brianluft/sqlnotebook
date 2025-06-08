@@ -4,7 +4,7 @@
     - [x] Update `.github\workflows\sqlnotebook.yml` to run phase 1 only, then to upload an artifact containing `src/SqlNotebook/bin/*`, this will contain the release files needed for the portable zip and WiX.
     - [x] Update `scripts/publish.sh` to run phase 1 only; we use this for local development and testing of the phase 1 process.
     - [x] Update the release instructions in `CONTRIBUTING.md`. Remember that phase 1 runs in GitHub Actions and phase 2 runs locally where the HSM is located.
-    - [ ] Here are the instructions for signing locally, please format it nicely:
+    - [x] Here are the instructions for signing locally, please format it nicely in `CONTRIBUTING.md`:
         - Install Windows SDK in order to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
         - Search for signtool in C:\Program Files (x86). Set $signtool to its path.
         - Find the HSM entry in 1Password. Set $sha1 to the SHA1 hash. Keep the entry up so you can copy the password out.

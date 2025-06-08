@@ -63,17 +63,22 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 
 ### Phase 2: Code signing and final packaging (runs locally)
 - **Prerequisites for local signing:**
-  - Install Windows SDK to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". Download from: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-  - Search for signtool in `C:\Program Files (x86)`. Set `$signtool` to its path.
-  - Find the HSM entry in 1Password. Set `$sha1` to the SHA1 hash. Keep the entry open so you can copy the password out.
+  1. Install Windows SDK to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". Download from: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+  2. Search for signtool in `C:\Program Files (x86)`. Set `$signtool` to its path.
+  3. Find the HSM entry in 1Password. Set `$sha1` to the SHA1 hash. Keep the entry open so you can copy the password out.
+  4. Download the Phase 1 zip from GitHub Actions.
 
 - **For each platform (x64, arm64):**
-  - Extract the corresponding Phase 1 artifact to your local workspace.
-  - Sign the executable: `& $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe`. Paste the password when prompted.
-  - Verify digital signature in the file properties.
-  - Run Phase 2: `powershell.exe ps1/New-Release.ps1 -Platform <platform> -MsbuildPath <path> -Phase "2"`
-  - This will generate `SQLNotebook.zip` and `SQLNotebook.msi` in `src/SqlNotebook/bin/`.
-  - Rename them to `SQLNotebook-X.X.X-<platform>.*`.
+  1. Extract the corresponding Phase 1 artifact to your local workspace.
+  2. Sign the executable using the following command:
+     ```powershell
+     & $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe
+     ```
+     Paste the password when prompted.
+  3. Verify the digital signature in the file properties.
+  4. Run Phase 2: `powershell.exe ps1/New-Release.ps1 -Platform <platform> -MsbuildPath <path> -Phase "2"`
+  5. This will generate `SQLNotebook.zip` and `SQLNotebook.msi` in `src/SqlNotebook/bin/`.
+  6. Rename them to `SQLNotebook-X.X.X-<platform>.*`.
 
 - Test the zip and MSI files.
 - Create release on GitHub, upload zip and msi.
