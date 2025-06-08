@@ -309,7 +309,7 @@ function Update-Csproj {
     $csproj = [System.IO.File]::ReadAllText($csprojFilePath)
     $startIndex = $csproj.IndexOf('<!--doc start-->')
     $endIndex = $csproj.IndexOf('<!--doc end-->')
-    $newCsproj = $csproj.Substring(0, $startIndex) + '<!--doc start-->' + $xml + $csproj.Substring($endIndex)
+    $newCsproj = $csproj.Substring(0, $startIndex) + '    <!--doc start-->' + $xml + $csproj.Substring($endIndex)
     [System.IO.File]::WriteAllText($csprojFilePath, $newCsproj)
 }
 
