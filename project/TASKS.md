@@ -1,4 +1,4 @@
-- [ ] Bug: `scripts/publish.sh` (which calls `ps1/New-Release.ps1` internally) produces the error below. We do not want self-contained executables anywhere and I've attempted to disable it, but I'm still getting this error. Find out how to actually disable self contained executables to fix this error.
+- [x] Bug: `scripts/publish.sh` (which calls `ps1/New-Release.ps1` internally) produces the error below. We do not want self-contained executables anywhere and I've attempted to disable it, but I'm still getting this error. Find out how to actually disable self contained executables to fix this error.
     ```
     Publishing.
     MSBuild version 17.14.10+8b8e13593 for .NET Framework
