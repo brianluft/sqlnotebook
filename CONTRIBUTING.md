@@ -12,7 +12,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
     - Include individual component: MSVC v143 - VS 2022 C++ ARM64/ARM64EC build tools (Latest)
 - Install [tidy-html5](https://github.com/htacg/tidy-html5) to your `PATH`.
 - Install [SeaMonkey](https://www.seamonkey-project.org/releases/). Open it, Edit > Preferences > Appearance. Set "When SeaMonkey starts up, open..." to Composer.
-- Install [WiX Toolset](https://wixtoolset.org/releases/).
+- Install [WiX Toolset 3.14](https://github.com/wixtoolset/wix3/releases).
 - Install [Chocolatey](https://chocolatey.org/install).
 - Install [NuGet](https://www.nuget.org/downloads) and put it in your `PATH`.
 
