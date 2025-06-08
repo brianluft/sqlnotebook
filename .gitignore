@@ -17,6 +17,7 @@ Desktop.ini
 ext/downloads/
 ext/sqlean/
 ext/sqlite/
+format.log
 ipch/
 obj/
 packages/

@@ -6,17 +6,21 @@
 </head>
 <body>
   <h1><code>SqlNotebookCmd</code> Command Line Tool</h1>
-  <p>The <code>SqlNotebookCmd</code> command line tool allows you to execute scripts inside SQL Notebook files (.sqlnb) from the command line without opening the GUI. This is useful for automation, batch processing, and integration with other command-line tools and scripts.</p>
-  <p>The tool executes the specified script and outputs any results to standard output in CSV format. On success, the exit code is 0. On error, the exit code is 1 and error messages are written to standard error.</p>
-  <h2>Syntax</h2>
-  <code>SqlNotebookCmd &lt;<i>notebook-file</i>&gt; &lt;<i>script-name</i>&gt;</code><br>
+  <p>The <code>SqlNotebookCmd</code> command line tool allows you to execute scripts inside SQL Notebook files (.sqlnb)
+  from the command line without opening the GUI. This is useful for automation, batch processing, and integration with
+  other command-line tools and scripts.</p>
+  <p>The tool executes the specified script and outputs any results to standard output in CSV format. On success, the
+  exit code is 0. On error, the exit code is 1 and error messages are written to standard error.</p>
+  <h2>Syntax</h2><code>SqlNotebookCmd &lt;<i>notebook-file</i>&gt; &lt;<i>script-name</i>&gt;</code><br>
   <code>SqlNotebookCmd --help</code><br>
   <h2>Parameters</h2>
   <ul class="args">
     <li><i>notebook-file</i>: text<br>
-    The path to the SQL Notebook file (.sqlnb) containing the script to execute. The file must exist and be a valid SQL Notebook file.</li>
+    The path to the SQL Notebook file (.sqlnb) containing the script to execute. The file must exist and be a valid SQL
+    Notebook file.</li>
     <li><i>script-name</i>: text<br>
-    The name of the script within the notebook to execute. Script names are case-insensitive. If the script name contains spaces or special characters, enclose it in quotes.</li>
+    The name of the script within the notebook to execute. Script names are case-insensitive. If the script name
+    contains spaces or special characters, enclose it in quotes.</li>
     <li><code>--help</code>, <code>-h</code>, <code>/?</code>: option<br>
     Display usage information and exit.</li>
   </ul>
@@ -44,13 +48,15 @@ SqlNotebookCmd "C:\data\reports.sqlnb" "Monthly Report"
 SqlNotebookCmd --help
 
 <i>-- Example with output redirection</i>
-SqlNotebookCmd "data.sqlnb" "ExportData" > output.csv</pre>
+SqlNotebookCmd "data.sqlnb" "ExportData" &gt; output.csv</pre>
   <h2>Notes</h2>
   <ul>
-    <li>By default, any changes made by the script are discarded and not saved to the file. To persist changes, use the <code>SAVE</code> statement within your script.</li>
-    <li>The script must exist in the notebook's script collection. Page scripts are not accessible through this tool.</li>
+    <li>By default, any changes made by the script are discarded and not saved to the file. To persist changes, use the
+    <code>SAVE</code> statement within your script.</li>
+    <li>The script must exist in the notebook's script collection. Page scripts are not accessible through this
+    tool.</li>
     <li>Parameters and variables declared in the script work normally, but cannot be passed from the command line.</li>
     <li>All output is written to standard output, making it suitable for piping to other command-line tools.</li>
   </ul>
 </body>
-</html> 
+</html>

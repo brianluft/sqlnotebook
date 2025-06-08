@@ -10,17 +10,15 @@
   <p><tt>CREATE SCRIPT <i>script-name</i> AS <i>sql-commands</i>;</tt><br></p>
   <h2>Parameters</h2>
   <ul class="args">
-    <li>
-      <i>script-name</i>: text<br>
-      The name of the script to create. This can be a string literal or an expression that evaluates to a string.
-    </li>
-    <li>
-      <i>sql-commands</i>: text<br>
-      The SQL commands that will comprise the script body. This can be a string literal or an expression that evaluates to a string.
-    </li>
+    <li><i>script-name</i>: text<br>
+    The name of the script to create. This can be a string literal or an expression that evaluates to a string.</li>
+    <li><i>sql-commands</i>: text<br>
+    The SQL commands that will comprise the script body. This can be a string literal or an expression that evaluates
+    to a string.</li>
   </ul>
   <h2>Remarks</h2>
-  <p>The CREATE SCRIPT statement creates a new script in the notebook with the specified name and content. Script names are case-insensitive.</p>
+  <p>The CREATE SCRIPT statement creates a new script in the notebook with the specified name and content. Script names
+  are case-insensitive.</p>
   <p>If a script with the specified name already exists, an error is thrown.</p>
   <p>Once created, the script can be executed using the EXECUTE statement.</p>
   <h2>Examples</h2>
@@ -33,4 +31,4 @@
     Creates a script whose name is the result of concatenating "Report" and "2024", i.e., "Report2024".</li>
   </ul>
 </body>
-</html> 
+</html>

@@ -10,11 +10,9 @@
   <p><tt>SAVE;</tt><tt><br></tt> <tt>SAVE <i>filename</i>;</tt><br></p>
   <h2>Parameters</h2>
   <ul class="args">
-    <li>
-      <i>filename</i>: text (optional)<br>
-      The path where the notebook should be saved. If not provided, the notebook is saved to its existing filename.
-      If the notebook is untitled and no filename is provided, an error is thrown.
-    </li>
+    <li><i>filename</i>: text (optional)<br>
+    The path where the notebook should be saved. If not provided, the notebook is saved to its existing filename. If
+    the notebook is untitled and no filename is provided, an error is thrown.</li>
   </ul>
   <h2>Examples</h2>
   <ul class="examples">
@@ -25,7 +23,12 @@
   </ul>
   <h2>Remarks</h2>
   <p>The <code>SAVE</code> statement is particularly useful in scripts to ensure changes are persisted to disk.</p>
-  <p><strong>Important:</strong> The <code>SAVE</code> statement only works outside of a transaction. If you have an active transaction, <code>SAVE</code> will fail with an error. Because the SQL Notebook UI defaults script execution to "Implicit BEGIN ... COMMIT" transaction mode, the <code>SAVE</code> command will produce an error when first attempted in the UI. To use <code>SAVE</code> in the UI, you must change the transaction mode to "None (auto-commit)" before executing your script.</p>
-  <p>This transaction limitation does not affect the <code>SqlNotebookCmd</code> command line tool, which does not use implicit transactions.</p>
+  <p><strong>Important:</strong> The <code>SAVE</code> statement only works outside of a transaction. If you have an
+  active transaction, <code>SAVE</code> will fail with an error. Because the SQL Notebook UI defaults script execution
+  to "Implicit BEGIN ... COMMIT" transaction mode, the <code>SAVE</code> command will produce an error when first
+  attempted in the UI. To use <code>SAVE</code> in the UI, you must change the transaction mode to "None (auto-commit)"
+  before executing your script.</p>
+  <p>This transaction limitation does not affect the <code>SqlNotebookCmd</code> command line tool, which does not use
+  implicit transactions.</p>
 </body>
-</html> 
+</html>

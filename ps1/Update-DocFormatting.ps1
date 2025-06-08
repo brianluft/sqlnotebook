@@ -1,5 +1,3 @@
-# Run from WSL with "tidy" installed
-
 Set-StrictMode -Version 3
 $ErrorActionPreference = "Stop"
 
@@ -32,7 +30,10 @@ function Format($htmlFilePath) {
     [System.IO.File]::WriteAllText($htmlFilePath, $html)
 
     # Fix line endings
-    & unix2dos --quiet "$htmlFilePath"
+    $content = [System.IO.File]::ReadAllText($htmlFilePath)
+    $content = $content.Replace("`r`n", "`n")
+    $content = $content.Replace("`n", "`r`n")
+    [System.IO.File]::WriteAllText($htmlFilePath, $content)
     Remove-Item -Force $tempFilePath
 }
 

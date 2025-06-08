@@ -10,15 +10,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
     - Include individual component: Windows Universal CRT SDK
     - Include individual component: Windows Universal C Runtime
     - Include individual component: MSVC v143 - VS 2022 C++ ARM64/ARM64EC build tools (Latest)
-- Install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) with Ubuntu 20.04, and install `tidy`, `unix2dos`, and `pwsh` inside.
-    ```
-    sudo apt-get update
-    sudo apt-get install -y wget apt-transport-https software-properties-common tidy dos2unix
-    wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
-    sudo apt-get update
-    sudo apt-get install -y powershell
-    ```
+- Install [tidy-html5](https://github.com/htacg/tidy-html5) to your `PATH`.
 - Install [SeaMonkey](https://www.seamonkey-project.org/releases/). Open it, Edit > Preferences > Appearance. Set "When SeaMonkey starts up, open..." to Composer.
 - Install [WiX Toolset](https://wixtoolset.org/releases/).
 - Install [Chocolatey](https://chocolatey.org/install).

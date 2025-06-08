@@ -5,27 +5,31 @@
   <title>FOREACH Statement</title>
 </head>
 <body>
-  <h1><code>FOREACH</code> Statement</h1>Iterates over each row in a table or table expression, assigning the column values to the specified variables and executing the provided statements for each row.<br>
+  <h1><code>FOREACH</code> Statement</h1>Iterates over each row in a table or table expression, assigning the column
+  values to the specified variables and executing the provided statements for each row.<br>
   <br>
-  The loop may be terminated early by using the <a href=
-  "break-stmt.html"><code>BREAK</code></a> statement. The current iteration of the loop can be abandoned and the next
-  iteration of the loop started by using the <a href="continue-stmt.html"><code>CONTINUE</code></a> statement.
+  The loop may be terminated early by using the <a href="break-stmt.html"><code>BREAK</code></a> statement. The current
+  iteration of the loop can be abandoned and the next iteration of the loop started by using the <a href=
+  "continue-stmt.html"><code>CONTINUE</code></a> statement.
   <h2>Syntax</h2><img src="art/foreach-stmt-syntax.svg" alt="" class="railroad" moz-do-not-send="true" width="628"><br>
   <h2>Parameters</h2>
   <ul class="args">
     <li><i>variable-name</i>: variable name<br>
-    The name of a variable to receive column values from each row. The variable name must begin with an at sign (<code>@</code>), dollar sign
-    (<code>$</code>), or colon (<code>:</code>). Variables are automatically declared if they do not exist; the <code>FOREACH</code>
-    statement acts as a variable declaration if needed. Multiple variables can be specified, separated by commas.</li>
+    The name of a variable to receive column values from each row. The variable name must begin with an at sign
+    (<code>@</code>), dollar sign (<code>$</code>), or colon (<code>:</code>). Variables are automatically declared if
+    they do not exist; the <code>FOREACH</code> statement acts as a variable declaration if needed. Multiple variables
+    can be specified, separated by commas.</li>
     <li><i>table-name</i>: table name or expression<br>
-    The name of a table, view, or table expression to iterate over. Each row from this table will be processed in order.</li>
+    The name of a table, view, or table expression to iterate over. Each row from this table will be processed in
+    order.</li>
     <li><i>statement</i>: statement<br>
     The statements to execute for each row of the table. &nbsp;If more than one statement is desired, the
     <code>BEGIN</code> and <code>END</code> keywords must be used.<br></li>
   </ul>
   <h2>Remarks</h2>
   <ul>
-    <li>Variables are assigned values in the order they appear in the variable list, corresponding to the table's columns.</li>
+    <li>Variables are assigned values in the order they appear in the variable list, corresponding to the table's
+    columns.</li>
     <li>If fewer variables are specified than there are columns in the table, the extra columns are ignored.</li>
     <li>If more variables are specified than there are columns in the table, the extra variables are set to NULL.</li>
     <li>Variables are automatically declared if they do not already exist.</li>
@@ -35,4 +39,4 @@
   <pre><i>-- Iterate over a simple table with multiple columns</i><br>DROP TABLE IF EXISTS employees;<br>CREATE TEMP TABLE employees (id INTEGER, name TEXT, salary INTEGER);<br>INSERT INTO employees VALUES (1, 'Alice', 50000);<br>INSERT INTO employees VALUES (2, 'Bob', 60000);<br><br>FOREACH (@id, @name, @salary) IN employees BEGIN<br>    PRINT CONCAT(@name, ' (ID: ', @id, ') earns $', @salary);<br>END</pre>
   <ul class="examples"></ul>
 </body>
-</html> 
+</html>
