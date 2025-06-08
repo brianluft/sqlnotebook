@@ -10,6 +10,7 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <ApplicationIcon>SqlNotebookIcon.ico</ApplicationIcon>
+    <SelfContained>False</SelfContained>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ext\dockpanelsuite\WinFormsUI\ThemeVS2012Light.csproj" />
