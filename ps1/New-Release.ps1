@@ -46,11 +46,6 @@ if (-not (Test-Path $wixDir)) {
     throw "WiX not found!"
 }
 
-$signtool = "C:\Program Files (x86)\Windows Kits\10\bin\$windowsSdkVersion\x64\signtool.exe"
-if (-not (Test-Path $signtool)) {
-    throw "Signtool not found!"
-}
-
 # Do the build
 Write-Output "Restoring source dependencies."
 & ps1\Update-Deps.ps1

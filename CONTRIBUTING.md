@@ -57,6 +57,8 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 - Commit changes using commit message "Version X.X.X", and push.
 - Wait for GitHub Actions to build.
 - Test the zip and MSI in the GitHub Actions output. Rename them to `SQLNotebook-X.X.X.*`.
+- PowerShell: Set `$sha1` to the hash of the code signing certificate, then: `signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 filename` for the `.msi`.
+- Unpack the `.zip`, sign `SqlNotebook.exe`, and repack it.
 - Create release on GitHub, upload zip and msi.
     - Let GitHub create a new tag, name it `vX.X.X`.
     - Set release title to `vX.X.X`.
