@@ -173,16 +173,14 @@ public static class Extensions
             if (isCombo)
             {
                 self.BeginEdit(true);
-                self.BeginInvoke(
-                    new MethodInvoker(() =>
+                self.BeginInvoke(() =>
+                {
+                    var editingControl = self.EditingControl as ComboBox;
+                    if (editingControl != null)
                     {
-                        var editingControl = self.EditingControl as ComboBox;
-                        if (editingControl != null)
-                        {
-                            editingControl.DroppedDown = true;
-                        }
-                    })
-                );
+                        editingControl.DroppedDown = true;
+                    }
+                });
             }
         };
 

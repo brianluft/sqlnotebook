@@ -18,7 +18,7 @@
 	<PackageTags>WindowsAPICodePack</PackageTags>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  <TargetFrameworks>net7.0-windows</TargetFrameworks>
+	  <TargetFrameworks>net9.0-windows</TargetFrameworks>
 	  <UseWindowsForms>true</UseWindowsForms>
 	<LangVersion>latest</LangVersion>
 	<RootNamespace>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</RootNamespace>

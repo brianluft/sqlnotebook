@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <NoWarn>$(NoWarn);CS8073;CS1572;CS1591;CS0618;CS0108;CS7023;CS1587;SYSLIB00</NoWarn><AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
+    <NoWarn>$(NoWarn);CS8073;CS1572;CS1591;CS0618;CS0108;CS7023;CS1587;SYSLIB00;WFO1000;SYSLIB0051</NoWarn>
+    <AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
     <PackageId>Microsoft-WindowsAPICodePack-Shell</PackageId>
     <VersionPrefix>1.1.5</VersionPrefix>
     <Title>$(AssemblyName)</Title>
@@ -18,7 +19,7 @@
     <PackageTags>WindowsAPICodePack</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFrameworks>net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>

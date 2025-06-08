@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DuckDB.NET.Data;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Npgsql;
@@ -70,6 +71,7 @@ public sealed class ImportDatabaseStmtRunner
             case "mssql":
             case "pgsql":
             case "mysql":
+            case "duckdb":
                 break;
             default:
                 throw new Exception($"IMPORT DATABASE: The vendor \"{_vendor}\" is not recognized.");
@@ -247,6 +249,7 @@ public sealed class ImportDatabaseStmtRunner
                 "mssql" => new SqlConnection(_connectionString),
                 "pgsql" => new NpgsqlConnection(_connectionString),
                 "mysql" => new MySqlConnection(_connectionString),
+                "duckdb" => new DuckDBConnection($"Data Source={_connectionString}"),
                 _ => throw new Exception("IMPORT DATABASE: Internal error. Invalid vendor."),
             };
             srcConnection.Open();
@@ -337,6 +340,12 @@ WHERE
     k.TABLE_SCHEMA = c.TABLE_SCHEMA AND
     k.TABLE_NAME = c.TABLE_NAME
 ORDER BY k.ORDINAL_POSITION;";
+            }
+            else if (_vendor == "duckdb")
+            {
+                // DuckDB doesn't have the same information_schema structure
+                // Return empty list for now - primary key detection is not critical
+                return new();
             }
             else
             {

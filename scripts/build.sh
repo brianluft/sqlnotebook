@@ -30,16 +30,18 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cd src/SqlNotebook
+cd src
 
 echo "--- Restore ---"
-"$MSBUILD" --nologo --verbosity:quiet --t:restore --p:Configuration=Debug --p:Platform=$PLATFORM --p:RuntimeIdentifier=$RID --p:PublishReadyToRun=true SqlNotebook.csproj 2>&1 >"$LOGFILE"
+"$MSBUILD" --nologo --verbosity:quiet --t:restore --p:Configuration=Debug --p:Platform=$PLATFORM --p:RuntimeIdentifier=$RID --p:PublishReadyToRun=true SqlNotebook.sln 2>&1 >"$LOGFILE"
 if [ $? -ne 0 ]; then
     cat "$LOGFILE"
     rm "$LOGFILE"
     echo "Failed to restore NuGet dependencies."
     exit 1
 fi
+
+cd SqlNotebook
 
 echo "--- Dependencies ---"
 "$MSBUILD" --nologo --verbosity:quiet --t:build --p:Configuration=Debug --p:Platform=$PLATFORM ../SqlNotebookDb/SqlNotebookDb.vcxproj 2>&1 >"$LOGFILE"
@@ -100,7 +102,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-"bin/$PLATFORM/Debug/net7.0-windows/Tests.exe" "$@"
+"bin/$PLATFORM/Debug/net9.0-windows/Tests.exe" "$@"
 if [ $? -ne 0 ]; then
     echo "Failed to run tests."
     exit 1

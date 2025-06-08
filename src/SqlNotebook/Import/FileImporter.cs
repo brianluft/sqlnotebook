@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using SqlNotebook.Import.Csv;
+using SqlNotebook.Import.Database;
 using SqlNotebook.Import.Xls;
 using SqlNotebookScript.Utils;
 
@@ -12,9 +13,10 @@ public static class FileImporter
     public static string Filter =>
         string.Join(
             "|",
-            "All data files|*.csv;*.txt;*.tsv;*.xls;*.xlsx",
+            "All data files|*.csv;*.txt;*.tsv;*.xls;*.xlsx;*.duckdb",
             "Comma-separated values|*.csv;*.tsv;*.txt",
-            "Excel workbooks|*.xls;*.xlsx"
+            "Excel workbooks|*.xls;*.xlsx",
+            "DuckDB databases|*.duckdb"
         );
 
     public static void Start(IWin32Window owner, string filePath, NotebookManager manager)
@@ -39,6 +41,10 @@ public static class FileImporter
                 ImportXls(owner, filePath, manager, schema);
                 break;
 
+            case ".duckdb":
+                ImportDuckDb(owner, filePath, manager);
+                break;
+
             default:
                 throw new InvalidOperationException($"The file type \"{extension}\" is not supported.");
         }
@@ -59,6 +65,18 @@ public static class FileImporter
         }
 
         using ImportXlsForm f = new(input, manager, schema);
+        f.ShowDialog(owner);
+    }
+
+    private static void ImportDuckDb(IWin32Window owner, string filePath, NotebookManager manager)
+    {
+        var session = new DuckDBImportSession(filePath);
+        if (!session.FromConnectForm(owner))
+        {
+            return;
+        }
+
+        using DatabaseImportTablesForm f = new(manager, session);
         f.ShowDialog(owner);
     }
 

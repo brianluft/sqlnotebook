@@ -6,7 +6,7 @@
 </head>
 <body>
   <h1><tt>IMPORT</tt> <tt>DATABASE</tt> Statement</h1>
-  <p>Imports a table, view, or query from a Microsoft SQL Server, PostgreSQL, or MySQL database. The data can be copied
+  <p>Imports a table, view, or query from a Microsoft SQL Server, PostgreSQL, MySQL, or DuckDB database. The data can be copied
   into the notebook for fast offline access, or a live link to the remote database can be created.<br></p>
   <h2>Syntax</h2><img src="art/import-database-stmt-syntax.svg" alt="" class="railroad" moz-do-not-send="true" width=
   "750" height="464"><br>
@@ -14,12 +14,13 @@
   <ul>
     <li><i>vendor</i>: text<br>
     One of the following strings: <tt>'mssql'</tt> (Microsoft SQL Server), <tt>'pgsql'</tt> (PostgreSQL),
-    <tt>'mysql'</tt> (MySQL).<br></li>
+    <tt>'mysql'</tt> (MySQL), <tt>'duckdb'</tt> (DuckDB).<br></li>
     <li><i>connection-string</i>: text<br>
-    The <a moz-do-not-send="true" href=
+    For Microsoft SQL Server, PostgreSQL, and MySQL: The <a moz-do-not-send="true" href=
     "https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/connection-string-syntax">ADO.NET connection
     string</a> specifying the hostname, credentials, database name, and other connection details. Use the graphical
-    import wizard via the Import menu to produce a connection string, and then copy it into your code.</li>
+    import wizard via the Import menu to produce a connection string, and then copy it into your code.<br>
+    For DuckDB: The file path to the DuckDB database file (e.g., <tt>'C:\path\to\database.duckdb'</tt>).</li>
     <li><i>src-schema-name</i>: text or identifier (optional)<br>
     Applies to Microsoft SQL Server only. If provided, then this is the name of the schema in which to find the
     <i>src-table-name</i>. By default, this is <tt>dbo</tt>. When using MySQL, don't use this parameter; instead,
@@ -66,6 +67,6 @@
     </li>
   </ul>
   <h2>Examples<br></h2>
-  <pre><i>-- It's convenient to use a variable to hold the connection string.</i><i><br></i><i>-- The || operator is string concatenation in SQLite.</i><br>DECLARE @connectionString =<br>    'Data Source=localhost\SQLEXPRESS;' ||<br>    'Initial Catalog=Northwind;' ||<br>    'Integrated Security=True';<br><br><i>-- Import the remote table 'foo_bar' into a new table of the same</i><i><br></i><i>-- name in the notebook. A one-time copy of the data is performed.</i><br>IMPORT DATABASE 'mssql'<br>CONNECTION @connectionString<br>TABLE foo_bar;<br><br><i>-- Import a very large remote table by creating a live link. The</i><i><br></i><i>-- data is not copied into the notebook. Instead the remote table is</i><i><br></i><i>-- queried on demand.</i><br>IMPORT DATABASE 'mssql'<br>CONNECTION @connectionString<br>TABLE large_table<br>OPTIONS (LINK: 1);<br></pre>
+  <pre><i>-- It's convenient to use a variable to hold the connection string.</i><i><br></i><i>-- The || operator is string concatenation in SQLite.</i><br>DECLARE @connectionString =<br>    'Data Source=localhost\SQLEXPRESS;' ||<br>    'Initial Catalog=Northwind;' ||<br>    'Integrated Security=True';<br><br><i>-- Import the remote table 'foo_bar' into a new table of the same</i><i><br></i><i>-- name in the notebook. A one-time copy of the data is performed.</i><br>IMPORT DATABASE 'mssql'<br>CONNECTION @connectionString<br>TABLE foo_bar;<br><br><i>-- Import a very large remote table by creating a live link. The</i><i><br></i><i>-- data is not copied into the notebook. Instead the remote table is</i><i><br></i><i>-- queried on demand.</i><br>IMPORT DATABASE 'mssql'<br>CONNECTION @connectionString<br>TABLE large_table<br>OPTIONS (LINK: 1);<br><br><i>-- Import a table from a DuckDB database file</i><br>IMPORT DATABASE 'duckdb'<br>CONNECTION 'C:\data\sales.duckdb'<br>TABLE customer_orders;<br></pre>
 </body>
 </html>

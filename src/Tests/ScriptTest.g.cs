@@ -67,6 +67,7 @@ public sealed partial class ScriptTest {
     [TestMethod] public void Test_IMPORT_CSV_TAKE_LINES_sql() => TestScript(@"IMPORT CSV TAKE_LINES.sql");
     [TestMethod] public void Test_IMPORT_CSV_TEMPORARY_TABLE_sql() => TestScript(@"IMPORT CSV TEMPORARY_TABLE.sql");
     [TestMethod] public void Test_IMPORT_CSV_TRUNCATE_EXISTING_TABLE_sql() => TestScript(@"IMPORT CSV TRUNCATE_EXISTING_TABLE.sql");
+    [TestMethod] public void Test_IMPORT_DATABASE_DUCKDB_sql() => TestScript(@"IMPORT DATABASE DUCKDB.sql");
     [TestMethod] public void Test_IMPORT_TEXT_sql() => TestScript(@"IMPORT TEXT.sql");
     [TestMethod] public void Test_IMPORT_TXT_FILE_ENCODING_sql() => TestScript(@"IMPORT TXT FILE_ENCODING.sql");
     [TestMethod] public void Test_IMPORT_TXT_SKIP_LINES_sql() => TestScript(@"IMPORT TXT SKIP_LINES.sql");

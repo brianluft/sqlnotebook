@@ -1,12 +1,12 @@
-- [ ] Add DuckDB import support.
-    - [ ] Add `<PackageReference Include="DuckDB.NET.Data" Version="1.3.0" />`
-    - [ ] Language update
-        - [ ] We have an `IMPORT DATABASE` command already. Read and update `doc/import-database-stmt.html`. Add `duckdb` as a new "vendor" where the connection string is the path to the file.
-        - [ ] The implementation is in `src\SqlNotebookScript\Interpreter\ImportDatabaseStmtRunner.cs`.
-    - [ ] UI updates
-        - [ ] "Import" menu > "From file...": Update open file dialog filter to include *.duckdb.
-        - [ ] When .duckdb file is selected, transition to `DatabaseImportTablesForm`. This is what MySQL/PostgreSQL/SQL Server import uses, but they start off in `DatabaseConnectionForm` whereas for DuckDB we start in the open file dialog. DuckDB connects like CSV but it imports like SQL Server.
-        - [ ] Currently when the user drag-and-drops a .csv file to our window, we open the Import CSV form with that file. Make the same happen here when dragging in a .duckdb file.
-    - [ ] Tests
-        - [ ] A test file is available in `src/Tests/files/example.duckdb`. You may create more test files with `duckdb` CLI if you need.
-        - [ ] Exercise `IMPORT DATABASE` for DuckDB using real files in `src/Tests/files`. See `src\Tests\scripts\IMPORT TEXT.sql` for an example.
+- [x] Add DuckDB import support.
+    - [x] Add `<PackageReference Include="DuckDB.NET.Data.Full" Version="1.3.0" />` (Full version includes native components)
+    - [x] Language update
+        - [x] We have an `IMPORT DATABASE` command already. Read and update `doc/import-database-stmt.html`. Add `duckdb` as a new "vendor" where the connection string is the path to the file.
+        - [x] The implementation is in `src\SqlNotebookScript\Interpreter\ImportDatabaseStmtRunner.cs`.
+    - [x] UI updates
+        - [x] "Import" menu > "From file...": Update open file dialog filter to include *.duckdb.
+        - [x] When .duckdb file is selected, transition to `DatabaseImportTablesForm`. This is what MySQL/PostgreSQL/SQL Server import uses, but they start off in `DatabaseConnectionForm` whereas for DuckDB we start in the open file dialog. DuckDB connects like CSV but it imports like SQL Server.
+        - [x] Currently when the user drag-and-drops a .csv file to our window, we open the Import CSV form with that file. Make the same happen here when dragging in a .duckdb file.
+    - [x] Tests
+        - [x] A test file is available in `src/Tests/files/example.duckdb`. You may create more test files with `duckdb` CLI if you need.
+        - [x] Exercise `IMPORT DATABASE` for DuckDB using real files in `src/Tests/files`. See `src\Tests\scripts\IMPORT TEXT.sql` for an example.
