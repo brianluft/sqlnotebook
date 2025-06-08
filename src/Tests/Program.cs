@@ -101,7 +101,9 @@ public static class Program
 
         // Check if we have search terms from command line arguments
         var hasSearchTerms = args != null && args.Length > 0;
-        var searchTerms = hasSearchTerms ? args.Select(arg => arg.ToLowerInvariant()).ToArray() : null;
+        var searchTerms = hasSearchTerms
+            ? args.Select(arg => arg.ToLowerInvariant().Replace(' ', '_').Replace('.', '_')).ToArray()
+            : null;
 
         // Enable debug mode when filtering tests
         if (hasSearchTerms)
@@ -149,6 +151,13 @@ public static class Program
                 }
 
                 totalTests++;
+
+                // Print test name when filtering tests
+                if (hasSearchTerms)
+                {
+                    Console.WriteLine($"Running {testClass.Name}.{testMethod.Name}");
+                }
+
                 try
                 {
                     testMethod.Invoke(instance, null);
