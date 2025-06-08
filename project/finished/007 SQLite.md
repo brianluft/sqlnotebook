@@ -1,0 +1,8 @@
+- [x] Add SQLite import support.
+    - [x] This will mimic the project to add DuckDB.
+    - [x] Read `project\finished\006 DuckDB.md` to remember about that project.
+    - [x] Read the diff for git commit `37285b1d4bf34d9ee45c2e38a373f72914b85afb` which was the DuckDB implementation.
+    - [x] There is a test file in `src\Tests\files\example.sqlite3` containing the same `employees` table as the DuckDB example file.
+    - [x] Add Microsoft.Data.Sqlite 9.0.5 to SqlNotebook and SqlNotebookScript. Unlike with DuckDB, we do NOT want an included SQLite native library. We already ship our own build of SQLite that is ready to use. We just want the ADO.NET bindings.
+    - [x] File extension: .db .sqlite .sqlite3
+- [x] In File > Open, add the SQLite file extensions to the file filter. We already have the ability to open sqlite files as if they were our own notebooks, we just have to update the open file dialog to show those files.
