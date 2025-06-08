@@ -1,9 +1,9 @@
 - [ ] Add code signing to our GitHub Actions release process
     - [ ] It used to be integrated into New-Release.ps1, which ran in GitHub Actions, but now code signing requires a physical HSM that we can't use in the cloud. We will split New-Release.ps1 into two phases: 1.) Everything leading up to "Generate portable ZIP", and 2.) Generating the portable zip, and the MSI with WiX. This will allow us to run phase 1 in GitHub Actions, then I will download the resulting release files, sign the EXE myself, and then run phase 2 locally.
-    - [ ] Add a mandatory parameter to New-Release.ps1 for `-Phase 1` or `-Phase 2`.
-    - [ ] Update `.github\workflows\sqlnotebook.yml` to run phase 1 only, then to upload an artifact containing `src/SqlNotebook/bin/*`, this will contain the release files needed for the portable zip and WiX.
-    - [ ] Update `scripts/publish.sh` to run phase 1 only; we use this for local development and testing of the phase 1 process.
-    - [ ] Update the release instructions in `CONTRIBUTING.md`. Remember that phase 1 runs in GitHub Actions and phase 2 runs locally where the HSM is located.
+    - [x] Add a mandatory parameter to New-Release.ps1 for `-Phase 1` or `-Phase 2`.
+    - [x] Update `.github\workflows\sqlnotebook.yml` to run phase 1 only, then to upload an artifact containing `src/SqlNotebook/bin/*`, this will contain the release files needed for the portable zip and WiX.
+    - [x] Update `scripts/publish.sh` to run phase 1 only; we use this for local development and testing of the phase 1 process.
+    - [x] Update the release instructions in `CONTRIBUTING.md`. Remember that phase 1 runs in GitHub Actions and phase 2 runs locally where the HSM is located.
     - [ ] Here are the instructions for signing locally, please format it nicely:
         - Install Windows SDK in order to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
         - Search for signtool in C:\Program Files (x86). Set $signtool to its path.

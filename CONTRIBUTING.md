@@ -55,10 +55,27 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 - Add a news entry in `web\index.html`.
 - Close Visual Studio.
 - Commit changes using commit message "Version X.X.X", and push.
-- Wait for GitHub Actions to build.
-- Test the zip and MSI in the GitHub Actions output. Rename them to `SQLNotebook-X.X.X.*`.
-- PowerShell: Set `$sha1` to the hash of the code signing certificate, then: `signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 filename` for the `.msi`.
-- Unpack the `.zip`, sign `SqlNotebook.exe`, and repack it.
+
+### Phase 1: Build and prepare files (runs in GitHub Actions)
+- Wait for GitHub Actions to complete Phase 1 build.
+- Download the Phase 1 artifacts from GitHub Actions: `SqlNotebook-x64-release-files` and `SqlNotebook-arm64-release-files`.
+- Extract each artifact to get the build outputs in `src/SqlNotebook/bin/`.
+
+### Phase 2: Code signing and final packaging (runs locally)
+- **Prerequisites for local signing:**
+  - Install Windows SDK to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". Download from: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+  - Search for signtool in `C:\Program Files (x86)`. Set `$signtool` to its path.
+  - Find the HSM entry in 1Password. Set `$sha1` to the SHA1 hash. Keep the entry open so you can copy the password out.
+
+- **For each platform (x64, arm64):**
+  - Extract the corresponding Phase 1 artifact to your local workspace.
+  - Sign the executable: `& $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe`. Paste the password when prompted.
+  - Verify digital signature in the file properties.
+  - Run Phase 2: `powershell.exe ps1/New-Release.ps1 -Platform <platform> -MsbuildPath <path> -Phase "2"`
+  - This will generate `SQLNotebook.zip` and `SQLNotebook.msi` in `src/SqlNotebook/bin/`.
+  - Rename them to `SQLNotebook-X.X.X-<platform>.*`.
+
+- Test the zip and MSI files.
 - Create release on GitHub, upload zip and msi.
     - Let GitHub create a new tag, name it `vX.X.X`.
     - Set release title to `vX.X.X`.

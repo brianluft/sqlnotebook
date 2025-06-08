@@ -17,29 +17,21 @@ jobs:
       with:
         dotnet-version: '7.0.x'
 
-    - name: Build
+    - name: Build Phase 1
       shell: pwsh
       run: |
         Write-Output "Finding msbuild."
         $msbuildPath = & vswhere.exe -latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
         Write-Output "Found msbuild at: $msbuildPath"
 
-        Write-Output "Building ${{ matrix.platform }}."
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
-        Move-Item src/SqlNotebook/bin/SqlNotebook.msi SqlNotebook-${{ matrix.platform }}.msi
-        Move-Item src/SqlNotebook/bin/SqlNotebook.zip SqlNotebook-${{ matrix.platform }}.zip
+        Write-Output "Building ${{ matrix.platform }} - Phase 1 (build and prepare files)."
+        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }} -Phase "1"
 
-    - name: Upload MSI
+    - name: Upload Release Files
       uses: actions/upload-artifact@v4
       with:
-        name: SqlNotebook-${{ matrix.platform }}.msi
-        path: SqlNotebook-${{ matrix.platform }}.msi
-
-    - name: Upload ZIP
-      uses: actions/upload-artifact@v4
-      with:
-        name: SqlNotebook-${{ matrix.platform }}.zip
-        path: SqlNotebook-${{ matrix.platform }}.zip
+        name: SqlNotebook-${{ matrix.platform }}-release-files
+        path: src/SqlNotebook/bin/*
 
   test:
     runs-on: windows-latest
