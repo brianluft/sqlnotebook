@@ -10,3 +10,11 @@
     - [x] Tests
         - [x] A test file is available in `src/Tests/files/example.duckdb`. You may create more test files with `duckdb` CLI if you need.
         - [x] Exercise `IMPORT DATABASE` for DuckDB using real files in `src/Tests/files`. See `src\Tests\scripts\IMPORT TEXT.sql` for an example.
+    - [ ] I changed my mind about the connection string. We made it simply the path to the .duckdb file, but our documentation defines it to be a proper ADO.NET connection string. Let's change it to be the ADO.NET connection string, so the user will have to type `Data Source=C:\Path\To\file.duckdb` instead of simply `C:\Path\To\file.duckdb`. We want to mimic the other SQL providers more closely, we ended up needing to special-case DuckDB to do the filename-only connection string.
+    - [ ] Add a test for the `LINK: 1` option, which creates a live database connection instead of copying data. The default is `LINK: 0` and you've only tested that. Link mode involves implementing an `AdoModuleProvider` (see example `SqlServerAdoModuleProvider`) and registering it in `Notebook.Init()`. Read `doc/import-database-stmt.html` for context. The following query should work and you should be able to query it.
+        ```
+        IMPORT DATABASE 'duckdb'
+        CONNECTION '<FILES>\example.duckdb'
+        TABLE employees
+        OPTIONS (LINK: 1)
+        ```

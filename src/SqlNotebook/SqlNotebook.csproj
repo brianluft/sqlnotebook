@@ -3248,7 +3248,7 @@
     <None Update="doc\sqlite\syntax\with-clause.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <!--doc end-->
+<!--doc end-->
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\Settings.settings">
