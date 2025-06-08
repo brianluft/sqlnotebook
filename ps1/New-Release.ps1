@@ -46,7 +46,7 @@ if (-not (Test-Path $vsRuntimeDir)) {
     throw "Visual C++ Redistributable $vsRuntimeVersion not found!"
 }
 
-$wixDir = "C:\Program Files\WiX Toolset v6.0\bin"
+$wixDir = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
 if (-not (Test-Path $wixDir)) {
     throw "WiX not found!"
 }
