@@ -161,6 +161,11 @@ Write-Output "SqlNotebook.msi signed successfully."
 # Copy final files to output directory with proper naming
 #
 
+$filePlatform = $Platform
+if ($Platform -eq 'x64') {
+    $filePlatform = '64bit'
+}
+
 $finalZipName = "SqlNotebook-$Platform-$Version.zip"
 $finalMsiName = "SqlNotebook-$Platform-$Version.msi"
 

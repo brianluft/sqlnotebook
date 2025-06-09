@@ -92,8 +92,8 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 
 - Test the zip and MSI files from the `release-output/` directory.
 - Create release on GitHub, upload the four files from `release-output/`:
-    - `SqlNotebook-x64-<version>.zip`
-    - `SqlNotebook-x64-<version>.msi`
+    - `SqlNotebook-64bit-<version>.zip`
+    - `SqlNotebook-64bit-<version>.msi`
     - `SqlNotebook-arm64-<version>.zip`
     - `SqlNotebook-arm64-<version>.msi`
 - Release settings:
