@@ -43,6 +43,11 @@ public sealed class SqliteGrammarTest
 
             foreach (var stmt in stmts)
             {
+                if (errors.Count >= 5)
+                {
+                    break;
+                }
+
                 // try first in SQLite directly to validate the test
                 try
                 {

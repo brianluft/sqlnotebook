@@ -533,6 +533,7 @@ public sealed class Notebook : IDisposable
     )
     {
         const int TK_SPACE = (int)TokenType.Space;
+        const int TK_COMMENT = (int)TokenType.Comment;
         if (pos >= len)
         {
             return 0;
@@ -545,9 +546,9 @@ public sealed class Notebook : IDisposable
             tokenType = (int)Marshal.ReadIntPtr(scratch.Ptr);
             oldPos = pos;
             pos += tokenLen;
-        } while (tokenType == TK_SPACE && pos < len);
+        } while ((tokenType == TK_SPACE || tokenType == TK_COMMENT) && pos < len);
 
-        return tokenType == TK_SPACE ? 0 : tokenType;
+        return (tokenType == TK_SPACE || tokenType == TK_COMMENT) ? 0 : tokenType;
     }
 
     public static void ThrowIfCancelRequested()

@@ -1,11 +1,11 @@
 # Downloads non-NuGet deps
 
-$sqliteCodeUrl = 'https://sqlite.org/2024/sqlite-amalgamation-3460000.zip'
-$sqliteCodeHash = '712A7D09D2A22652FB06A49AF516E051979A3984ADB067DA86760E60ED51A7F5'
-$sqliteDocUrl = 'https://sqlite.org/2024/sqlite-doc-3460000.zip'
-$sqliteDocHash = '5EC9651BBFAB7D3BF0A295F4D9BE7D861E9968EA993438F05B579D8A75FE1E6F'
-$sqliteSrcUrl = 'https://sqlite.org/2024/sqlite-src-3460000.zip'
-$sqliteSrcHash = '070362109BEB6899F65797571B98B8824C8F437F5B2926F88EE068D98EF368EC'
+$sqliteCodeUrl = 'https://sqlite.org/2025/sqlite-amalgamation-3500100.zip'
+$sqliteCodeHash = '41716B44AC8777188C4C3F1F370F01C9CB9E3B6428EB5C981D086C35DE2D9D3F'
+$sqliteDocUrl = 'https://sqlite.org/2025/sqlite-doc-3500100.zip'
+$sqliteDocHash = '662205F63382E57D1071EAABD3C7908DD72114A820A8EBCF1A0D71A9D6B382B4'
+$sqliteSrcUrl = 'https://sqlite.org/2025/sqlite-src-3500100.zip'
+$sqliteSrcHash = '9090597773C60A49CAEBB3C1AC57DB626FAC4D97CB51890815A8B529A4D9C3DC'
 
 $sqleanVersion = '0.27.2'
 $sqleanZipUrl = "https://github.com/nalgeon/sqlean/archive/refs/tags/$sqleanVersion.zip"

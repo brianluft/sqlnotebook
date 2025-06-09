@@ -322,6 +322,9 @@
     <None Update="doc\sqlite\aff_short.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="doc\sqlite\amalg-v-canon.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="doc\sqlite\amalgamation.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -347,6 +350,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\backup.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\base64.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\base85.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\bindptr.html">
@@ -754,6 +763,9 @@
     <None Update="doc\sqlite\partialindex.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="doc\sqlite\percentile.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="doc\sqlite\pgszchng2016.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -812,6 +824,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\rowvalue.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\rsync.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\rtree.html">
@@ -1141,7 +1156,7 @@
     <None Update="doc\sqlite\c3ref\c_index_constraint_eq.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="doc\sqlite\c3ref\c_index_scan_unique.html">
+    <None Update="doc\sqlite\c3ref\c_index_scan_hex.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\c3ref\c_iocap_atomic.html">
@@ -1159,7 +1174,7 @@
     <None Update="doc\sqlite\c3ref\c_open_autoproxy.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="doc\sqlite\c3ref\c_prepare_normalize.html">
+    <None Update="doc\sqlite\c3ref\c_prepare_dont_log.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\c3ref\c_scanstat_complex.html">
@@ -1169,6 +1184,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\c3ref\c_serialize_nocopy.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\c3ref\c_setlk_block_on_connect.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\c3ref\c_shm_exclusive.html">
@@ -1423,6 +1441,9 @@
     <None Update="doc\sqlite\c3ref\serialize.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="doc\sqlite\c3ref\setlk_timeout.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="doc\sqlite\c3ref\set_authorizer.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1642,13 +1663,7 @@
     <None Update="doc\sqlite\images\cpu-usage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="doc\sqlite\images\dan1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="doc\sqlite\images\direct1b.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="doc\sqlite\images\drh1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\images\faster-read-blobapi.jpg">
@@ -1714,9 +1729,6 @@
     <None Update="doc\sqlite\images\indirect1b1.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="doc\sqlite\images\joe1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="doc\sqlite\images\loc.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1760,6 +1772,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\images\sqlite370_banner.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\images\sqlite370_banner.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\images\sqlitepie.jpg">
@@ -2563,6 +2578,30 @@
     <None Update="doc\sqlite\releaselog\3_46_0.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="doc\sqlite\releaselog\3_46_1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_47_0.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_47_1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_47_2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_48_0.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_49_0.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_49_1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_49_2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="doc\sqlite\releaselog\3_4_0.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2570,6 +2609,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\releaselog\3_4_2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_50_0.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="doc\sqlite\releaselog\3_50_1.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\releaselog\3_5_0.html">
@@ -2975,9 +3020,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\session\sqlite3changeset_start.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="doc\sqlite\session\sqlite3changeset_upgrade.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="doc\sqlite\session\sqlite3rebaser_configure.html">
