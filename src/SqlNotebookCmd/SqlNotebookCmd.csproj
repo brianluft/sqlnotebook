@@ -7,7 +7,7 @@
     <Platforms>x64;ARM64</Platforms>
     <LangVersion>latest</LangVersion>
     <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
-    <SelfContained>False</SelfContained>
+    <SelfContained>True</SelfContained>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlNotebookScript\SqlNotebookScript.csproj" />

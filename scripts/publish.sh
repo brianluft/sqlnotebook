@@ -18,5 +18,5 @@ if [ ! -f "$MSBUILD" ]; then
     exit 1
 fi
 
-echo "Running New-Release.ps1 Phase 1 for platform $MSBUILD_PLATFORM"
-powershell.exe -NoProfile ps1/New-Release.ps1 -Platform "$MSBUILD_PLATFORM" -MsbuildPath "'$MSBUILD'" -Phase "1"
+echo "Running Start-Release.ps1 for platform $MSBUILD_PLATFORM"
+powershell.exe -NoProfile ps1/Start-Release.ps1 -Platform "$MSBUILD_PLATFORM" -MsbuildPath "'$MSBUILD'"
