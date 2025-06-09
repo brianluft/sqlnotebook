@@ -102,15 +102,13 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
     - Copy the release verbiage from the previous release, and edit in the new release notes.
     - Edit the previous release and remove the first two lines, the download links. We don't want to confuse users who visit the releases page.
 - Update `web\appversion.txt` with new version and MSI URL.
-- Run `ps1\Update-GitHubPages.ps1` and force push the `sqlnotebook-gh-pages` repo.
+- Git clone `website-sqlnotebook.com` in the same directory as `sqlnotebook`. Inside `sqlnotebook`, run `ps1\Update-GitHubPages.ps1` and force push the `website-sqlnotebook.com` repo.
 - Update `src\chocolatey\sqlnotebook.nuspec` with copyright and version.
-- Update `src\chocolatey\tools\chocolateyInstall.ps1` with MSI URL.
-- Put a copy of the code signing certificate into `C:\Tools\Brian Luft.pfx`.
+- Update `src\chocolatey\tools\chocolateyInstall.ps1` with MSI URL and SHA-256 checksums (download and use `Get-FileHash`).
 - Get your [Chocolatey API key](https://community.chocolatey.org/account).
-- In PowerShell from `src\chocolatey`:
+- In Admin PowerShell from `src\chocolatey`:
     ```
     choco pack
-    nuget sign sqlnotebook.X.X.X.nupkg -CertificatePath "C:\Tools\Brian Luft.pfx" -Timestamper http://timestamp.sectigo.com
     choco install sqlnotebook -s .
     (test that it worked)
     $api = '<chocolatey api key>'

@@ -5,15 +5,14 @@ $installerType = 'msi'
 $silentArgs = '/quiet'
 $validExitCodes = @(0)
 
-if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') {
-    $url = 'https://github.com/electroly/sqlnotebook/releases/download/v1.2.3/SqlNotebook-arm64-1.2.3.msi'
-    $checksum = '1A1660757E4E494F1A4DF8B9819939F51F628BBB1E1BFD7F966839C46CC5405D'
-} elseif (Get-OSArchitectureWidth 32) {
-    $url = 'https://github.com/electroly/sqlnotebook/releases/download/v1.2.3/SqlNotebook-32bit-1.2.3.msi'
-    $checksum = '8CE204214924ABB8B8499C8C52AE54035A2D504DC7609C6B29A6B60CBA7CFB34'
+$platform = [System.Environment]::GetEnvironmentVariable('PROCESSOR_ARCHITECTURE', 'Machine')
+
+if ($platform -eq 'ARM64') {
+    $url = 'https://github.com/electroly/sqlnotebook/releases/download/v2.0.0/SqlNotebook-arm64-2.0.0.msi'
+    $checksum = 'E42EBE99220DD484A80360F62CA0C520A5CAADEF67B0EA04BAC009BEF59303C4'
 } else {
-    $url = 'https://github.com/electroly/sqlnotebook/releases/download/v1.2.3/SqlNotebook-64bit-1.2.3.msi'
-    $checksum = '94ED3828EA4E6C7F75E7D57ED8A73EEE3D8CFBAF0CD4DF049D6E9DBA3A979210'
+    $url = 'https://github.com/electroly/sqlnotebook/releases/download/v2.0.0/SqlNotebook-64bit-2.0.0.msi'
+    $checksum = '4B6A8B59B8D6BADE46B07E46229C3EDB229FB8E7EBFE7610C0837711CF47A441'
 }
 
 Install-ChocolateyPackage "$packageName" "$installerType" "$silentArgs" "$url" -validExitCodes $validExitCodes -checksumType 'sha256' -checksum $checksum
