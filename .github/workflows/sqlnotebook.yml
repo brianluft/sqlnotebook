@@ -31,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: SqlNotebook-${{ matrix.platform }}-release-files
-        path: src/SqlNotebook/bin/*
+        path: src/SqlNotebook/bin/publish/*
 
   test:
     runs-on: windows-latest

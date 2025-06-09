@@ -59,7 +59,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 ### Phase 1: Build and prepare files (runs in GitHub Actions)
 - Wait for GitHub Actions to complete Phase 1 build.
 - Download the Phase 1 artifacts from GitHub Actions: `SqlNotebook-x64-release-files` and `SqlNotebook-arm64-release-files`.
-- Extract each artifact to get the build outputs in `src/SqlNotebook/bin/`.
+- Extract each artifact to get the build outputs in `src/SqlNotebook/bin/publish/`.
 
 ### Phase 2: Code signing and final packaging (runs locally)
 - **Prerequisites for local signing:**
