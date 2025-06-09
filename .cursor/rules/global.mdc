@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-This is SQL Notebook. Written in C#, .NET 7.0, Windows Forms.
+This is SQL Notebook. Written in C#, .NET 9.0, Windows Forms.
 
 # Rules
 - ALWAYS build after making code changes, using `scripts/build.sh`. Never use `dotnet` directly. `build.sh` does everything.

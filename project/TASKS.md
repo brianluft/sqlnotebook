@@ -32,3 +32,5 @@
             - [x] SqlNotebook-x64.msi (WiX installer)
             - [x] SqlNotebook-x64.zip (portable zip)
         - [x] Update `CONTRIBUTING.md` accordingly. The developer will have to enter their password interactively when prompted by `signtool`, but your script will take care of the rest. Then the developer will attach those four files to the GitHub release and proceed with the rest of the release process.
+    - [ ] I want the final release files to be named like `SqlNotebook-arm64-2.0.0.msi` where 2.0.0 is the version number. Add `-Version` as a required parameter to `Finish-Release.ps1` and use it to rename the final files.
+        - [ ] Update `CONTRIBUTING.md` accordingly.
