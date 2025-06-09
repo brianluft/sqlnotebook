@@ -64,18 +64,21 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 ### Phase 2: Code signing and final packaging (runs locally)
 - **Prerequisites for local signing:**
   1. Install Windows SDK to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". Download from: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-  2. Search for signtool in `C:\Program Files (x86)`. Note the full path to `signtool.exe`.
-  3. Find the HSM entry in 1Password. Note the SHA1 hash. Keep the entry open so you can copy the password out.
-  4. Download the Phase 1 artifacts from GitHub Actions: `SqlNotebook-x64-release-files` and `SqlNotebook-arm64-release-files`.
+  1. Search for signtool in `C:\Program Files (x86)`. Note the full path to `signtool.exe`.
+  1. Find the HSM entry in 1Password. Note the SHA1 hash. Keep the entry open so you can copy the password out.
+  1. Download the Phase 1 artifacts from GitHub Actions: `SqlNotebook-x64-release-files` and `SqlNotebook-arm64-release-files`.
+  1. Download and extract the [repository zip](https://github.com/brianluft/sqlnotebook/archive/refs/heads/master.zip).
 
 - **For each platform (x64, arm64):**
-  1. Extract the corresponding Phase 1 artifact to your local workspace in `src/SqlNotebook/bin/publish/`.
-  2. Run Phase 2 with automated code signing:
+  1. Create empty folder: `src/SqlNotebook/bin/publish/`. Extract the corresponding Phase 1 artifact there.
+  1. Run Phase 2 with automated code signing:
      ```powershell
-     powershell.exe ps1/Finish-Release.ps1 -Platform <platform> -SigntoolPath "<full path to signtool.exe>" -SigntoolSha1 "<SHA1 hash>" -Version "<version>"
+     $signtool = '<full path to signtool.exe>'
+     $sha1 = '<code signing certificate SHA1 hash>'
+     ps1/Finish-Release.ps1 -Platform <platform> -SigntoolPath "$signtool" -SigntoolSha1 "$sha1" -Version "<version>"
      ```
      You will be prompted to enter your HSM password when signtool runs for both the executable and MSI.
-  3. The script will automatically:
+  1. The script will automatically:
      - Sign `SqlNotebook.exe`
      - Generate the portable ZIP
      - Generate the MSI installer
