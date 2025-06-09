@@ -52,6 +52,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 ## How to release a new version
 
 - Check for new updates to NuGet packages.
+- Write release notes in `project/finished`.
 - Bump `AssemblyFileVersion` and `AssemblyCopyright` in `src\SqlNotebook\Properties\AssemblyInfo.cs`.
 - Bump `ProductVersion` in `src\SqlNotebook.wxs`.
 - Add a news entry in `web\index.html`.

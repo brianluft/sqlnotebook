@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 
 // this is Application.ProductVersion
-[assembly: AssemblyFileVersion("1.2.3")]
+[assembly: AssemblyFileVersion("2.0.0")]
