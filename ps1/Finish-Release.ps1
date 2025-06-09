@@ -166,8 +166,8 @@ if ($Platform -eq 'x64') {
     $filePlatform = '64bit'
 }
 
-$finalZipName = "SqlNotebook-$Platform-$Version.zip"
-$finalMsiName = "SqlNotebook-$Platform-$Version.msi"
+$finalZipName = "SqlNotebook-$filePlatform-$Version.zip"
+$finalMsiName = "SqlNotebook-$filePlatform-$Version.msi"
 
 Copy-Item $zipFilePath "$outputDir\$finalZipName"
 Copy-Item $msiFilePath "$outputDir\$finalMsiName"
