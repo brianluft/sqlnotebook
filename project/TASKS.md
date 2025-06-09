@@ -19,16 +19,16 @@
         - [x] Delete `New-Release.ps1`.
         - [x] Update `.github\workflows\sqlnotebook.yml` to point to `Start-Release.ps1`.
         - [x] Update `CONTRIBUTING.md` accordingly.
-    - [ ] The code signing is currently manual. Automate it in `Finish-Release.ps1`.
-        - [ ] Read `CONTRIBUTING.md` to understand the release process.
-        - [ ] Add required `-SigntoolPath` parameter, path to `signtool.exe`.
-        - [ ] Add required `-SigntoolSha1` parameter, the value for signtool's `/sha1` parameter.
-        - [ ] You have to call `signtool.exe` four times:
-            - [ ] 2x SqlNotebook.exe (which is then included in both the portable .zip and in the .msi): x64 and arm64
-            - [ ] 2x SqlNotebook.msi (the output from WiX): x64 and arm64
-        - [ ] Produce an output folder containing the exact files to attach to the release:
-            - [ ] SqlNotebook-arm64.msi (WiX installer)
-            - [ ] SqlNotebook-arm64.zip (portable zip)
-            - [ ] SqlNotebook-x64.msi (WiX installer)
-            - [ ] SqlNotebook-x64.zip (portable zip)
-        - [ ] Update `CONTRIBUTING.md` accordingly. The developer will have to enter their password interactively when prompted by `signtool`, but your script will take care of the rest. Then the developer will attach those four files to the GitHub release and proceed with the rest of the release process.
+    - [x] The code signing is currently manual. Automate it in `Finish-Release.ps1`.
+        - [x] Read `CONTRIBUTING.md` to understand the release process.
+        - [x] Add required `-SigntoolPath` parameter, path to `signtool.exe`.
+        - [x] Add required `-SigntoolSha1` parameter, the value for signtool's `/sha1` parameter.
+        - [x] You have to call `signtool.exe` four times:
+            - [x] 2x SqlNotebook.exe (which is then included in both the portable .zip and in the .msi): x64 and arm64
+            - [x] 2x SqlNotebook.msi (the output from WiX): x64 and arm64
+        - [x] Produce an output folder containing the exact files to attach to the release:
+            - [x] SqlNotebook-arm64.msi (WiX installer)
+            - [x] SqlNotebook-arm64.zip (portable zip)
+            - [x] SqlNotebook-x64.msi (WiX installer)
+            - [x] SqlNotebook-x64.zip (portable zip)
+        - [x] Update `CONTRIBUTING.md` accordingly. The developer will have to enter their password interactively when prompted by `signtool`, but your script will take care of the rest. Then the developer will attach those four files to the GitHub release and proceed with the rest of the release process.

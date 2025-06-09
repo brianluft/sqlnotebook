@@ -1,5 +1,10 @@
 param (
-    [string]$Platform
+    [Parameter(Mandatory=$true)]
+    [string]$Platform,
+    [Parameter(Mandatory=$true)]
+    [string]$SigntoolPath,
+    [Parameter(Mandatory=$true)]
+    [string]$SigntoolSha1
 )
 
 $ErrorActionPreference = "Stop"
@@ -12,7 +17,12 @@ if ($Platform -ne 'x64' -and $Platform -ne 'arm64') {
     throw "Platform must be either 'x64' or 'arm64'."
 }
 
-Write-Output "=== PHASE 2: Generate portable ZIP and MSI ==="
+# Verify that signtool exists
+if (-not (Test-Path $SigntoolPath)) {
+    throw "Signtool not found at: $SigntoolPath"
+}
+
+Write-Output "=== PHASE 2: Code signing, generate portable ZIP and MSI ==="
 
 $wixDir = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
 if (-not (Test-Path $wixDir)) {
@@ -25,11 +35,18 @@ $srcDir = Join-Path $rootDir "src"
 $binDir = Join-Path $srcDir "SqlNotebook\bin"
 $relDir = Join-Path $srcDir "SqlNotebook\bin\publish"
 $tempWxsFilePath = "$srcDir\SqlNotebook\bin\temp.wxs"
+$outputDir = Join-Path $rootDir "release-output"
 
 # Verify that Phase 1 was completed
 if (-not (Test-Path "$relDir\SqlNotebook.exe")) {
     throw "Phase 1 must be completed first. SqlNotebook.exe not found in $relDir"
 }
+
+# Create output directory
+if (Test-Path $outputDir) {
+    Remove-Item $outputDir -Recurse -Force
+}
+New-Item -ItemType Directory -Path $outputDir | Out-Null
 
 Push-Location $relDir
 
@@ -43,6 +60,17 @@ rm "$relDir\SqlNotebook.wixobj" -ErrorAction SilentlyContinue
 rm "$relDir\SqlNotebook.wxs" -ErrorAction SilentlyContinue
 
 Copy-Item -Force "$srcdir\SqlNotebook\SqlNotebookIcon.ico" "$relDir\SqlNotebookIcon.ico"
+
+#
+# Code sign the executable
+#
+
+Write-Output "Code signing SqlNotebook.exe..."
+& $SigntoolPath sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $SigntoolSha1 "SqlNotebook.exe"
+if ($LastExitCode -ne 0) {
+    throw "Code signing of SqlNotebook.exe failed."
+}
+Write-Output "SqlNotebook.exe signed successfully."
 
 #
 # Generate portable ZIP
@@ -109,8 +137,32 @@ if (-not (Test-Path "$relDir\SqlNotebook.msi")) {
 
 Move-Item -Force "$relDir\SqlNotebook.msi" $msiFilePath
 
+#
+# Code sign the MSI
+#
+
+Write-Output "Code signing SqlNotebook.msi..."
+& $SigntoolPath sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $SigntoolSha1 $msiFilePath
+if ($LastExitCode -ne 0) {
+    throw "Code signing of SqlNotebook.msi failed."
+}
+Write-Output "SqlNotebook.msi signed successfully."
+
+#
+# Copy final files to output directory with proper naming
+#
+
+$finalZipName = "SqlNotebook-$Platform.zip"
+$finalMsiName = "SqlNotebook-$Platform.msi"
+
+Copy-Item $zipFilePath "$outputDir\$finalZipName"
+Copy-Item $msiFilePath "$outputDir\$finalMsiName"
+
 Pop-Location
 
-Write-Output "Phase 2 completed."
-Write-Output "ZIP: $zipFilePath"
-Write-Output "MSI: $msiFilePath" 
+Write-Output "Phase 2 completed successfully."
+Write-Output "Release files created in: $outputDir"
+Write-Output "  - $finalZipName"
+Write-Output "  - $finalMsiName"
+Write-Output ""
+Write-Output "These files are ready to be attached to the GitHub release." 

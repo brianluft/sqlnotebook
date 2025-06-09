@@ -64,24 +64,33 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
 ### Phase 2: Code signing and final packaging (runs locally)
 - **Prerequisites for local signing:**
   1. Install Windows SDK to get signtool. The only necessary features are "Windows SDK Signing Tools for Desktop Apps" and "MSI Tools". Download from: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-  2. Search for signtool in `C:\Program Files (x86)`. Set `$signtool` to its path.
-  3. Find the HSM entry in 1Password. Set `$sha1` to the SHA1 hash. Keep the entry open so you can copy the password out.
-  4. Download the Phase 1 zip from GitHub Actions.
+  2. Search for signtool in `C:\Program Files (x86)`. Note the full path to `signtool.exe`.
+  3. Find the HSM entry in 1Password. Note the SHA1 hash. Keep the entry open so you can copy the password out.
+  4. Download the Phase 1 artifacts from GitHub Actions: `SqlNotebook-x64-release-files` and `SqlNotebook-arm64-release-files`.
 
 - **For each platform (x64, arm64):**
-  1. Extract the corresponding Phase 1 artifact to your local workspace.
-  2. Sign the executable using the following command:
+  1. Extract the corresponding Phase 1 artifact to your local workspace in `src/SqlNotebook/bin/publish/`.
+  2. Run Phase 2 with automated code signing:
      ```powershell
-     & $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe
+     powershell.exe ps1/Finish-Release.ps1 -Platform <platform> -SigntoolPath "<full path to signtool.exe>" -SigntoolSha1 "<SHA1 hash>"
      ```
-     Paste the password when prompted.
-  3. Verify the digital signature in the file properties.
-  4. Run Phase 2: `powershell.exe ps1/Finish-Release.ps1 -Platform <platform>`
-  5. This will generate `SQLNotebook.zip` and `SQLNotebook.msi` in `src/SqlNotebook/bin/`.
-  6. Rename them to `SQLNotebook-X.X.X-<platform>.*`.
+     You will be prompted to enter your HSM password when signtool runs for both the executable and MSI.
+  3. The script will automatically:
+     - Sign `SqlNotebook.exe`
+     - Generate the portable ZIP
+     - Generate the MSI installer
+     - Sign the MSI installer
+     - Create properly named output files in `release-output/`:
+       - `SqlNotebook-<platform>.zip`
+       - `SqlNotebook-<platform>.msi`
 
-- Test the zip and MSI files.
-- Create release on GitHub, upload zip and msi.
+- Test the zip and MSI files from the `release-output/` directory.
+- Create release on GitHub, upload the four files from `release-output/`:
+    - `SqlNotebook-x64.zip`
+    - `SqlNotebook-x64.msi`
+    - `SqlNotebook-arm64.zip`
+    - `SqlNotebook-arm64.msi`
+- Release settings:
     - Let GitHub create a new tag, name it `vX.X.X`.
     - Set release title to `vX.X.X`.
     - Copy the release verbiage from the previous release, and edit in the new release notes.
