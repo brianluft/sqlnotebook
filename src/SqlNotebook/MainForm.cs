@@ -721,7 +721,7 @@ public partial class MainForm : ZForm
     private void ReportIssueMnu_Click(object sender, EventArgs e)
     {
         Process.Start(
-            new ProcessStartInfo("https://github.com/electroly/sqlnotebook/issues/new") { UseShellExecute = true }
+            new ProcessStartInfo("https://github.com/brianluft/sqlnotebook/issues/new") { UseShellExecute = true }
         );
     }
 
@@ -955,7 +955,7 @@ public partial class MainForm : ZForm
         Process.Start(
             new ProcessStartInfo
             {
-                FileName = "https://github.com/electroly/sqlnotebook/releases",
+                FileName = "https://github.com/brianluft/sqlnotebook/releases",
                 UseShellExecute = true,
             }
         );

@@ -13,16 +13,16 @@
         <projectUrl>https://sqlnotebook.com</projectUrl>
         <tags>sql sqlite mysql postgresql sql server mssql csv xls excel admin</tags>
         <copyright>Copyright (C) 2016-2025 Brian Luft</copyright>
-        <licenseUrl>https://github.com/electroly/sqlnotebook/blob/master/LICENSE</licenseUrl>
+        <licenseUrl>https://github.com/brianluft/sqlnotebook/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <releaseNotes><![CDATA[
-            For historical release notes, view the [releases on GitHub](https://github.com/electroly/sqlnotebook/releases).
+            For historical release notes, view the [releases on GitHub](https://github.com/brianluft/sqlnotebook/releases).
         ]]></releaseNotes>
         <iconUrl>https://sqlnotebook.com/art/SqlNotebookIcon.png</iconUrl>
-        <projectSourceUrl>https://github.com/electroly/sqlnotebook</projectSourceUrl>
-        <packageSourceUrl>https://github.com/electroly/sqlnotebook/tree/master/src/chocolatey</packageSourceUrl>
+        <projectSourceUrl>https://github.com/brianluft/sqlnotebook</projectSourceUrl>
+        <packageSourceUrl>https://github.com/brianluft/sqlnotebook/tree/master/src/chocolatey</packageSourceUrl>
         <docsUrl>https://sqlnotebook.com/doc.html</docsUrl>
-        <bugTrackerUrl>https://github.com/electroly/sqlnotebook/issues</bugTrackerUrl>
+        <bugTrackerUrl>https://github.com/brianluft/sqlnotebook/issues</bugTrackerUrl>
     </metadata>
     <files>
         <file src="tools\**" target="tools" />
