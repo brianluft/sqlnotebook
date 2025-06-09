@@ -76,7 +76,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
      ```
      Paste the password when prompted.
   3. Verify the digital signature in the file properties.
-  4. Run Phase 2: `powershell.exe ps1/New-Release.ps1 -Platform <platform> -MsbuildPath <path> -Phase "2"`
+  4. Run Phase 2: `powershell.exe ps1/Finish-Release.ps1 -Platform <platform>`
   5. This will generate `SQLNotebook.zip` and `SQLNotebook.msi` in `src/SqlNotebook/bin/`.
   6. Rename them to `SQLNotebook-X.X.X-<platform>.*`.
 

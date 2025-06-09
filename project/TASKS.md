@@ -12,13 +12,13 @@
         - Set $sha1 to the hash of the code signing certificate, then: `& $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe`. Paste the password when prompted.
         - Verify digital signature in the file properties.
         - Run `New-Release.ps1` phase 2.
-    - [ ] Refactor `New-Release.ps1` by splitting the phases into separate scripts.
-        - [ ] Read `CONTRIBUTING.md` to understand the release process.
-        - [ ] Move phase 1 into `Start-Release.ps1`.
-        - [ ] Move phase 2 into `Finish-Release.ps1`, which now won't need to have `-MsbuildPath`.
-        - [ ] Delete `New-Release.ps1`.
-        - [ ] Update `.github\workflows\sqlnotebook.yml` to point to `Start-Release.ps1`.
-        - [ ] Update `CONTRIBUTING.md` accordingly.
+    - [x] Refactor `New-Release.ps1` by splitting the phases into separate scripts.
+        - [x] Read `CONTRIBUTING.md` to understand the release process.
+        - [x] Move phase 1 into `Start-Release.ps1`.
+        - [x] Move phase 2 into `Finish-Release.ps1`, which now won't need to have `-MsbuildPath`.
+        - [x] Delete `New-Release.ps1`.
+        - [x] Update `.github\workflows\sqlnotebook.yml` to point to `Start-Release.ps1`.
+        - [x] Update `CONTRIBUTING.md` accordingly.
     - [ ] The code signing is currently manual. Automate it in `Finish-Release.ps1`.
         - [ ] Read `CONTRIBUTING.md` to understand the release process.
         - [ ] Add required `-SigntoolPath` parameter, path to `signtool.exe`.

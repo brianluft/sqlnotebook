@@ -25,7 +25,7 @@ jobs:
         Write-Output "Found msbuild at: $msbuildPath"
 
         Write-Output "Building ${{ matrix.platform }} - Phase 1 (build and prepare files)."
-        ps1\New-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }} -Phase "1"
+        ps1\Start-Release.ps1 -MsbuildPath $msbuildPath -Platform ${{ matrix.platform }}
 
     - name: Upload Release Files
       uses: actions/upload-artifact@v4
