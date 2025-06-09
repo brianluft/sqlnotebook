@@ -4,7 +4,9 @@ param (
     [Parameter(Mandatory=$true)]
     [string]$SigntoolPath,
     [Parameter(Mandatory=$true)]
-    [string]$SigntoolSha1
+    [string]$SigntoolSha1,
+    [Parameter(Mandatory=$true)]
+    [string]$Version
 )
 
 $ErrorActionPreference = "Stop"
@@ -152,8 +154,8 @@ Write-Output "SqlNotebook.msi signed successfully."
 # Copy final files to output directory with proper naming
 #
 
-$finalZipName = "SqlNotebook-$Platform.zip"
-$finalMsiName = "SqlNotebook-$Platform.msi"
+$finalZipName = "SqlNotebook-$Platform-$Version.zip"
+$finalMsiName = "SqlNotebook-$Platform-$Version.msi"
 
 Copy-Item $zipFilePath "$outputDir\$finalZipName"
 Copy-Item $msiFilePath "$outputDir\$finalMsiName"

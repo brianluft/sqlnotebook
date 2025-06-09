@@ -72,7 +72,7 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
   1. Extract the corresponding Phase 1 artifact to your local workspace in `src/SqlNotebook/bin/publish/`.
   2. Run Phase 2 with automated code signing:
      ```powershell
-     powershell.exe ps1/Finish-Release.ps1 -Platform <platform> -SigntoolPath "<full path to signtool.exe>" -SigntoolSha1 "<SHA1 hash>"
+     powershell.exe ps1/Finish-Release.ps1 -Platform <platform> -SigntoolPath "<full path to signtool.exe>" -SigntoolSha1 "<SHA1 hash>" -Version "<version>"
      ```
      You will be prompted to enter your HSM password when signtool runs for both the executable and MSI.
   3. The script will automatically:
@@ -81,15 +81,15 @@ In AWS, a `c5a.xlarge` instance running Windows Server 2022 will do.
      - Generate the MSI installer
      - Sign the MSI installer
      - Create properly named output files in `release-output/`:
-       - `SqlNotebook-<platform>.zip`
-       - `SqlNotebook-<platform>.msi`
+       - `SqlNotebook-<platform>-<version>.zip`
+       - `SqlNotebook-<platform>-<version>.msi`
 
 - Test the zip and MSI files from the `release-output/` directory.
 - Create release on GitHub, upload the four files from `release-output/`:
-    - `SqlNotebook-x64.zip`
-    - `SqlNotebook-x64.msi`
-    - `SqlNotebook-arm64.zip`
-    - `SqlNotebook-arm64.msi`
+    - `SqlNotebook-x64-<version>.zip`
+    - `SqlNotebook-x64-<version>.msi`
+    - `SqlNotebook-arm64-<version>.zip`
+    - `SqlNotebook-arm64-<version>.msi`
 - Release settings:
     - Let GitHub create a new tag, name it `vX.X.X`.
     - Set release title to `vX.X.X`.
