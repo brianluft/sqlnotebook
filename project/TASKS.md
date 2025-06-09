@@ -12,4 +12,23 @@
         - Set $sha1 to the hash of the code signing certificate, then: `& $signtool sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $sha1 SqlNotebook.exe`. Paste the password when prompted.
         - Verify digital signature in the file properties.
         - Run `New-Release.ps1` phase 2.
-    - [ ] You can test phase 1 yourself via `publish.sh`. You cannot test phase 2 or the GitHub Actions workflow; I will have to test those.
+    - [ ] Refactor `New-Release.ps1` by splitting the phases into separate scripts.
+        - [ ] Read `CONTRIBUTING.md` to understand the release process.
+        - [ ] Move phase 1 into `Start-Release.ps1`.
+        - [ ] Move phase 2 into `Finish-Release.ps1`, which now won't need to have `-MsbuildPath`.
+        - [ ] Delete `New-Release.ps1`.
+        - [ ] Update `.github\workflows\sqlnotebook.yml` to point to `Start-Release.ps1`.
+        - [ ] Update `CONTRIBUTING.md` accordingly.
+    - [ ] The code signing is currently manual. Automate it in `Finish-Release.ps1`.
+        - [ ] Read `CONTRIBUTING.md` to understand the release process.
+        - [ ] Add required `-SigntoolPath` parameter, path to `signtool.exe`.
+        - [ ] Add required `-SigntoolSha1` parameter, the value for signtool's `/sha1` parameter.
+        - [ ] You have to call `signtool.exe` four times:
+            - [ ] 2x SqlNotebook.exe (which is then included in both the portable .zip and in the .msi): x64 and arm64
+            - [ ] 2x SqlNotebook.msi (the output from WiX): x64 and arm64
+        - [ ] Produce an output folder containing the exact files to attach to the release:
+            - [ ] SqlNotebook-arm64.msi (WiX installer)
+            - [ ] SqlNotebook-arm64.zip (portable zip)
+            - [ ] SqlNotebook-x64.msi (WiX installer)
+            - [ ] SqlNotebook-x64.zip (portable zip)
+        - [ ] Update `CONTRIBUTING.md` accordingly. The developer will have to enter their password interactively when prompted by `signtool`, but your script will take care of the rest. Then the developer will attach those four files to the GitHub release and proceed with the rest of the release process.
