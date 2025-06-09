@@ -74,6 +74,13 @@ if ($LastExitCode -ne 0) {
 }
 Write-Output "SqlNotebook.exe signed successfully."
 
+Write-Output "Code signing SqlNotebookCmd.exe..."
+& $SigntoolPath sign /v /tr http://timestamp.sectigo.com /fd SHA256 /td SHA256 /sha1 $SigntoolSha1 "SqlNotebookCmd.exe"
+if ($LastExitCode -ne 0) {
+    throw "Code signing of SqlNotebookCmd.exe failed."
+}
+Write-Output "SqlNotebookCmd.exe signed successfully."
+
 #
 # Generate portable ZIP
 #
