@@ -102,7 +102,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-"bin/$PLATFORM/Debug/net9.0-windows/Tests.exe" "$@"
+"bin/$PLATFORM/Debug/net9.0-windows/$RID/Tests.exe" "$@"
 if [ $? -ne 0 ]; then
     echo "Failed to run tests."
     exit 1
