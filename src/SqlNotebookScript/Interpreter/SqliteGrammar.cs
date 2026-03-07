@@ -130,7 +130,7 @@ public static class SqliteGrammar
                 ),
                 Prod($"{p}.alter", 1,
                     Tok(TokenType.Alter),
-                    Opt(Tok(TokenType.Column)),
+                    Opt(Tok(TokenType.Columnkw)),
                     Id("column name"),
                     Or(
                         Prod($"{p}.alter-set", 1,
