@@ -1,0 +1,3 @@
+CREATE TABLE t3 (id INTEGER, age INTEGER);
+ALTER TABLE t3 ADD CHECK (age >= 0);
+--output--

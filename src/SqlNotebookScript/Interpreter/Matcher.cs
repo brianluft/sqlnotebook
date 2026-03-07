@@ -1,5 +1,5 @@
 ﻿// define this symbol to log Matcher stack frames to C:\temp\matcher.log
-//#define MATCHER_LOG
+// #define MATCHER_LOG
 
 using System;
 using System.Collections.Generic;

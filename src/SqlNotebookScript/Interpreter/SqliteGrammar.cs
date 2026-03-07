@@ -58,7 +58,20 @@ public static class SqliteGrammar
         //          ( RENAME TO new-table-name ) |
         //          ( RENAME [COLUMN] column-name TO new-column-name ) |
         //          ( ADD [COLUMN] <column-def> ) |
-        //          ( DROP [COLUMN] column-name )
+        //          (
+        //              ADD [CONSTRAINT constraint-name]
+        //              CHECK "(" <expr> ")" [<conflict-clause>]
+        //          ) |
+        //          ( DROP [COLUMN] column-name ) |
+        //          ( DROP CONSTRAINT constraint-name ) |
+        //          (
+        //              ALTER [COLUMN] column-name
+        //              SET NOT NULL [<conflict-clause>]
+        //          ) |
+        //          (
+        //              ALTER [COLUMN] column-name
+        //              DROP NOT NULL
+        //          ) |
         //      )
         TopProd(
             p = "alter-table-stmt",
@@ -84,8 +97,55 @@ public static class SqliteGrammar
                         )
                     )
                 ),
-                Prod($"{p}.add", 1, Tok(TokenType.Add), Opt(Tok(TokenType.Columnkw)), SubProd("column-def")),
-                Prod($"{p}.drop", 1, Tok(TokenType.Drop), Opt(Tok(TokenType.Columnkw)), Id("column name"))
+                Prod($"{p}.add", 1,
+                    Tok(TokenType.Add),
+                    Or(
+                        Prod($"{p}.add-column", 1,
+                            Opt(Tok(TokenType.Columnkw)),
+                            SubProd("column-def")
+                        ),
+                        Prod($"{p}.add-constraint", 1,
+                            Opt(1,
+                                Tok(TokenType.Constraint),
+                                Id("constraint name")
+                            ),
+                            Tok(TokenType.Check),
+                            Tok(TokenType.Lp),
+                            SubProd("expr"),
+                            Tok(TokenType.Rp),
+                            Opt(SubProd("conflict-clause"))
+                        )
+                    )
+                ),
+                Prod($"{p}.drop", 1,
+                    Tok(TokenType.Drop),
+                    Or(
+                        Prod($"{p}.drop-column", 1,
+                            Opt(1, Tok(TokenType.Columnkw)), Id("column name")
+                        ),
+                        Prod($"{p}.drop-constraint", 1,
+                            Opt(1, Tok(TokenType.Constraint)), Id("constraint name")
+                        )
+                    )
+                ),
+                Prod($"{p}.alter", 1,
+                    Tok(TokenType.Alter),
+                    Opt(Tok(TokenType.Column)),
+                    Id("column name"),
+                    Or(
+                        Prod($"{p}.alter-set", 1,
+                            Tok(TokenType.Set),
+                            Tok(TokenType.Not),
+                            Tok(TokenType.Null),
+                            Opt(SubProd("conflict-clause"))
+                        ),
+                        Prod($"{p}.alter-drop", 1,
+                            Tok(TokenType.Drop),
+                            Tok(TokenType.Not),
+                            Tok(TokenType.Null)
+                        )
+                    )
+                )
             )
         );
 

@@ -43,6 +43,9 @@
 #define SQLITE_SOUNDEX 1
 #define SQLITE_USE_SEH 1
 
+// The percentile extension has been part of the amalgamation since SQLite version 3.51.0.
+#define SQLITE_ENABLE_PERCENTILE 1
+
 // Options To Omit Features
 #define SQLITE_OMIT_DESERIALIZE 1
 #define SQLITE_OMIT_GET_TABLE 1

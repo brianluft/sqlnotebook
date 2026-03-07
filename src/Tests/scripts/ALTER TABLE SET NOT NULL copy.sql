@@ -1,0 +1,3 @@
+CREATE TABLE t1 (id INTEGER, name TEXT DEFAULT 'unknown');
+ALTER TABLE t1 ALTER COLUMN name SET NOT NULL;
+--output--

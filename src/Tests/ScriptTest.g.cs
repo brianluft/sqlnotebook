@@ -3,10 +3,15 @@ namespace Tests;
 // Update this with ps1/Update-Tests.ps1. Do not edit manually.
 public sealed partial class ScriptTest {
     [TestMethod] public void Test_Aggregate_function_filter_clause_sql() => TestScript(@"Aggregate function filter clause.sql");
+    [TestMethod] public void Test_ALTER_TABLE_ADD_CONSTRAINT_CHECK_anonymous_sql() => TestScript(@"ALTER TABLE ADD CONSTRAINT CHECK anonymous.sql");
+    [TestMethod] public void Test_ALTER_TABLE_ADD_CONSTRAINT_CHECK_named_sql() => TestScript(@"ALTER TABLE ADD CONSTRAINT CHECK named.sql");
     [TestMethod] public void Test_ALTER_TABLE_DROP_COLUMN_1_sql() => TestScript(@"ALTER TABLE DROP COLUMN 1.sql");
     [TestMethod] public void Test_ALTER_TABLE_DROP_COLUMN_2_sql() => TestScript(@"ALTER TABLE DROP COLUMN 2.sql");
+    [TestMethod] public void Test_ALTER_TABLE_DROP_CONSTRAINT_CHECK_sql() => TestScript(@"ALTER TABLE DROP CONSTRAINT CHECK.sql");
+    [TestMethod] public void Test_ALTER_TABLE_DROP_NOT_NULL_sql() => TestScript(@"ALTER TABLE DROP NOT NULL.sql");
     [TestMethod] public void Test_ALTER_TABLE_RENAME_COLUMN_1_sql() => TestScript(@"ALTER TABLE RENAME COLUMN 1.sql");
     [TestMethod] public void Test_ALTER_TABLE_RENAME_COLUMN_2_sql() => TestScript(@"ALTER TABLE RENAME COLUMN 2.sql");
+    [TestMethod] public void Test_ALTER_TABLE_SET_NOT_NULL_copy_sql() => TestScript(@"ALTER TABLE SET NOT NULL copy.sql");
     [TestMethod] public void Test_CONCAT_and_CONCAT_WS_sql() => TestScript(@"CONCAT and CONCAT_WS.sql");
     [TestMethod] public void Test_CREATE_TABLE_duplicate_options_sql() => TestScript(@"CREATE TABLE duplicate options.sql");
     [TestMethod] public void Test_CREATE_TABLE_STRICT_sql() => TestScript(@"CREATE TABLE STRICT.sql");
@@ -111,6 +116,7 @@ public sealed partial class ScriptTest {
     [TestMethod] public void Test_JSON_GROUP_ARRAY_with_ORDER_BY_sql() => TestScript(@"JSON_GROUP_ARRAY with ORDER BY.sql");
     [TestMethod] public void Test_JSON_GROUP_ARRAY_sql() => TestScript(@"JSON_GROUP_ARRAY.sql");
     [TestMethod] public void Test_LIST_FILES_sql() => TestScript(@"LIST_FILES.sql");
+    [TestMethod] public void Test_MEDIAN_sql() => TestScript(@"MEDIAN.sql");
     [TestMethod] public void Test_NEWID_sql() => TestScript(@"NEWID.sql");
     [TestMethod] public void Test_NOW_sql() => TestScript(@"NOW.sql");
     [TestMethod] public void Test_ORDER_BY_NULLS_FIRST_sql() => TestScript(@"ORDER BY NULLS FIRST.sql");

@@ -1,0 +1,3 @@
+CREATE TABLE t4 (id INTEGER, age INTEGER CONSTRAINT chk_age CHECK (age >= 0));
+ALTER TABLE t4 DROP CONSTRAINT chk_age;
+--output--
