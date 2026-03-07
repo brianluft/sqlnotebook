@@ -15,7 +15,7 @@ if [ ! -f "$VSWHERE" ]; then
     exit 1
 fi
 
-MSBUILD=$("$VSWHERE" -latest -requires Microsoft.Component.MSBuild -find "MSBuild/**/Bin/MSBuild.exe" | head -n 1)
+MSBUILD=$("$VSWHERE" -version "[17.0,18.0)" -latest -requires Microsoft.Component.MSBuild -find "MSBuild/**/Bin/MSBuild.exe" | head -n 1)
 if [ ! -f "$MSBUILD" ]; then
     echo "Could not find msbuild.exe!"
     exit 1
