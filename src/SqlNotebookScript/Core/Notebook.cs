@@ -475,6 +475,14 @@ public sealed class Notebook : IDisposable
 
         lock (_lock)
         {
+            // SQLite 3.52.0+ uses internal nested SELECTs for ALTER TABLE constraint validation
+            // (e.g. sqlite_fail()). These leak through sqlite3_column_count, producing spurious
+            // empty result sets. ALTER TABLE never returns meaningful data.
+            if (returnResult && GetFirstTokenType(sql) == TokenType.Alter)
+            {
+                returnResult = false;
+            }
+
             using PreparedStatement statement = new(db, sql);
             var argArray =
                 namedArgs != null ? statement.GetArgs(namedArgs)
@@ -487,6 +495,18 @@ public sealed class Notebook : IDisposable
     public string GetFilePath()
     {
         return OriginalFilePath;
+    }
+
+    // Returns the TokenType of the first non-whitespace, non-comment token in sql,
+    // using SQLite's own tokenizer. Caller must hold _lock.
+    private static TokenType GetFirstTokenType(string sql)
+    {
+        using NativeString sqlNative = new(sql);
+        using NativeBuffer scratch = new(IntPtr.Size);
+        var oldPos = 0;
+        var pos = 0;
+        var tokenType = GetToken(sqlNative.Ptr, ref oldPos, ref pos, sqlNative.ByteCount, scratch);
+        return tokenType > 0 ? (TokenType)tokenType : default;
     }
 
     public static IReadOnlyList<Token> Tokenize(string input)
